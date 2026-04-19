@@ -82,6 +82,79 @@ public class Arrays {
         }
         return maximum;
     }
+    
+    public static int maxSumInSubArrayPrefix(int arr[]){
+        int prefixSum [] = new int[arr.length];
+        prefixSum[0] = arr[0];
+        for(int i = 1;i < arr.length;i++){
+            prefixSum[i] = arr[i] + prefixSum[i-1];
+        }
+        int maxSum = Integer.MIN_VALUE;
+        for(int i = 0;i < arr.length;i++){
+            for(int j = i;j < arr.length;j++){
+                int currSum = i == 0?prefixSum[j]:prefixSum[j]-prefixSum[i-1];
+                maxSum = Math.max(maxSum, currSum);
+            }
+        }
+        return maxSum;
+    }
+    
+    public static int kadansMaxSubArraySum(int arr[]){
+        int maxSum = arr[0];
+        int currSum = arr[0];
+        for(int i = 1;i < arr.length;i++){
+            currSum = Math.max(arr[i],(currSum+arr[i]));
+            maxSum = Math.max(maxSum,currSum);
+        }
+        return maxSum;
+    }
+    
+    public static int trapingRainWater(int arr[]){
+        int nextLeftLargest[] = new int [arr.length];
+        int nextRightLargest[] = new int [arr.length];
+        nextLeftLargest[0] = arr[0];
+        for(int i = 1;i < arr.length;i++){
+            nextLeftLargest[i] = Math.max(arr[i], nextLeftLargest[i-1]);
+        }
+         nextRightLargest[arr.length-1] = arr[arr.length-1];
+        for(int i = arr.length-2;i >= 0;i--){
+            nextRightLargest[i] = Math.max(arr[i], nextRightLargest[i+1]);
+        }
+        int totalWater = 0;
+        for(int i = 0;i < arr.length;i++){
+            totalWater += Math.min(nextLeftLargest[i], nextRightLargest[i]) - arr[i];
+        }
+        return totalWater;
+    }
+   
+    public static int maxStockProfit(int arr[]){
+        int maxProfit = Integer.MIN_VALUE;
+        int buyPrice = Integer.MAX_VALUE;
+
+        for(int i = 0;i < arr.length;i++){
+            if(buyPrice > arr[i]){
+                buyPrice = arr[i];
+            }else{
+                maxProfit = Math.max(maxProfit,(arr[i]-buyPrice));
+            }
+        }
+        return Math.max(maxProfit, 0);
+    }
+
+    public static boolean containDuplicate(int arr[]){
+        for(int i = 0;i < arr.length;i++){
+            for(int j = i+1;j < arr.length;j++){
+                if(arr[i] == arr[j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static int targetInRoutatedArray(int arr[],int target){
+        
+    }
     public static void main(String args[]){
         System.out.println("-------------------- Question 1 ---------------------");
         int nums[] = {9,4,5,6,7,1,2,4,3};
@@ -99,10 +172,18 @@ public class Arrays {
         System.out.println("-------------------- Question 6 ---------------------");
         System.out.println(largest(sortedNums));
         System.out.println("-------------------- Question 7 ---------------------");
+        System.out.println("maximum subArray Sum : "+ maxSumInSubArrayPrefix(sortedNums));
         System.out.println("-------------------- Question 8 ---------------------");
+        System.out.println(kadansMaxSubArraySum(sortedNums));
         System.out.println("-------------------- Question 9 ---------------------");
+        int height [] = {4,2,0,6,3,2,5};
+        System.out.println(trapingRainWater(height));
         System.out.println("-------------------- Question 10 ---------------------");
+        int prices [] = {7,1,5,3,6,4};
+        System.out.println(maxStockProfit(prices));
         System.out.println("-------------------- Question 11 ---------------------");
+        int nums2[] = {1,2,3,4,5,6,1};
+        System.out.println(containDuplicate(nums2));
         System.out.println("-------------------- Question 12 ---------------------");
         System.out.println("-------------------- Question 13 ---------------------");
         System.out.println("-------------------- Question 14 ---------------------");
