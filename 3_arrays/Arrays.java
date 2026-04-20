@@ -153,7 +153,63 @@ public class Arrays {
     }
 
     public static int targetInRoutatedArray(int arr[],int target){
-        
+        int minIdx = searchMin(arr);
+        if(arr[minIdx] <= target && target <= arr[arr.length-1]){
+            return search(arr,minIdx,arr.length-1,target);
+        }else{
+            return search(arr,0,minIdx,target);
+        }
+    }
+
+    private static int search(int arr[],int l,int r,int target){
+        int left = l;
+        int right = r;
+
+        while(left <= right){
+            int mid = left + (right-left)/2;
+            if(arr[mid] == target){
+                return mid;
+            }
+            if(arr[mid] > target){
+                right = mid - 1;
+            }else{
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    private static int searchMin(int arr[]){
+        int left = 0;
+        int right = arr.length-1;
+        while(left < right){
+            int mid = left + (right - left)/2;
+            if(mid > 0 && arr[mid] < arr[mid-1]){
+                return mid;
+            }
+            if(arr[left] <= arr[mid] && arr[mid] > arr[right]){
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+            }
+        }
+        return left;
+    }
+    
+    public static int trapingRainWater2(int arr[]){
+        int left = 0,right = arr.length-1,leftMax = arr[left],rightMax = arr[right], res = 0;
+        while(left < right){
+            if(arr[leftMax] < arr[rightMax]){
+                left++;
+                leftMax = Math.max(arr[left],leftMax);
+                res += leftMax - arr[left];
+            }else{
+                right--;
+                rightMax = Math.max(arr[right],rightMax);
+                res += rightMax - arr[right];
+            }
+        }
+        return res;
     }
     public static void main(String args[]){
         System.out.println("-------------------- Question 1 ---------------------");
@@ -185,7 +241,12 @@ public class Arrays {
         int nums2[] = {1,2,3,4,5,6,1};
         System.out.println(containDuplicate(nums2));
         System.out.println("-------------------- Question 12 ---------------------");
+        int routatedArray[] = {4,5,6,7,0,1,2};
+        System.out.println(targetInRoutatedArray(routatedArray, 1));
         System.out.println("-------------------- Question 13 ---------------------");
+        // int height2[] = {0, 1, 0,  2, 1, 0, 1, 3, 2, 1, 2, 1};
+        int height2[] = {4,2,0,3,2,5};
+        System.out.println(trapingRainWater2(height2));
         System.out.println("-------------------- Question 14 ---------------------");
         System.out.println("-------------------- Question 15 ---------------------");
         System.out.println("-------------------- Question 16 ---------------------");
