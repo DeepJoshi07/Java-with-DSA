@@ -44,6 +44,17 @@ public class Sorting {
     }
 
     public static void insertionSort(int arr[]) {
+        for(int i = 1;i < arr.length;i++){
+            int curr = arr[i];
+            int prevIdx = i-1;
+            while(prevIdx >= 0 && curr < arr[prevIdx]){
+                arr[prevIdx+1] = arr[prevIdx];
+                prevIdx--;
+            }
+            prevIdx+=1;
+            arr[prevIdx] = curr;
+        }
+        printArray(arr);
     }
 
     public static void countingSort(int arr[]) {
