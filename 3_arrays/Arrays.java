@@ -211,6 +211,27 @@ public class Arrays {
         }
         return res;
     }
+   
+    public static void triplets(int arr[]){
+        List<List<Integer>> list = new ArrayList<List<Integer>>();
+
+        for(int i = 0;i < arr.length;i++){
+            for(int j = i+1;j < arr.length;j++){
+                for(int k = j+1;k < arr.length;k++){
+                    if(arr[i] + arr[j] + arr[k] == 0){
+                        List<Integer> triplet = new ArrayList<>();
+                        triplet.add(arr[i]);
+                        triplet.add(arr[j]);
+                        triplet.add(arr[k]);
+                        Collections.sort(triplet);
+                        list.add(triplet);
+                    }
+                }
+            }
+        }
+        list = new ArrayList<List<Integer>>(new LinkedHashSet<List<Integer>>(list));
+        System.out.println(list);
+    }
     public static void main(String args[]){
         System.out.println("-------------------- Question 1 ---------------------");
         int nums[] = {9,4,5,6,7,1,2,4,3};
@@ -248,6 +269,8 @@ public class Arrays {
         int height2[] = {4,2,0,3,2,5};
         System.out.println(trapingRainWater2(height2));
         System.out.println("-------------------- Question 14 ---------------------");
+        int numArray[] = {-1,0,1,2,-1,-4};
+        triplets(numArray);
         System.out.println("-------------------- Question 15 ---------------------");
         System.out.println("-------------------- Question 16 ---------------------");
     }
