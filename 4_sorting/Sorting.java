@@ -1,4 +1,11 @@
+import java.util.Collections;
+
 public class Sorting {
+    // Arrays.sort(arr);
+    // Arrays.sort(arr,si,ei);
+    // Arrays.sort(arr,Collections.reverseOrder()) for Integer
+    // Arrays.sort(arr,si,ei,Collections.reverseOrder()) for Integer
+    // Collection.sort();
 
     public static void printArray(int arr[]) {
         for (int i = 0; i < arr.length; i++) {
@@ -37,27 +44,47 @@ public class Sorting {
                 int temp = arr[minIdx];
                 arr[minIdx] = arr[i];
                 arr[i] = temp;
-            };
+            }
+            ;
         }
 
         printArray(arr);
     }
 
     public static void insertionSort(int arr[]) {
-        for(int i = 1;i < arr.length;i++){
+        for (int i = 1; i < arr.length; i++) {
             int curr = arr[i];
-            int prevIdx = i-1;
-            while(prevIdx >= 0 && curr < arr[prevIdx]){
-                arr[prevIdx+1] = arr[prevIdx];
+            int prevIdx = i - 1;
+            while (prevIdx >= 0 && curr < arr[prevIdx]) {
+                arr[prevIdx + 1] = arr[prevIdx];
                 prevIdx--;
             }
-            prevIdx+=1;
+            prevIdx += 1;
             arr[prevIdx] = curr;
         }
         printArray(arr);
     }
 
     public static void countingSort(int arr[]) {
+        int maximum = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (maximum < arr[i]) {
+                maximum = arr[i];
+            }
+        }
+        int temp[] = new int[maximum + 1];
+        for (int j = 0; j < arr.length; j++) {
+            temp[arr[j]]++;
+        }
+        int m = 0;
+        for (int k = 0; k < temp.length; k++) {
+            while (temp[k] > 0) {
+                arr[m] = k;
+                temp[k]--;
+                m++;
+            }
+        }
+        printArray(arr);
     }
 
     public static void main(String args[]) {
