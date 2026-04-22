@@ -90,6 +90,14 @@ public class Arrays_2D {
         }
         return count;
     }
+
+    public static int sumOfSecondRow(int matrix[][]){
+        int sum = 0;
+        for(int i = 0;i < matrix[1].length;i++){
+            sum += matrix[1][i];
+        }
+        return sum;
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // int matrix[][] = new int[3][3];
@@ -137,7 +145,7 @@ public class Arrays_2D {
         };
         System.out.println(numberOfTimesKeyPresentInMatrix(searchMatrix, 7));
         System.out.println("------------------------- Question 5 ------------------------");
-        
+        System.out.println(sumOfSecondRow(sortedMatrix));
         System.out.println("------------------------- Question 6 ------------------------");
     }
 }
