@@ -61,6 +61,23 @@ public class Arrays_2D {
         }
         return sum;
     }
+   
+    public static void searchInSortedMatrix(int matrix[][],int key){
+        int row = 0,col = matrix[0].length-1;
+
+        while(row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length){
+            if(matrix[row][col] == key){
+                System.out.println("Key is at ("+row+","+col+")");
+                return;
+            }
+            if(matrix[row][col] > key){
+                col--;
+            }else{
+                row++;
+            }
+        }
+        System.out.println("Key not found!");
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // int matrix[][] = new int[3][3];
@@ -79,21 +96,28 @@ public class Arrays_2D {
         // sc.close();
         // System.out.println(search(matrix, 9));
         System.out.println("------------------------- Question 1 ------------------------");
-        // int spiral[][] = {
-        //     {1,2,3,4},
-        //     {5,6,7,8},
-        //     {9,10,11,12},
-        //     {13,14,15,16}
-        // };
-        int spiral [][] = {
-            {1,2,3},
-            {4,5,6},
-            {7,8,9}
+        int spiral[][] = {
+            {1,2,3,4},
+            {5,6,7,8},
+            {9,10,11,12},
+            {13,14,15,16}
         };
+        // int spiral [][] = {
+        //     {1,2,3},
+        //     {4,5,6},
+        //     {7,8,9}
+        // };
         spiralMatrix(spiral);
         System.out.println("------------------------- Question 2 ------------------------");
         System.out.println(diagonalSum(spiral));
         System.out.println("------------------------- Question 3 ------------------------");
+        int sortedMatrix [][] = {
+            {10,20,30,40},
+            {15,25,35,45},
+            {27,29,37,48},
+            {32,33,39,50}
+        };
+        searchInSortedMatrix(sortedMatrix,50);
         System.out.println("------------------------- Question 4 ------------------------");
         System.out.println("------------------------- Question 5 ------------------------");
         System.out.println("------------------------- Question 6 ------------------------");
