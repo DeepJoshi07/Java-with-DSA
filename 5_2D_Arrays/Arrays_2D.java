@@ -29,10 +29,17 @@ public class Arrays_2D {
             }
             for(int i = colEnd-1;i >= colStart ;i--){
                 if(rowStart == rowEnd)break;
+                // for matrix like {{1,2},
+                //                  {3,4},
+                //                  {5,6},
+                //                  {7,8}}
                 System.out.print(matrix[rowEnd][i]+" ");
             }
             for(int i = rowEnd-1;i > rowStart ;i--){
                 if(colStart == colEnd)break;
+                // for matrix like {{1,2,3,4,},
+                //                  {5,6,7,8}}
+                // 
                 System.out.print(matrix[i][colStart]+" ");
             }
             rowStart++;
@@ -41,6 +48,18 @@ public class Arrays_2D {
             colEnd--;
         }
         System.out.println();
+    }
+    
+    public static int diagonalSum(int matrix[][]){
+        int sum = 0;
+        for(int i = 0;i < matrix.length;i++){
+            sum += matrix[i][i];
+            if(i == matrix.length-1-i){
+                continue;
+            }
+            sum += matrix[i][matrix.length-1-i];
+        }
+        return sum;
     }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
@@ -73,6 +92,7 @@ public class Arrays_2D {
         };
         spiralMatrix(spiral);
         System.out.println("------------------------- Question 2 ------------------------");
+        System.out.println(diagonalSum(spiral));
         System.out.println("------------------------- Question 3 ------------------------");
         System.out.println("------------------------- Question 4 ------------------------");
         System.out.println("------------------------- Question 5 ------------------------");
