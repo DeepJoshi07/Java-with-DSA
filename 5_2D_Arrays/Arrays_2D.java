@@ -78,6 +78,18 @@ public class Arrays_2D {
         }
         System.out.println("Key not found!");
     }
+    
+    public static int numberOfTimesKeyPresentInMatrix(int matrix[][],int key){
+        int count = 0;
+        for(int i = 0;i < matrix.length;i++){
+            for(int j = 0;j < matrix[0].length;j++){
+                if(matrix[i][j] == key){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // int matrix[][] = new int[3][3];
@@ -119,7 +131,13 @@ public class Arrays_2D {
         };
         searchInSortedMatrix(sortedMatrix,50);
         System.out.println("------------------------- Question 4 ------------------------");
+        int searchMatrix[][] = {
+            {4,7,8},
+            {8,8,7}
+        };
+        System.out.println(numberOfTimesKeyPresentInMatrix(searchMatrix, 7));
         System.out.println("------------------------- Question 5 ------------------------");
+        
         System.out.println("------------------------- Question 6 ------------------------");
     }
 }
