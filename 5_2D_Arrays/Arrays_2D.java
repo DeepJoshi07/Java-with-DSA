@@ -5,6 +5,15 @@ public class Arrays_2D {
     // 1] row major
     // 2] column major
 
+    public static void printMatrix(int matrix[][]){
+        for(int i = 0;i < matrix.length;i++){
+            for(int j = 0;j < matrix[0].length;j++){
+                System.out.print(matrix[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+
     public static boolean search(int matrix[][],int key){
         for(int i = 0;i < matrix.length;i++){
             for(int j = 0;j < matrix[0].length;j++){
@@ -98,6 +107,16 @@ public class Arrays_2D {
         }
         return sum;
     }
+    
+    public static void transpose(int matrix[][]){
+        int transposeMatrix[][] = new int[matrix[0].length][matrix.length];
+        for(int i = 0;i < matrix[0].length;i++){
+            for(int j = 0;j < matrix.length;j++){
+                transposeMatrix[i][j] = matrix[j][i];
+            }
+        }
+        printMatrix(transposeMatrix);
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // int matrix[][] = new int[3][3];
@@ -147,5 +166,10 @@ public class Arrays_2D {
         System.out.println("------------------------- Question 5 ------------------------");
         System.out.println(sumOfSecondRow(sortedMatrix));
         System.out.println("------------------------- Question 6 ------------------------");
+        int originalMatrix[][] = {
+            {1,2,3,4},
+            {5,6,7,8},
+        };
+        transpose(originalMatrix);
     }
 }
