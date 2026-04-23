@@ -48,6 +48,15 @@ public class Strings {
         System.out.println(temp);
     }
 
+    public static String largestString(String str[]){
+        String s = str[0];
+        for(int i = 0;i < str.length;i++){
+            if(s.compareToIgnoreCase(str[i]) < 0){
+                s = str[i];
+            }
+        }
+        return s;
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // String str = new String(" ");
@@ -73,6 +82,8 @@ public class Strings {
         subString(str2, 3, 7);
         System.out.println(str2.substring(3, 7));
         System.out.println("----------------------- Question 4 --------------------------");
+        String fruits[] = {"apple","banana","mengo","orange","kivi"};
+        System.out.println(largestString(fruits));
         System.out.println("----------------------- Question 5 --------------------------");
         System.out.println("----------------------- Question 6 --------------------------");
         System.out.println("----------------------- Question 7 --------------------------");
