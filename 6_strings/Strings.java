@@ -22,6 +22,23 @@ public class Strings {
         return true;
     }
     
+     public static int shortestPath(String str){
+        int x = 0,y = 0;
+        for(int i = 0;i < str.length();i++){
+            if(str.charAt(i) == 'N'){
+                y++;
+            }else if(str.charAt(i) == 'E'){
+                x++;
+            }else if(str.charAt(i) == 'S'){
+                y--;
+            }else if(str.charAt(i) == 'W'){
+                x--;
+            }
+        }
+        int x2 = x*x;
+        int y2 = y*y;
+        return (int)Math.sqrt(x2+y2);
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // String str = new String(" ");
@@ -39,7 +56,8 @@ public class Strings {
         // String str1 = "raceacar";
         System.out.println(palindrome(str1));
         System.out.println("----------------------- Question 2 --------------------------");
-
+        String path = "WNEENESENNN";
+        System.out.println(shortestPath(path));
         System.out.println("----------------------- Question 3 --------------------------");
         System.out.println("----------------------- Question 4 --------------------------");
         System.out.println("----------------------- Question 5 --------------------------");
