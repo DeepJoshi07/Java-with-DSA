@@ -57,6 +57,24 @@ public class Strings {
         }
         return s;
     }
+    
+    public static String toUpperCaseString(String str){
+        char ch = str.charAt(0);
+        StringBuilder sb = new StringBuilder();
+        sb.append(Character.toUpperCase(ch));
+
+        for(int i = 1;i < str.length();i++){
+            char cha = str.charAt(i);
+            if(cha == ' ' && i < str.length()-1){
+                sb.append(cha);
+                i++;
+                sb.append(Character.toUpperCase(str.charAt(i)));
+            }else{
+                sb.append(cha);
+            }
+        }
+        return sb.toString();
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // String str = new String(" ");
@@ -85,6 +103,8 @@ public class Strings {
         String fruits[] = {"apple","banana","mengo","orange","kivi"};
         System.out.println(largestString(fruits));
         System.out.println("----------------------- Question 5 --------------------------");
+        String str3 = "hello my NAME is Deep.";
+        System.out.println(toUpperCaseString(str3));
         System.out.println("----------------------- Question 6 --------------------------");
         System.out.println("----------------------- Question 7 --------------------------");
         System.out.println("----------------------- Question 8 --------------------------");
