@@ -75,6 +75,23 @@ public class Strings {
         }
         return sb.toString();
     }
+   
+    public static void compressString(String str){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;i < str.length();i++){
+            char ch = str.charAt(i);
+            int count = 1;
+            while(i < str.length()-1 && ch == str.charAt(i+1)){
+                count++;
+                i++;
+            }
+            sb.append(ch);
+            if(count > 1){
+                sb.append(count);
+            }
+        }
+        System.out.println("the compressed string is : "+sb.toString());
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // String str = new String(" ");
@@ -106,6 +123,9 @@ public class Strings {
         String str3 = "hello my NAME is Deep.";
         System.out.println(toUpperCaseString(str3));
         System.out.println("----------------------- Question 6 --------------------------");
+        // String str4 = "aaabbbcccddd";
+        String str4 = "abcd";
+        compressString(str4);
         System.out.println("----------------------- Question 7 --------------------------");
         System.out.println("----------------------- Question 8 --------------------------");
     }
