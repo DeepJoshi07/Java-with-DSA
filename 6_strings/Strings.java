@@ -9,6 +9,63 @@ public class Strings {
     // .replace()
     // .replaceAll()
     // .replaceFirst()
+
+// ------------------------------------------------------------------------------------------
+
+// In Java, the method 🔹`intern()`🔹 belongs to the `String` class. 
+// It’s used to manage memory more efficiently by storing only one copy of each distinct string value in the **string pool**.
+
+// ### 🔹 What `intern()` does ?
+// - When you call `str.intern()`, Java checks if an identical string already exists in the **string pool**.
+// - If it does, it returns the reference from the pool.
+// - If not, it adds the string to the pool and returns that reference.
+// - This ensures that all identical string literals share the same memory reference.
+
+// ### 🔹 Example
+// ```java
+// public class Main {
+//     public static void main(String[] args) {
+//         String s1 = new String("hello");
+//         String s2 = "hello";
+
+//         System.out.println(s1 == s2);            // false (different objects)
+//         System.out.println(s1.intern() == s2);   // true (same pool reference)
+//     }
+// }
+// ```
+
+// ### 🔹 Why use `intern()`?
+// - **Memory optimization**: avoids storing duplicate strings.
+// - **Reference comparison**: allows you to use `==` safely for interned strings.
+// - **Performance**: useful when you have many repeated strings (like keys, tokens, or constants).
+
+// ### 🔹 Important notes
+// - String literals (like `"hello"`) are automatically interned by Java.
+// - `intern()` is most useful when you create strings dynamically (e.g., from user input or file parsing).
+// - Overusing `intern()` can increase pressure on the string pool, so it’s best applied when duplicates are expected.
+
+// ------------------------------------------------------------------------------------------
+
+
+// 🔹StringBuffer🔹 in Java is a mutable sequence of characters. 
+// Unlike String (which is immutable), StringBuffer allows you to modify the contents (append, insert, delete, replace) without creating new objects every time.
+
+// 🔹 Key Features
+// Mutable: You can change the content directly.
+
+// Thread-safe: All methods are synchronized, so it’s safe to use in multithreaded environments.
+
+// Performance: Slightly slower than StringBuilder because of synchronization overhead, but safer in concurrent code.
+
+// 🔹 When to use
+// Use StringBuffer if you need to modify strings in a multithreaded environment.
+
+// Use StringBuilder if you don’t need synchronization (faster).
+
+// Use String if the value never changes.
+
+// --------------------------------------------------------------------------------------
+
     public static void printLetters(String str) {
         for (int i = 0; i < str.length(); i++) {
             System.out.print(str.charAt(i) + " ");
