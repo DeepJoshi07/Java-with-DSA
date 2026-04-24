@@ -1,10 +1,14 @@
 import java.util.*;
+import java.util.Arrays;
 
 public class Strings {
     // strings are immutable in java.
     // length()
     // concatenation ex: String name = firstNamr + "joshi"
     // .charAt()
+    // .replace()
+    // .replaceAll()
+    // .replaceFirst()
     public static void printLetters(String str) {
         for (int i = 0; i < str.length(); i++) {
             System.out.print(str.charAt(i) + " ");
@@ -103,6 +107,18 @@ public class Strings {
         }
         return count;
     }
+   
+    public static boolean anagram(String str1,String str2){
+        if(str1.length() != str2.length())return false;
+
+        char str1Array[] = str1.toCharArray();
+        char str2Array[] = str2.toCharArray();
+
+        Arrays.sort(str1Array);
+        Arrays.sort(str2Array);
+
+        return Arrays.equals(str1Array,str2Array);
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // String str = new String(" ");
@@ -141,5 +157,8 @@ public class Strings {
         String str5 = "Hello World Every Body!";
         System.out.println(countLowerCaseVowels(str5));
         System.out.println("----------------------- Question 8 --------------------------");
+        String semple1 = "race";
+        String semple2 = "care";
+        System.out.println(anagram(semple1,semple2));
     }
 }
