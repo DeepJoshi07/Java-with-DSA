@@ -92,6 +92,17 @@ public class Strings {
         }
         System.out.println("the compressed string is : "+sb.toString());
     }
+   
+    public static int countLowerCaseVowels(String str){
+        int count = 0;
+        for(int i = 0;i < str.length();i++){
+            char ch = str.charAt(i);
+            if(ch == 'a' ||ch == 'e'||ch == 'i'||ch == 'o'||ch == 'u'){
+                count++;
+            }
+        }
+        return count;
+    }
     public static void main(String[] args) {
         // Scanner sc = new Scanner(System.in);
         // String str = new String(" ");
@@ -127,6 +138,8 @@ public class Strings {
         String str4 = "abcd";
         compressString(str4);
         System.out.println("----------------------- Question 7 --------------------------");
+        String str5 = "Hello World Every Body!";
+        System.out.println(countLowerCaseVowels(str5));
         System.out.println("----------------------- Question 8 --------------------------");
     }
 }
