@@ -20,6 +20,16 @@ public class Recursion{
         if(n == 0 || n == 1)return n;
         return printNthFibonachi(n-1) + printNthFibonachi(n-2);
     }
+
+    public static boolean arrSortedOrNot(int arr[],int size){
+        if(size < 1)return true;
+        
+        if(arr[size] < arr[size-1]){
+            return false;
+        }
+
+        return arrSortedOrNot(arr, size-1);
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -30,6 +40,8 @@ public class Recursion{
         System.out.println("-------------------------- Question 4 -----------------------");
         System.out.println(printNthFibonachi(11));
         System.out.println("-------------------------- Question 5 -----------------------");
+        int arr [] = {1,2,3,4,5,6,2};
+        System.out.println(arrSortedOrNot(arr, arr.length-1));
         System.out.println("-------------------------- Question 6 -----------------------");
         System.out.println("-------------------------- Question 7 -----------------------");
         System.out.println("-------------------------- Question 8 -----------------------");
