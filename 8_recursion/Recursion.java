@@ -45,7 +45,16 @@ public class Recursion{
         return lastOccurance(arr, i-1, target);
     }
 
-    
+    public static int power(int num,int pow){
+        if(pow == 0)return 1;
+
+        int halfPow = power(num, pow/2);
+        int fullNumber = halfPow * halfPow;
+        if(pow % 2 != 0)return fullNumber * num;
+        
+        return fullNumber;
+
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -64,8 +73,8 @@ public class Recursion{
         int arr2 [] = {1,2,4,2,6,2,7,8,9,0,2,1,4};
         System.out.println(lastOccurance(arr2, arr2.length-1, 2));
         System.out.println("-------------------------- Question 8 -----------------------");
-        // System.out.println(power(2, 5));
+        System.out.println(power(2, 4));
         System.out.println("-------------------------- Question 9 -----------------------");
-        System.out.println("-------------------------- Question 109 -----------------------");
+        System.out.println("-------------------------- Question 10 -----------------------");
     }
 }
