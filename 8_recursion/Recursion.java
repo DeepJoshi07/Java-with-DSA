@@ -10,12 +10,18 @@ public class Recursion{
         printNumbers1ToN(number-1);
         System.out.println(number);
     }
+
+    public static int sumOfNnaturalNumbers(int num){
+        if(num == 0)return 0;
+        return num + sumOfNnaturalNumbers(num-1);
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
         System.out.println("-------------------------- Question 2 -----------------------");
         printNumbers1ToN(10);
         System.out.println("-------------------------- Question 3 -----------------------");
+        System.out.println(sumOfNnaturalNumbers(10));
         System.out.println("-------------------------- Question 4 -----------------------");
         System.out.println("-------------------------- Question 5 -----------------------");
         System.out.println("-------------------------- Question 6 -----------------------");
