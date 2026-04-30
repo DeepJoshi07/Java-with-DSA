@@ -4,10 +4,17 @@ public class Recursion{
         System.out.println(num);
         printNumbersNto1(num-1);
     }
+
+    public static void printNumbers1ToN(int number){
+        if(number == 0)return;
+        printNumbers1ToN(number-1);
+        System.out.println(number);
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
         System.out.println("-------------------------- Question 2 -----------------------");
+        printNumbers1ToN(10);
         System.out.println("-------------------------- Question 3 -----------------------");
         System.out.println("-------------------------- Question 4 -----------------------");
         System.out.println("-------------------------- Question 5 -----------------------");
