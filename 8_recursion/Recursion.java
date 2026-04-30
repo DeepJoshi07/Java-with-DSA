@@ -30,6 +30,18 @@ public class Recursion{
 
         return arrSortedOrNot(arr, size-1);
     }
+
+    public static int firstOccurance(int arr[],int i,int target){
+        if(i == arr.length-1)return -1;
+
+        if(arr[i] == target)return i;
+
+        return firstOccurance(arr, i+1, target);
+    }
+
+    public static void lastOccurance(int arr[],int i,int target){
+
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -43,7 +55,9 @@ public class Recursion{
         int arr [] = {1,2,3,4,5,6,2};
         System.out.println(arrSortedOrNot(arr, arr.length-1));
         System.out.println("-------------------------- Question 6 -----------------------");
+        System.out.println(firstOccurance(arr,0,6));
         System.out.println("-------------------------- Question 7 -----------------------");
+        
         System.out.println("-------------------------- Question 8 -----------------------");
         System.out.println("-------------------------- Question 9 -----------------------");
         System.out.println("-------------------------- Question 109 -----------------------");
