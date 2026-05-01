@@ -75,6 +75,11 @@ public class Recursion{
             removeDuplicates(str, idx+1, sb.append(curr), arr);
         }
     }
+
+    public static int friendsPairing(int friends){
+        if(friends == 1 || friends == 2)return friends;
+        return friendsPairing(friends-1) + (friends - 1) * friendsPairing(friends-2);
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -99,5 +104,10 @@ public class Recursion{
         System.out.println("-------------------------- Question 10 -----------------------");
         String str = "helloworld";
         removeDuplicates(str,0,new StringBuilder(""),new boolean[26]);
+        System.out.println("-------------------------- Question 11 -----------------------");
+        System.out.println(friendsPairing(3));
+        System.out.println("-------------------------- Question 11 -----------------------");
+        System.out.println("-------------------------- Question 11 -----------------------");
+        System.out.println("-------------------------- Question 11 -----------------------");
     }
 }
