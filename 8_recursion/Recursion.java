@@ -1,3 +1,4 @@
+import java.util.*;
 public class Recursion{
     public static void printNumbersNto1(int num){
         if(num == 0)return;
@@ -80,6 +81,19 @@ public class Recursion{
         if(friends == 1 || friends == 2)return friends;
         return friendsPairing(friends-1) + (friends - 1) * friendsPairing(friends-2);
     }
+
+    public static void printBinaryString(int len,int last,StringBuilder sb){
+        if(len == 0){
+            System.out.println(sb.toString());
+            return;
+        };
+        printBinaryString(len-1, 0, sb.append(0));
+        sb.deleteCharAt(sb.length()-1);
+        if(last == 0){
+            printBinaryString(len-1, 1, sb.append(1));
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -106,8 +120,11 @@ public class Recursion{
         removeDuplicates(str,0,new StringBuilder(""),new boolean[26]);
         System.out.println("-------------------------- Question 11 -----------------------");
         System.out.println(friendsPairing(3));
-        System.out.println("-------------------------- Question 11 -----------------------");
-        System.out.println("-------------------------- Question 11 -----------------------");
-        System.out.println("-------------------------- Question 11 -----------------------");
+        System.out.println("-------------------------- Question 12 -----------------------");
+        printBinaryString(3,0,new StringBuilder(""));
+        System.out.println("-------------------------- Question 13 -----------------------");
+        System.out.println("-------------------------- Question 14 -----------------------");
+        System.out.println("-------------------------- Question 15 -----------------------");
+        System.out.println("-------------------------- Question 16 -----------------------");
     }
 }
