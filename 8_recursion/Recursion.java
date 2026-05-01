@@ -55,6 +55,26 @@ public class Recursion{
         return fullNumber;
 
     }
+
+    public static int setTiles(int width){
+        if(width == 0 || width == 1)return 1;
+
+        return setTiles(width-1) + setTiles(width-2);
+    }
+
+    public static void removeDuplicates(String str,int idx,StringBuilder sb,boolean arr[]){
+        if(idx == str.length()){
+            System.out.println(sb.toString());
+            return;
+        }
+        char curr = str.charAt(idx);
+        if(arr[curr - 'a'] == true){
+            removeDuplicates(str, idx+1, sb, arr);
+        }else{
+            arr[curr - 'a'] = true;
+            removeDuplicates(str, idx+1, sb.append(curr), arr);
+        }
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -75,6 +95,9 @@ public class Recursion{
         System.out.println("-------------------------- Question 8 -----------------------");
         System.out.println(power(2, 4));
         System.out.println("-------------------------- Question 9 -----------------------");
+        System.out.println(setTiles(4));
         System.out.println("-------------------------- Question 10 -----------------------");
+        String str = "helloworld";
+        removeDuplicates(str,0,new StringBuilder(""),new boolean[26]);
     }
 }
