@@ -72,6 +72,30 @@ public class DivideConquer{
 
         return k;
     }
+    
+    public static int searchInSortedAndRoutatedArray(int arr[],int si,int ei,int target){
+        if(si > ei)return -1;
+
+        int mid = si + (ei-si)/2;
+
+        if(arr[mid] == target){
+            return mid;
+        }
+
+        if(arr[mid] >= arr[si]){
+            if(target >= arr[si] && target < arr[mid]){
+                return searchInSortedAndRoutatedArray(arr, si, mid-1, target);
+            }else{
+                return searchInSortedAndRoutatedArray(arr, mid+1, ei, target);
+            }
+        }else{
+            if(target > arr[mid] && target <= arr[ei]){
+                return searchInSortedAndRoutatedArray(arr, mid+1, ei, target);
+            }else{
+                return searchInSortedAndRoutatedArray(arr, si, mid-1, target);
+            }
+        }
+    }
     public static void main(String args[]){
         System.out.println("---------------------- Question 1 ------------------------");
         int arr1[] = {9,8,7,6,5,4,3,2,1};
@@ -82,6 +106,8 @@ public class DivideConquer{
         quickSort(arr2,0,arr2.length-1);
         printArray(arr2);
         System.out.println("---------------------- Question 3 ------------------------");
+        int arr3[] = {4,5,6,7,0,1,2,3};
+        System.out.println(searchInSortedAndRoutatedArray(arr3, 0, arr3.length-1, 0));
         System.out.println("---------------------- Question 4 ------------------------");
         System.out.println("---------------------- Question 5 ------------------------");
         System.out.println("---------------------- Question 6 ------------------------");
