@@ -43,6 +43,35 @@ public class DivideConquer{
             arr[i] = temp[k];
         }
     }
+
+    public static void quickSort(int arr[],int si,int ei){
+        if(si >= ei)return;
+
+        int pivotIdx = pivot(arr,si,ei);
+
+        quickSort(arr, si, pivotIdx-1);
+        quickSort(arr, pivotIdx+1, ei);
+    }
+
+    private static int pivot(int arr[],int si,int ei){
+        int pivotValue = arr[si];
+        int k = si;
+        
+        for(int j = si+1;j <= ei;j++){
+            if(arr[j] <= pivotValue){
+                k++;
+                int temp = arr[k];
+                arr[k] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    
+        int temp = pivotValue;
+        arr[si] = arr[k];
+        arr[k] = temp;
+
+        return k;
+    }
     public static void main(String args[]){
         System.out.println("---------------------- Question 1 ------------------------");
         int arr1[] = {9,8,7,6,5,4,3,2,1};
@@ -50,6 +79,8 @@ public class DivideConquer{
         printArray(arr1);
         System.out.println("---------------------- Question 2 ------------------------");
         int arr2[] = {9,8,7,6,5,4,3,2,1};
+        quickSort(arr2,0,arr2.length-1);
+        printArray(arr2);
         System.out.println("---------------------- Question 3 ------------------------");
         System.out.println("---------------------- Question 4 ------------------------");
         System.out.println("---------------------- Question 5 ------------------------");
