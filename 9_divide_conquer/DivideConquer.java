@@ -146,7 +146,31 @@ public class DivideConquer {
         }
     }
 
-    
+    public static int majorityElement(int nums[], int si, int ei) {
+        if (si == ei)
+            return nums[si];
+
+        int mid = si + (ei - si) / 2;
+
+        int left = majorityElement(nums, si, mid);
+        int right = majorityElement(nums, mid + 1, ei);
+
+        int countLeft = countInRange(nums, si, mid, left);
+        int countRight = countInRange(nums, mid + 1, ei, right);
+
+        return countLeft > countRight ? left : right;
+    }
+
+    private static int countInRange(int nums[], int si, int ei, int num) {
+        int count = 0;
+        for (int i = si; i <= ei; i++) {
+            if (nums[i] == num) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static void main(String args[]) {
         System.out.println("---------------------- Question 1 ------------------------");
         int arr1[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
@@ -164,6 +188,8 @@ public class DivideConquer {
         sortStringArray(stringArray, 0, stringArray.length-1);
         printStringArray(stringArray);
         System.out.println("---------------------- Question 5 ------------------------");
+        int nums[] = {2,2,1,1,1,2,2};
+        System.out.println(majorityElement(nums, 0, nums.length-1));
         System.out.println("---------------------- Question 6 ------------------------");
     }
 }
