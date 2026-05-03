@@ -7,6 +7,13 @@ public class DivideConquer{
         System.out.println();
     }
 
+     public static void printStringArray(String arr[]){
+        for(int i = 0;i < arr.length;i++){
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
+    }
+
     public static void mergeSort(int arr[],int si,int ei){
         if(si >= ei)return;
 
@@ -96,6 +103,68 @@ public class DivideConquer{
             }
         }
     }
+    
+    public static void sortStringArray(String str[],int si, int ei){
+        if(si >= ei)return;
+
+        int mid = si + (ei-si)/2;
+
+        sortStringArray(str, si, mid);
+        sortStringArray(str, mid+1, ei);
+
+        mergeStringArray(str,si,mid,ei);
+    }
+
+    private static void mergeStringArray(String str[], int si, int mid, int ei){
+        int i = si;
+        int j = mid+1;
+        String temp[] = new String[ei-si+1];
+        int k = 0;
+        
+        while(i <= mid && j <= ei){
+            if(str[i].compareToIgnoreCase(str[j]) < 0){
+                temp[k++] = str[i++];
+            }else{
+                temp[k++] = str[j++];
+            }
+        }
+
+        while(i <= mid){
+            temp[k++] = str[i++];
+        }
+
+        while(j <= ei){
+            temp[k++] = str[j++];
+        }
+
+        for(k = 0,i = si;k < temp.length;i++,k++ ){
+            str[i]=temp[k];
+        }
+    }
+   
+    public static int majorityElement(int nums[],int si,int ei){
+        if(si == ei) return nums[si];
+
+        int mid = si + (ei-si)/2;
+
+        int left = majorityElement(nums, si, mid);
+        int right = majorityElement(nums, mid+1,ei);
+
+        int countLeft = countInRange(nums,si,mid,left);
+        int countRight = countInRange(nums,mid+1,ei,right);
+
+        return countLeft > countRight ? left : right;
+    }
+
+    private static int countInRange(int nums[],int si,int ei,int num){
+        int count = 0;
+        for(int i = si;i <= ei;i++){
+            if(nums[i] == num){
+                count++;
+            }
+        }
+        return count;
+    }
     public static void main(String args[]){
         System.out.println("---------------------- Question 1 ------------------------");
         int arr1[] = {9,8,7,6,5,4,3,2,1};
@@ -109,7 +178,13 @@ public class DivideConquer{
         int arr3[] = {4,5,6,7,0,1,2,3};
         System.out.println(searchInSortedAndRoutatedArray(arr3, 0, arr3.length-1, 0));
         System.out.println("---------------------- Question 4 ------------------------");
+        String stringArray[] = { "sun", "earth", "mars", "mercury"};
+        sortStringArray(stringArray, 0, stringArray.length-1);
+        printStringArray(stringArray);
         System.out.println("---------------------- Question 5 ------------------------");
+        int nums[] = {2,2,1,1,1,2,2};
+        System.out.println(majorityElement(nums, 0, nums.length-1));
         System.out.println("---------------------- Question 6 ------------------------");
+        System.out.println("---------------------- Question 7 ------------------------");
     }
 }
