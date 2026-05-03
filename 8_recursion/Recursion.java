@@ -94,6 +94,15 @@ public class Recursion{
             sb.deleteCharAt(sb.length()-1);
         }
     }
+
+    public static void allOccurance(int arr[], int size, int target){
+        if(size == arr.length)return;
+        
+        if(arr[size] == target){
+            System.out.println("Index : "+size);
+        }
+        allOccurance(arr, size+1, target);
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -123,6 +132,8 @@ public class Recursion{
         System.out.println("-------------------------- Question 12 -----------------------");
         printBinaryString(3,0,new StringBuilder(""));
         System.out.println("-------------------------- Question 13 -----------------------");
+        int arr3[] = {1,2,4,5,2,3,7,8,9,0,2,1,3,4,5,4,3,2};
+        allOccurance(arr3,0,2);
         System.out.println("-------------------------- Question 14 -----------------------");
         System.out.println("-------------------------- Question 15 -----------------------");
         System.out.println("-------------------------- Question 16 -----------------------");
