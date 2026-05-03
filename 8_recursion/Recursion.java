@@ -152,6 +152,19 @@ public class Recursion {
         return res;
     }
 
+    public static void towerOfHanoi(int n,char at,char helper,char tobe ){
+        if(n == 1){
+            System.out.println("move disk "+n+" from poll "+at+" to poll "+ tobe);
+            return;
+        };
+        towerOfHanoi(n-1, at, tobe, helper);
+        // this line says move disks to helper using tobe as aid
+
+        System.out.println("move disk "+n+" from poll "+at+" to poll "+ tobe);
+
+        towerOfHanoi(n-1, helper, at, tobe);
+        // this line says move disks to tobe using at as aid
+    }
     public static void main(String args[]) {
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -193,5 +206,6 @@ public class Recursion {
         String s = "abcab";
         System.out.println(countiguousSubstrings(s, 0, s.length()-1, s.length()));
         System.out.println("-------------------------- Question 16 -----------------------");
+        towerOfHanoi(3,'A','B','C');
     }
 }
