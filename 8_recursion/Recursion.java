@@ -103,6 +103,14 @@ public class Recursion{
         }
         allOccurance(arr, size+1, target);
     }
+
+    public static void numberToString(int num, String numString[]){
+        if(num == 0)return;
+
+        numberToString(num/10, numString);
+        int index = num%10 ;
+        System.out.print(numString[index]+" ");
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -135,6 +143,9 @@ public class Recursion{
         int arr3[] = {1,2,4,5,2,3,7,8,9,0,2,1,3,4,5,4,3,2};
         allOccurance(arr3,0,2);
         System.out.println("-------------------------- Question 14 -----------------------");
+        String numbers[] = {"zero","one","two","three","four","five","six","seven","eight","nine"};
+        numberToString(2019, numbers);
+        System.out.println();
         System.out.println("-------------------------- Question 15 -----------------------");
         System.out.println("-------------------------- Question 16 -----------------------");
     }
