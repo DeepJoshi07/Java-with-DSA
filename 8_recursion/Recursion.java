@@ -111,6 +111,13 @@ public class Recursion{
         int index = num%10 ;
         System.out.print(numString[index]+" ");
     }
+
+    public static int lenOfString(String str,int len){
+        if(str.length() == len){
+            return len;
+        }
+        return lenOfString(str, len+1);
+    }
     public static void main(String args[]){
         System.out.println("-------------------------- Question 1 -----------------------");
         printNumbersNto1(10);
@@ -147,6 +154,7 @@ public class Recursion{
         numberToString(2019, numbers);
         System.out.println();
         System.out.println("-------------------------- Question 15 -----------------------");
+        System.out.println(lenOfString("helloworld!", 0));
         System.out.println("-------------------------- Question 16 -----------------------");
     }
 }
