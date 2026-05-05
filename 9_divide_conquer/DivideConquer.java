@@ -171,6 +171,46 @@ public class DivideConquer {
         return count;
     }
 
+    public static int inversionCount(int arr[],int si, int ei){
+       int count = 0;
+        if(si < ei){
+            int mid = si + (ei-si)/2;
+            count = inversionCount(arr, si, mid);
+            count += inversionCount(arr, mid+1, ei);
+            count += inversionSort(arr, si, mid, ei);
+        }
+        return count;
+    }
+
+    private static int inversionSort(int arr[],int si,int mid,int ei){
+        int i = si;
+        int j = mid+1;
+        int k = 0;
+        int temp[] = new int[ei-si+1]; 
+        int count = 0;
+        while(i <= mid && j <= ei){
+            if(arr[i] <= arr[j]){
+                temp[k++] = arr[i++];
+            }else{
+                temp[k++] = arr[j++];
+                count += (mid-i+1);
+            }
+        }
+
+        while(i <= mid){
+            temp[k++]=arr[i++];
+        }
+
+        while(j <= ei){
+            temp[k++]=arr[j++];
+        }
+
+        for(k = 0,i = si;k < temp.length;k++,i++){
+            arr[i] = temp[k];
+        }
+        return count;
+
+    }
     public static void main(String args[]) {
         System.out.println("---------------------- Question 1 ------------------------");
         int arr1[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
@@ -191,5 +231,7 @@ public class DivideConquer {
         int nums[] = {2,2,1,1,1,2,2};
         System.out.println(majorityElement(nums, 0, nums.length-1));
         System.out.println("---------------------- Question 6 ------------------------");
+        int arr4[] = {2,4,1,3,5};
+        System.out.println(inversionCount(arr4,0,arr4.length-1));
     }
 }
