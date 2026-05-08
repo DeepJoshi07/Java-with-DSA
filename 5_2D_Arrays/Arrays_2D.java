@@ -38,16 +38,17 @@ public class Arrays_2D {
             }
             for(int i = colEnd-1;i >= colStart ;i--){
                 if(rowStart == rowEnd)break;
-                // for matrix like {{1,2},
-                //                  {3,4},
-                //                  {5,6},
-                //                  {7,8}}
+                // for matrix like {{1,2,3},
+                //                  {4,5,6},
+                //                  {7,8,9},
+                //                  {10,11,12}}
                 System.out.print(matrix[rowEnd][i]+" ");
             }
             for(int i = rowEnd-1;i > rowStart ;i--){
                 if(colStart == colEnd)break;
-                // for matrix like {{1,2,3,4,},
-                //                  {5,6,7,8}}
+                // for matrix like {{1,2,3,4},
+                //                  {5,6,7,8},
+                //                  {9,10,11,12},}
                 // 
                 System.out.print(matrix[i][colStart]+" ");
             }
