@@ -124,6 +124,27 @@ public class BackTracking{
         }
         return true;
     }
+    
+    public static int gridWays(int n,int m,int i,int j){
+        if(i == n && j == m)return 1;
+
+        if(i > n || j > m)return 0;
+
+        int way1 = gridWays(n, m, i+1, j);
+        int way2 = gridWays(n, m, i, j+1);
+
+        return way1 + way2;
+    }
+
+    public static int factorial(int n){
+        if(n == 0)return 1;
+
+        return n * factorial(n-1);
+    }
+
+    public static int gridWays2(int n,int m){
+        return factorial(n+m-2) /(factorial(n-1) * factorial(m-1));
+    }
     public static void main(String args[]){
         System.out.println("---------------------- Question 1 -------------------------");
         int arr[] = new int[5];
@@ -158,6 +179,8 @@ public class BackTracking{
         nQueensCount(board, 0);
         System.out.println("the total way to put n queens on board are : "+count);
         System.out.println("---------------------- Question 5 -------------------------");
+        System.out.println(gridWays(4, 4, 1, 1));
+        System.out.println(gridWays2(4, 4));
         System.out.println("---------------------- Question 6 -------------------------");
         System.out.println("---------------------- Question 7 -------------------------");
         System.out.println("---------------------- Question 8 -------------------------");
