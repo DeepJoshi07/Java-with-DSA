@@ -202,6 +202,22 @@ public class BackTracking {
         return true;
     }
 
+    public static void findWayInMaze(Character maze[][],int i,int j){
+        if(i == maze.length-1 && j == maze[0].length-1){
+            maze[i][j] = '1';
+            printBoard(maze);
+            maze[i][j] = '0';
+            return;
+        }
+        if(i >= maze.length || j >= maze[0].length)return;
+
+        if(maze[i][j] == 'X')return;
+
+        maze[i][j] = '1';
+        findWayInMaze(maze, i+1, j);
+        findWayInMaze(maze, i, j+1);
+        maze[i][j] = '0';
+    }
     public static void main(String args[]) {
         System.out.println("---------------------- Question 1 -------------------------");
         int arr[] = new int[5];
@@ -253,6 +269,17 @@ public class BackTracking {
         System.out.println(solveSudoku(sudoku, 0, 0));
         printBoard(sudoku);
         System.out.println("---------------------- Question 7 -------------------------");
+        Character maze[][] = {
+            {'0','0','0','0'},
+            {'X','0','X','0'},
+            {'0','0','0','0'},
+            {'0','X','0','0'},
+        };
+        findWayInMaze(maze,0,0);
         System.out.println("---------------------- Question 8 -------------------------");
+
+        System.out.println("---------------------- Question 9 -------------------------");
+        
+        System.out.println("---------------------- Question 10 -------------------------");
     }
 }
