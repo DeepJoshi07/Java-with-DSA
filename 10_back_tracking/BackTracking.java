@@ -225,17 +225,41 @@ public class BackTracking {
         if (i == keypad[d1 - 1].length())
             return;
 
-        if(j == keypad[d2-1].length()){
-            allDigitsCombinations(keypad, d1, d2, i+1, 0);
+        if (j == keypad[d2 - 1].length()) {
+            allDigitsCombinations(keypad, d1, d2, i + 1, 0);
             return;
         }
 
-        char ch1 = keypad[d1-1].charAt(i);
-        char ch2 = keypad[d2-1].charAt(j);
+        char ch1 = keypad[d1 - 1].charAt(i);
+        char ch2 = keypad[d2 - 1].charAt(j);
 
-        System.out.println(ch1+""+ch2);
+        System.out.println(ch1 + "" + ch2);
 
-        allDigitsCombinations(keypad, d1, d2, i, j+1);
+        allDigitsCombinations(keypad, d1, d2, i, j + 1);
+    }
+
+    public static boolean knightTour(Integer knightBoard[][], int dx[], int dy[], int row, int col, int move) {
+        int n = knightBoard.length;
+        if (move == n*n+1) return true;
+
+        for (int i = 0; i < dx.length; i++) {
+            int nextRow = row + dx[i];
+            int nextCol = col + dy[i];
+            if (isSafeForKnight(knightBoard, nextRow, nextCol)) {
+                knightBoard[nextRow][nextCol] = move;
+                if (knightTour(knightBoard, dx, dy, nextRow, nextCol, move + 1)) {
+                    return true;
+                }
+                knightBoard[nextRow][nextCol] = 0;
+            }
+
+        }
+        return false;
+    }
+
+    private static boolean isSafeForKnight(Integer board[][], int row, int col) {
+        int n = board.length;
+        return row >= 0 && col >= 0 && row < n && col < n && board[row][col] == 0;
     }
 
     public static void main(String args[]) {
@@ -300,7 +324,17 @@ public class BackTracking {
         String keypad[] = { "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
         allDigitsCombinations(keypad, 2, 3, 0, 0);
         System.out.println("---------------------- Question 9 -------------------------");
-   
+        Integer knightBoard[][] = new Integer[6][6];
+        for (int i = 0; i < knightBoard.length; i++) {
+            for (int j = 0; j < knightBoard[0].length; j++) {
+                knightBoard[i][j] = 0;
+            }
+        }
+        int dx[] = { 2, 2, -2, -2, 1, 1, -1, -1 };
+        int dy[] = { 1, -1, 1, -1, 2, -2, 2, -2 };
+        knightBoard[0][0] = 1;
+        System.out.println(knightTour(knightBoard, dx, dy, 0, 0, 2));
+        printBoard(knightBoard);
         System.out.println("---------------------- Question 10 -------------------------");
     }
 }
