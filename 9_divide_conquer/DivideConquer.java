@@ -16,6 +16,7 @@ public class DivideConquer {
         System.out.println();
     }
 
+    // O(nlogn)
     public static void mergeSort(int arr[], int si, int ei) {
         if (si >= ei)
             return;
@@ -54,6 +55,8 @@ public class DivideConquer {
         }
     }
 
+    // O(n^2) worst case
+    // O(nlogn) best case
     public static void quickSort(int arr[], int si, int ei) {
         if (si >= ei)
             return;
@@ -84,6 +87,7 @@ public class DivideConquer {
         return k;
     }
 
+    // O(logn) both time and space
     public static int searchInSortedAndRoutatedArray(int arr[], int si, int ei, int target) {
         if (si > ei)
             return -1;
@@ -109,6 +113,7 @@ public class DivideConquer {
         }
     }
 
+    // O(nlogn)
     public static void sortStringArray(String str[], int si, int ei) {
         if (si >= ei)
             return;
@@ -148,6 +153,7 @@ public class DivideConquer {
         }
     }
 
+    // O(nlogn)
     public static int majorityElement(int nums[], int si, int ei) {
         if (si == ei)
             return nums[si];
@@ -173,6 +179,7 @@ public class DivideConquer {
         return count;
     }
 
+    // O(nlogn)
     public static int inversionCount(int arr[],int si, int ei){
        int count = 0;
         if(si < ei){
@@ -182,42 +189,6 @@ public class DivideConquer {
             count += inversionSort(arr, si, mid, ei);
         }
         return count;
-    }
-
-    private static int getMax(int arr[],int n){
-        int max = arr[0];
-        for(int i = 1;i < n;i++){
-            if(max < arr[i]) max = arr[i];
-        }
-        return max;
-    }
-
-    private static void countSort(int arr[],int n, int exp){
-        int output[] = new int[n];
-        int count [] = new int[10];
-        int i;
-        Arrays.fill(count,0);
-
-        for (i = 0; i < n; i++)
-            count[(arr[i] / exp) % 10]++;
-
-        for (i = 1; i < 10; i++)
-            count[i] += count[i - 1];
-
-        for (i = n - 1; i >= 0; i--) {
-            output[count[(arr[i] / exp) % 10] - 1] = arr[i];
-            count[(arr[i] / exp) % 10]--;
-        }
-
-        for (i = 0; i < n; i++)
-            arr[i] = output[i];
-    }
-
-    public static void radixSort(int arr[],int n){
-        int max = getMax(arr, n);
-        for(int exp = 1;max/exp > 0;exp*=10){
-            countSort(arr, n, exp);
-        }
     }
 
     private static int inversionSort(int arr[],int si,int mid,int ei){
@@ -249,6 +220,49 @@ public class DivideConquer {
         return count;
 
     }
+
+    private static int getMax(int arr[],int n){
+        int max = arr[0];
+        for(int i = 1;i < n;i++){
+            if(max < arr[i]) max = arr[i];
+        }
+        return max;
+    }
+
+    private static void countSort(int arr[],int n, int exp){
+        // arr = [4, 2, 2, 8, 3, 3, 1]
+        // count = [0, 1, 2, 2, 1, 0, 0, 0, 1]
+        // count2 = [0, 1, 3, 5, 6, 6, 6, 6, 7]
+        // count2 = [0, 1-1, 3-1-1, 5-1-1, 6, 6, 6, 6-1, 7]
+        // output = [1,2,2,3,3,4,8]
+        int output[] = new int[n];
+        int count [] = new int[10];
+        int i;
+        Arrays.fill(count,0);
+
+        for (i = 0; i < n; i++)
+            count[(arr[i] / exp) % 10]++;
+
+        for (i = 1; i < 10; i++)
+            count[i] += count[i - 1];
+
+        for (i = n - 1; i >= 0; i--) {
+            output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+            count[(arr[i] / exp) % 10]--;
+        }
+
+        for (i = 0; i < n; i++)
+            arr[i] = output[i];
+    }
+
+    public static void radixSort(int arr[],int n){
+        int max = getMax(arr, n);
+        for(int exp = 1;max/exp > 0;exp*=10){
+            countSort(arr, n, exp);
+        }
+    }
+
+    
     public static void main(String args[]) {
         System.out.println("---------------------- Question 1 ------------------------");
         int arr1[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
@@ -271,5 +285,9 @@ public class DivideConquer {
         System.out.println("---------------------- Question 6 ------------------------");
         int arr4[] = {2,4,1,3,5};
         System.out.println(inversionCount(arr4,0,arr4.length-1));
+        System.out.println("---------------------- Question 7 ------------------------");
+        int arr5[] = {2,4,1,3,5};
+        radixSort(arr5, arr5.length);
+        printArray(arr5);
     }
-}
+} 
