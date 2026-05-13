@@ -5,7 +5,7 @@ public class BackTracking {
         }
         System.out.println();
     }
-
+    // O(n*m)
     public static void changeArray(int arr[], int i, int val) {
         if (i == arr.length) {
             printArray(arr);
@@ -16,13 +16,13 @@ public class BackTracking {
         changeArray(arr, i + 1, val + 1);
         arr[i] = arr[i] - 2;
     }
-
+    // O(2N)
     public static void allSubstring(String str, int i, StringBuilder sb) {
         if (i == str.length()) {
             if (sb.length() == 0) {
                 System.out.println("Null");
             } else {
-                System.out.println(sb.toString());
+                System.out.println(sb);
             }
             return;
         }
@@ -31,7 +31,7 @@ public class BackTracking {
         sb.deleteCharAt(sb.length() - 1);
         allSubstring(str, i + 1, sb);
     }
-
+    // O(n*n!)
     public static void allPermutation(String s, StringBuilder sb) {
         if (s.length() == 0) {
             System.out.println(sb.toString());
@@ -44,7 +44,7 @@ public class BackTracking {
             sb.deleteCharAt(sb.length() - 1);
         }
     }
-
+    // O(n*m)
     public static <T> void printBoard(T board[][]) {
         System.out.println("----------- Board -----------");
         for (T rows[] : board) {
@@ -55,7 +55,7 @@ public class BackTracking {
         }
         System.out.println();
     }
-
+    // O(n*n!)
     public static void nQueens(Character board[][], int row) {
         if (row == board.length) {
             printBoard(board);
@@ -126,12 +126,12 @@ public class BackTracking {
         }
         return true;
     }
-
+    // O(2^n+m)
     public static int gridWays(int n, int m, int i, int j) {
-        if (i == n && j == m)
+        if (i == n-1 && j == m-1)
             return 1;
 
-        if (i > n || j > m)
+        if (i >= n || j >= m)
             return 0;
 
         int way1 = gridWays(n, m, i + 1, j);
@@ -150,7 +150,7 @@ public class BackTracking {
     public static int gridWays2(int n, int m) {
         return factorial(n + m - 2) / (factorial(n - 1) * factorial(m - 1));
     }
-
+    // O(9^81)
     public static boolean solveSudoku(Integer sudoku[][], int row, int col) {
         if (row == 9)
             return true;
@@ -201,7 +201,7 @@ public class BackTracking {
         }
         return true;
     }
-
+    // O(2^n+m)
     public static void findWayInMaze(Character maze[][], int i, int j) {
         if (i == maze.length - 1 && j == maze[0].length - 1) {
             maze[i][j] = '1';
@@ -220,7 +220,7 @@ public class BackTracking {
         findWayInMaze(maze, i, j + 1);
         maze[i][j] = '0';
     }
-
+    // O(l1*l2)
     public static void allDigitsCombinations(String keypad[], int d1, int d2, int i, int j) {
         if (i == keypad[d1 - 1].length())
             return;
@@ -237,7 +237,7 @@ public class BackTracking {
 
         allDigitsCombinations(keypad, d1, d2, i, j + 1);
     }
-
+    // O(k^n^2)
     public static boolean knightTour(Integer knightBoard[][], int dx[], int dy[], int row, int col, int move) {
         int n = knightBoard.length;
         if (move == n*n+1) return true;
@@ -296,7 +296,7 @@ public class BackTracking {
         nQueensCount(board, 0);
         System.out.println("the total way to put n queens on board are : " + count);
         System.out.println("---------------------- Question 5 -------------------------");
-        System.out.println(gridWays(4, 4, 1, 1));
+        System.out.println(gridWays(4, 4, 0, 0));
         System.out.println(gridWays2(4, 4));
         System.out.println("---------------------- Question 6 -------------------------");
         Integer[][] sudoku = {
