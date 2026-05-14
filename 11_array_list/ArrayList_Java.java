@@ -1,60 +1,77 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ArrayList_Java{
+public class ArrayList_Java {
     // Collections.sort()
     // Collections => class
     // Collection => interface
     // COllections.sort(list,Collections.reverseOrder())
 
-    public static void printArrayList(ArrayList<Integer>al){
-        for(int i = 0;i < al.size();i++){
-            System.out.print(al.get(i)+" ");
+    public static void printArrayList(ArrayList<Integer> al) {
+        for (int i = 0; i < al.size(); i++) {
+            System.out.print(al.get(i) + " ");
         }
         System.out.println();
     }
 
-    public static void printReverseArrayList(ArrayList<Integer>al){
-        for(int i = al.size()-1;i >= 0;i--){
-            System.out.print(al.get(i)+" ");
+    public static void printReverseArrayList(ArrayList<Integer> al) {
+        for (int i = al.size() - 1; i >= 0; i--) {
+            System.out.print(al.get(i) + " ");
         }
         System.out.println();
     }
 
-    public static int findMaximum(ArrayList<Integer>al){
+    public static int findMaximum(ArrayList<Integer> al) {
         int max = Integer.MIN_VALUE;
-        for(int i = 0;i < al.size();i++){
-            if(max < al.get(i)){
+        for (int i = 0; i < al.size(); i++) {
+            if (max < al.get(i)) {
                 max = al.get(i);
             }
         }
         return max;
     }
 
-    public static void swap(ArrayList<Integer>al,int idx1,int idx2){
+    public static void swap(ArrayList<Integer> al, int idx1, int idx2) {
         int temp = al.get(idx1);
-        al.set(idx1,al.get(idx2));
-        al.set(idx2,temp);
+        al.set(idx1, al.get(idx2));
+        al.set(idx2, temp);
     }
 
-    public static int maxWaterInContainer(ArrayList<Integer>height){
+    public static int maxWaterInContainer(ArrayList<Integer> height) {
         int maxWater = 0;
         int lp = 0;
-        int rp = height.size()-1;
+        int rp = height.size() - 1;
 
-        while(lp < rp){
+        while (lp < rp) {
             int he = Math.min(height.get(rp), height.get(lp));
             int wi = rp - lp;
             int currWater = he * wi;
             maxWater = Math.max(maxWater, currWater);
 
-            if(lp < rp){
+            if (lp < rp) {
                 lp++;
-            }else{
+            } else {
                 rp++;
             }
         }
         return maxWater;
+    }
+
+    public static boolean pairSum(ArrayList<Integer>nums,int sum){
+        int left = 0;
+        int right = nums.size()-1;
+
+        while(left < right){
+            if(nums.get(left) + nums.get(right) == sum){
+                return true;
+            }
+            if(nums.get(left) + nums.get(right) < sum){
+                left++;
+            }else{
+                right--;
+            }
+        }
+        return false;
     }
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
@@ -83,7 +100,7 @@ public class ArrayList_Java{
         System.out.println(al);
 
         // O(n)
-        al.add(2,10);
+        al.add(2, 10);
         System.out.println(al);
 
         System.out.println(al.contains(10));
@@ -104,7 +121,7 @@ public class ArrayList_Java{
 
         Collections.sort(al);
         System.out.println(al);
-        Collections.sort(al,Collections.reverseOrder());
+        Collections.sort(al, Collections.reverseOrder());
         System.out.println(al);
 
         // ----------------------------------------------------------
@@ -135,11 +152,11 @@ public class ArrayList_Java{
 
         System.out.println(a);
 
-        for(int i = 0;i < a.size();i++){
+        for (int i = 0; i < a.size(); i++) {
             ArrayList<Integer> curr = a.get(i);
-            for(int j = 0;j < curr.size();j++){
-                System.out.print(curr.get(j)+" ");
-            } 
+            for (int j = 0; j < curr.size(); j++) {
+                System.out.print(curr.get(j) + " ");
+            }
             System.out.println();
         }
         System.out.println("--------------------------");
@@ -147,7 +164,7 @@ public class ArrayList_Java{
         // ----------------------------------------------------------
 
         System.out.println("--------------------- Question 1 -----------------------");
-        ArrayList<Integer> height =  new ArrayList<>();
+        ArrayList<Integer> height = new ArrayList<>();
         height.add(1);
         height.add(8);
         height.add(6);
@@ -158,5 +175,17 @@ public class ArrayList_Java{
         height.add(3);
         height.add(7);
         System.out.println(maxWaterInContainer(height));
+        System.out.println("--------------------- Question 2 -----------------------");
+        ArrayList<Integer> nums = new ArrayList<>();
+        nums.add(1);
+        nums.add(2);
+        nums.add(3);
+        nums.add(4);
+        nums.add(5);
+        nums.add(6);
+        System.out.println(pairSum(nums,5));
+        System.out.println("--------------------- Question 1 -----------------------");
+        System.out.println("--------------------- Question 1 -----------------------");
+        System.out.println("--------------------- Question 1 -----------------------");
     }
 }
