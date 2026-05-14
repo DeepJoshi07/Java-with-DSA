@@ -24,6 +24,12 @@ public class ArrayList_Java{
         }
         return max;
     }
+
+    public static void swap(ArrayList<Integer>al,int idx1,int idx2){
+        int temp = al.get(idx1);
+        al.set(idx1,al.get(idx2));
+        al.set(idx2,temp);
+    }
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
         // part of java collection fram work
@@ -63,5 +69,11 @@ public class ArrayList_Java{
         printReverseArrayList(al);
 
         System.out.println(findMaximum(al));
+
+        System.out.println(al);
+
+        swap(al, 2, 4);
+
+        System.out.println(al);
     }
 }
