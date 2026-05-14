@@ -1,6 +1,12 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ArrayList_Java{
+    // Collections.sort()
+    // Collections => class
+    // Collection => interface
+    // COllections.sort(list,Collections.reverseOrder())
+
     public static void printArrayList(ArrayList<Integer>al){
         for(int i = 0;i < al.size();i++){
             System.out.print(al.get(i)+" ");
@@ -75,5 +81,49 @@ public class ArrayList_Java{
         swap(al, 2, 4);
 
         System.out.println(al);
+
+        Collections.sort(al);
+        System.out.println(al);
+        Collections.sort(al,Collections.reverseOrder());
+        System.out.println(al);
+
+        // ----------------------------------------------------------
+        System.out.println("--------------------------");
+        // nasted arraylist
+
+        ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+        ArrayList<Integer> a1 = new ArrayList<>();
+        a1.add(1);
+        a1.add(2);
+        a1.add(3);
+        a1.add(4);
+        a1.add(5);
+        ArrayList<Integer> a2 = new ArrayList<>();
+        a2.add(6);
+        a2.add(7);
+        a2.add(8);
+        ArrayList<Integer> a3 = new ArrayList<>();
+        a3.add(9);
+        a3.add(10);
+        a3.add(11);
+        a3.add(12);
+        a3.add(13);
+
+        a.add(a1);
+        a.add(a2);
+        a.add(a3);
+
+        System.out.println(a);
+
+        for(int i = 0;i < a.size();i++){
+            ArrayList<Integer> curr = a.get(i);
+            for(int j = 0;j < curr.size();j++){
+                System.out.print(curr.get(j)+" ");
+            } 
+            System.out.println();
+        }
+        System.out.println("--------------------------");
+
+        // ----------------------------------------------------------
     }
 }
