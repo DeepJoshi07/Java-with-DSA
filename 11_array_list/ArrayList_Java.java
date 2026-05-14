@@ -1,8 +1,15 @@
 import java.util.ArrayList;
 
 public class ArrayList_Java{
+    public static void printArrayList(ArrayList<Integer>al){
+        for(int i = 0;i < al.size();i++){
+            System.out.print(al.get(i)+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
+        // part of java collection fram work
         ArrayList<Integer> al = new ArrayList<>();
         ArrayList<String> al2 = new ArrayList<>();
         ArrayList<Boolean> al3 = new ArrayList<>();
@@ -31,5 +38,7 @@ public class ArrayList_Java{
         System.out.println(al);
 
         System.out.println(al.contains(10));
+
+        System.out.println(al.size());
     }
 }
