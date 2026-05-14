@@ -14,6 +14,16 @@ public class ArrayList_Java{
         }
         System.out.println();
     }
+
+    public static int findMaximum(ArrayList<Integer>al){
+        int max = Integer.MIN_VALUE;
+        for(int i = 0;i < al.size();i++){
+            if(max < al.get(i)){
+                max = al.get(i);
+            }
+        }
+        return max;
+    }
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
         // part of java collection fram work
@@ -51,5 +61,7 @@ public class ArrayList_Java{
         printArrayList(al);
 
         printReverseArrayList(al);
+
+        System.out.println(findMaximum(al));
     }
 }
