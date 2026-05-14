@@ -7,6 +7,13 @@ public class ArrayList_Java{
         }
         System.out.println();
     }
+
+    public static void printReverseArrayList(ArrayList<Integer>al){
+        for(int i = al.size()-1;i >= 0;i--){
+            System.out.print(al.get(i)+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
         // part of java collection fram work
@@ -40,5 +47,9 @@ public class ArrayList_Java{
         System.out.println(al.contains(10));
 
         System.out.println(al.size());
+
+        printArrayList(al);
+
+        printReverseArrayList(al);
     }
 }
