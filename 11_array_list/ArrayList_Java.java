@@ -58,53 +58,69 @@ public class ArrayList_Java {
         return maxWater;
     }
 
-    public static boolean pairSum(ArrayList<Integer>nums,int sum){
+    public static boolean pairSum(ArrayList<Integer> nums, int sum) {
         int left = 0;
-        int right = nums.size()-1;
+        int right = nums.size() - 1;
 
-        while(left < right){
-            if(nums.get(left) + nums.get(right) == sum){
+        while (left < right) {
+            if (nums.get(left) + nums.get(right) == sum) {
                 return true;
             }
-            if(nums.get(left) + nums.get(right) < sum){
+            if (nums.get(left) + nums.get(right) < sum) {
                 left++;
-            }else{
+            } else {
                 right--;
             }
         }
         return false;
     }
-    
-    public static boolean pairSum2(ArrayList<Integer>nums,int sum){
+
+    public static boolean pairSum2(ArrayList<Integer> nums, int sum) {
         int breakingPoint = -1;
-        for(int i = 1;i < nums.size();i++){
-            if(nums.get(i) < nums.get(i-1)){
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums.get(i) < nums.get(i - 1)) {
                 breakingPoint = i;
                 break;
             }
         }
-        if (breakingPoint == -1)return false;
+        if (breakingPoint == -1)
+            return false;
 
         System.out.println(breakingPoint);
         int lp = breakingPoint;
-        int rp = breakingPoint-1;
+        int rp = breakingPoint - 1;
         int n = nums.size();
         // must be size not size-1
-        while(lp != rp){
-            if(nums.get(lp)+nums.get(rp) == sum){
+        while (lp != rp) {
+            if (nums.get(lp) + nums.get(rp) == sum) {
                 return true;
             }
 
-            if(nums.get(lp)+nums.get(rp) < sum){
-                lp = (lp+1) % n;
+            if (nums.get(lp) + nums.get(rp) < sum) {
+                lp = (lp + 1) % n;
                 // clock wise
-            }else{
-                rp = (n+rp-1)% n;
+            } else {
+                rp = (n + rp - 1) % n;
                 // anti clock wise
             }
         }
         return false;
     }
+
+    public static boolean isMonotonic(ArrayList<Integer> al) {
+        boolean increment = true;
+        boolean decrement = true;
+
+        for (int i = 1; i < al.size(); i++) {
+            if (al.get(i) > al.get(i - 1)) {
+                decrement = false;
+            } else if (al.get(i) < al.get(i - 1)) {
+                increment = false;
+            }
+        }
+        return (increment || decrement);
+    }
+
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
         // part of java collection fram work
@@ -215,7 +231,7 @@ public class ArrayList_Java {
         nums.add(4);
         nums.add(5);
         nums.add(6);
-        System.out.println(pairSum(nums,5));
+        System.out.println(pairSum(nums, 5));
         System.out.println("--------------------- Question 3 -----------------------");
         ArrayList<Integer> numbers = new ArrayList<>();
         numbers.add(11);
@@ -225,7 +241,24 @@ public class ArrayList_Java {
         numbers.add(9);
         numbers.add(10);
         System.out.println(pairSum2(numbers, 16));
-        System.out.println("--------------------- Question 1 -----------------------");
+        System.out.println("--------------------- Question 4 -----------------------");
+        ArrayList<Integer> al1 = new ArrayList<>();
+        al1.add(1);
+        al1.add(2);
+        al1.add(2);
+        al1.add(3);
+        // -----------
+        // al1.add(1);
+        // al1.add(3);
+        // al1.add(2);
+        // ----------
+        // al1.add(5);
+        // al1.add(4);
+        // al1.add(3);
+        // al1.add(2);
+        // al1.add(1);
+
+        System.out.println(isMonotonic(al1));
         System.out.println("--------------------- Question 1 -----------------------");
     }
 }
