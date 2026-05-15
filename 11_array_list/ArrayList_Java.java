@@ -5,7 +5,8 @@ public class ArrayList_Java {
     // Collections.sort()
     // Collections => class
     // Collection => interface
-    // COllections.sort(list,Collections.reverseOrder())
+    // Collections.sort(list,Collections.reverseOrder())
+    // modulos arithmetic
 
     public static void printArrayList(ArrayList<Integer> al) {
         for (int i = 0; i < al.size(); i++) {
@@ -69,6 +70,37 @@ public class ArrayList_Java {
                 left++;
             }else{
                 right--;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean pairSum2(ArrayList<Integer>nums,int sum){
+        int breakingPoint = -1;
+        for(int i = 1;i < nums.size();i++){
+            if(nums.get(i) < nums.get(i-1)){
+                breakingPoint = i;
+                break;
+            }
+        }
+        if (breakingPoint == -1)return false;
+
+        System.out.println(breakingPoint);
+        int lp = breakingPoint;
+        int rp = breakingPoint-1;
+        int n = nums.size();
+        // must be size not size-1
+        while(lp != rp){
+            if(nums.get(lp)+nums.get(rp) == sum){
+                return true;
+            }
+
+            if(nums.get(lp)+nums.get(rp) < sum){
+                lp = (lp+1) % n;
+                // clock wise
+            }else{
+                rp = (n+rp-1)% n;
+                // anti clock wise
             }
         }
         return false;
@@ -184,7 +216,15 @@ public class ArrayList_Java {
         nums.add(5);
         nums.add(6);
         System.out.println(pairSum(nums,5));
-        System.out.println("--------------------- Question 1 -----------------------");
+        System.out.println("--------------------- Question 3 -----------------------");
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(11);
+        numbers.add(15);
+        numbers.add(6);
+        numbers.add(8);
+        numbers.add(9);
+        numbers.add(10);
+        System.out.println(pairSum2(numbers, 16));
         System.out.println("--------------------- Question 1 -----------------------");
         System.out.println("--------------------- Question 1 -----------------------");
     }
