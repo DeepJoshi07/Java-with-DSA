@@ -121,11 +121,24 @@ public class ArrayList_Java {
         return (increment || decrement);
     }
 
+    public static void lonelyNumbers(ArrayList<Integer> nums) {
+        Collections.sort(nums);
+        ArrayList<Integer> al = new ArrayList<>();
+        for (int i = 0; i < nums.size(); i++) {
+            boolean left = i > 0 && Math.abs(nums.get(i) - nums.get(i - 1)) <= 1;
+            boolean right = i < nums.size() - 1 && Math.abs(nums.get(i) - nums.get(i + 1)) <= 1;
+            if (!left && !right) {
+                al.add(nums.get(i));
+            }
+        }
+        System.out.println(al);
+    }
+
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
         // part of java collection fram work
         ArrayList<Integer> al = new ArrayList<>();
-        ArrayList<String> al2 = new ArrayList<>();
+        ArrayList<String> al4 = new ArrayList<>();
         ArrayList<Boolean> al3 = new ArrayList<>();
 
         // O(1)
@@ -259,6 +272,19 @@ public class ArrayList_Java {
         // al1.add(1);
 
         System.out.println(isMonotonic(al1));
+        System.out.println("--------------------- Question 5 -----------------------");
+        ArrayList<Integer> al5 = new ArrayList<>();
+        // al5.add(10);
+        // al5.add(5);
+        // al5.add(6);
+        // al5.add(8);
+        // -------------
+        al5.add(1);
+        al5.add(3);
+        al5.add(5);
+        al5.add(3);
+        lonelyNumbers(al5);
+        System.out.println("--------------------- Question 1 -----------------------");
         System.out.println("--------------------- Question 1 -----------------------");
     }
 }
