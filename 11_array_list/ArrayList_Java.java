@@ -135,26 +135,53 @@ public class ArrayList_Java {
         System.out.println(al);
     }
 
-    public static void mostFrequentNumber(ArrayList<Integer>al){
-        HashMap<Integer,Integer> hm = new HashMap<>();
-        for(int i = 0;i < al.size();i++){
-            if(hm.containsKey(al.get(i))){
-                hm.put(al.get(i), hm.getOrDefault(al.get(i), 0)+1);
-            }else{
+    public static void mostFrequentNumber(ArrayList<Integer> al) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        for (int i = 0; i < al.size(); i++) {
+            if (hm.containsKey(al.get(i))) {
+                hm.put(al.get(i), hm.getOrDefault(al.get(i), 0) + 1);
+            } else {
                 hm.put(al.get(i), 1);
             }
         }
 
         int mostFrequent = 0;
         int freq = 0;
-        for(int key:hm.keySet()){
-            if(hm.get(key) > freq){
+        for (int key : hm.keySet()) {
+            if (hm.get(key) > freq) {
                 mostFrequent = key;
                 freq = hm.get(key);
             }
         }
-        System.out.println("most freq number is : "+mostFrequent);
+        System.out.println("most freq number is : " + mostFrequent);
     }
+
+    public static void butifulArrayList(ArrayList<Integer> al, int size, int start, int increment) {
+        if (start + increment > size) {
+            al.add(start);
+            return;
+        }
+        butifulArrayList(al, size, start, increment * 2);
+        butifulArrayList(al, size, start + increment, increment * 2);
+    }
+
+    public static ArrayList<Integer> butifulArrayList2(int n) {
+        ArrayList<Integer> result = new ArrayList<>();
+        result.add(1);
+
+        for (int i = 2; i <= n; i++) {
+            ArrayList<Integer> al = new ArrayList<>();
+            for(Integer el : result){
+                if(el * 2 <= n)al.add(el*2);
+            }
+             for(Integer el : result){
+                if((el * 2 - 1) <= n)al.add(el*2-1);
+            }
+            result = al;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
         // part of java collection fram work
@@ -316,6 +343,12 @@ public class ArrayList_Java {
         al6.add(9);
         al6.add(2);
         mostFrequentNumber(al6);
-        System.out.println("--------------------- Question 1 -----------------------");
+        System.out.println("--------------------- Question 7 -----------------------");
+        // 2 1 4 3
+        ArrayList<Integer> al7 = new ArrayList<>();
+        butifulArrayList(al7, 5, 1, 1);
+        System.out.println(al7);
+        ArrayList<Integer> res = butifulArrayList2(4);
+        System.out.println(res);
     }
 }
