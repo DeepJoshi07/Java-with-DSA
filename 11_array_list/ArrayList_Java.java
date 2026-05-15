@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class ArrayList_Java {
     // Collections.sort()
@@ -134,6 +135,26 @@ public class ArrayList_Java {
         System.out.println(al);
     }
 
+    public static void mostFrequentNumber(ArrayList<Integer>al){
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        for(int i = 0;i < al.size();i++){
+            if(hm.containsKey(al.get(i))){
+                hm.put(al.get(i), hm.getOrDefault(al.get(i), 0)+1);
+            }else{
+                hm.put(al.get(i), 1);
+            }
+        }
+
+        int mostFrequent = 0;
+        int freq = 0;
+        for(int key:hm.keySet()){
+            if(hm.get(key) > freq){
+                mostFrequent = key;
+                freq = hm.get(key);
+            }
+        }
+        System.out.println("most freq number is : "+mostFrequent);
+    }
     public static void main(String[] args) {
         // can only initialized with non primitive values like... Integer,String,Boolean
         // part of java collection fram work
@@ -284,7 +305,17 @@ public class ArrayList_Java {
         al5.add(5);
         al5.add(3);
         lonelyNumbers(al5);
-        System.out.println("--------------------- Question 1 -----------------------");
+        System.out.println("--------------------- Question 6 -----------------------");
+        ArrayList<Integer> al6 = new ArrayList<>();
+        al6.add(100);
+        al6.add(100);
+        al6.add(2);
+        al6.add(5);
+        al6.add(8);
+        al6.add(2);
+        al6.add(9);
+        al6.add(2);
+        mostFrequentNumber(al6);
         System.out.println("--------------------- Question 1 -----------------------");
     }
 }
