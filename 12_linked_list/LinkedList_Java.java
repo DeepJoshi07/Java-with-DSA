@@ -140,6 +140,21 @@ public class LinkedList_Java {
         }
         return -1;
     }
+
+    public int findTargetRecursive(Node head,int target){
+        if(head == null)return -1;
+
+        if(head.data == target){
+            return 0;
+        }
+
+        int idx = findTargetRecursive(head.next,target);
+
+        if(idx != -1)return idx+1;
+
+        return -1;
+
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -162,5 +177,6 @@ public class LinkedList_Java {
         System.out.println(ll.removeLast());
         ll.printList();
         System.out.println(ll.findTarget(6));
+        System.out.println(ll.findTargetRecursive(ll.head,5));
     }
 }
