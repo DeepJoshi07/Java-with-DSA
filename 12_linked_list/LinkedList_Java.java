@@ -24,6 +24,17 @@ public class LinkedList_Java {
         head = newNode;
         return;
     }
+
+    public static void addLast(int data){
+        Node newNode = new Node(data);
+        if(head == null){
+            head = tail = newNode;
+            return;
+        }
+        tail.next = newNode;
+        tail = tail.next;
+        return;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
     }
