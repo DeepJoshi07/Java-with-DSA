@@ -11,10 +11,14 @@ public class LinkedList_Java {
         }
     }
 
+    public static boolean isEmpty(){
+        return head == null;
+    }
+
     public static Node head;
     public static Node tail;
 
-    public static void addFirst(int data){
+    public void addFirst(int data){
         Node newNode = new Node(data);
         if(head == null){
             head=tail=newNode;
@@ -25,7 +29,7 @@ public class LinkedList_Java {
         return;
     }
 
-    public static void addLast(int data){
+    public void addLast(int data){
         Node newNode = new Node(data);
         if(head == null){
             head = tail = newNode;
@@ -35,7 +39,25 @@ public class LinkedList_Java {
         tail = tail.next;
         return;
     }
+
+    public void printList(){
+        if(isEmpty())return;
+        Node temp = head;
+
+        while(temp != null){
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
+        // 3,2,1,5,4
+        ll.addFirst(1);
+        ll.addFirst(2);
+        ll.addLast(5);
+        ll.addLast(4);
+        ll.addFirst(3);
+        ll.printList();
     }
 }
