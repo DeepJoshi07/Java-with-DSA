@@ -172,6 +172,36 @@ public class LinkedList_Java {
         }
         head = prev;
     }
+
+    // O(n)
+    public int removeNthNodeFromEnd(int n){
+        if(isEmpty()){
+            throw new NoSuchElementException("list is empty");
+        }
+        if(n > size || n <= 0){
+            throw new IllegalArgumentException("invalid n");
+        }
+        if(n == size){
+            return removeFirst();
+        }
+        if(n == 1){
+            return removeLast();
+        }
+
+        int idx = size-n;
+        int i = 1;
+        Node temp = head;
+        while(i < idx){
+            i++;
+            temp = temp.next;
+        }
+
+        Node nth = temp.next;
+        temp.next = temp.next.next;
+        nth.next = null;
+        size --;
+        return nth.data;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -200,5 +230,8 @@ public class LinkedList_Java {
         ll.reverseLinkedList();
         ll.printList();
         System.out.println("---------------------- Question 3 -----------------------");
+        ll.addFirst(12);
+        System.out.println(ll.removeNthNodeFromEnd(2));
+        ll.printList();
     }
 }
