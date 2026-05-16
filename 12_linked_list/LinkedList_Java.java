@@ -17,7 +17,8 @@ public class LinkedList_Java {
 
     public static Node head;
     public static Node tail;
-
+    public int size;
+    // O(1)
     public void addFirst(int data){
         Node newNode = new Node(data);
         if(head == null){
@@ -29,6 +30,7 @@ public class LinkedList_Java {
         return;
     }
 
+    // O(1)
     public void addLast(int data){
         Node newNode = new Node(data);
         if(head == null){
@@ -40,6 +42,28 @@ public class LinkedList_Java {
         return;
     }
 
+    // O(n)
+    public void add(int idx,int data){
+        if(isEmpty() ||idx == 0 ){
+            addFirst(data);
+            return;
+        }else if(idx == size){
+            addLast(data);
+            return;
+        }
+        Node newNode = new Node(data);
+        Node temp = head;
+        int i = 0;
+        while(i < idx-1){
+            i++;
+            temp = temp.next;
+        }
+        newNode.next = temp.next;
+        temp.next = newNode;
+        return;
+    }
+
+    // O(n)
     public void printList(){
         if(isEmpty())return;
         Node temp = head;
@@ -58,6 +82,8 @@ public class LinkedList_Java {
         ll.addLast(5);
         ll.addLast(4);
         ll.addFirst(3);
+        ll.printList();
+        ll.add(2,6);
         ll.printList();
     }
 }
