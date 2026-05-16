@@ -155,6 +155,23 @@ public class LinkedList_Java {
         return -1;
 
     }
+
+    // O(n)
+    public void reverseLinkedList(){
+        if(isEmpty() || size == 1)return;
+
+        Node next;
+        Node curr = tail = head;
+        Node prev = null;
+
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -176,7 +193,12 @@ public class LinkedList_Java {
         ll.printList();
         System.out.println(ll.removeLast());
         ll.printList();
+        System.out.println("---------------------- Question 1 -----------------------");
         System.out.println(ll.findTarget(6));
         System.out.println(ll.findTargetRecursive(ll.head,5));
+        System.out.println("---------------------- Question 2 -----------------------");
+        ll.reverseLinkedList();
+        ll.printList();
+        System.out.println("---------------------- Question 3 -----------------------");
     }
 }
