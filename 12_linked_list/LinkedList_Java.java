@@ -1,4 +1,4 @@
-
+import java.util.NoSuchElementException;
 
 public class LinkedList_Java {
     static class Node{
@@ -23,10 +23,12 @@ public class LinkedList_Java {
         Node newNode = new Node(data);
         if(head == null){
             head=tail=newNode;
+            size++;
             return;
         }
         newNode.next = head;
         head = newNode;
+        size++;
         return;
     }
 
@@ -35,10 +37,12 @@ public class LinkedList_Java {
         Node newNode = new Node(data);
         if(head == null){
             head = tail = newNode;
+            size++;
             return;
         }
         tail.next = newNode;
         tail = tail.next;
+        size++;
         return;
     }
 
@@ -60,7 +64,26 @@ public class LinkedList_Java {
         }
         newNode.next = temp.next;
         temp.next = newNode;
+        size++;
         return;
+    }
+
+    // O(1)
+    public int removeFirst(){
+        if(isEmpty()){
+            throw new NoSuchElementException("list is empty!");
+        }
+        if(size == 1){
+            int data = head.data;
+            head = tail = null;
+            size = 0;
+            return data;
+        }
+
+        int data = head.data;
+        head = head.next;
+        size--;
+        return data;
     }
 
     // O(n)
@@ -85,5 +108,14 @@ public class LinkedList_Java {
         ll.printList();
         ll.add(2,6);
         ll.printList();
+        System.out.println(ll.size);
+        // LinkedList_Java ll2 = new LinkedList_Java();
+        // ll2.addFirst(3);
+        // ll2.addFirst(2);
+        // ll2.addFirst(1);
+        // System.out.println(ll2.size);
+        System.out.println(ll.removeFirst());
+        ll.printList();
+
     }
 }
