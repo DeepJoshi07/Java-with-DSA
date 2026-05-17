@@ -11,12 +11,12 @@ public class LinkedList_Java {
         }
     }
 
-    public static boolean isEmpty() {
+    public boolean isEmpty() {
         return head == null;
     }
 
-    public static Node head;
-    public static Node tail;
+    public Node head;
+    public Node tail;
     public int size;
 
     // O(1)
@@ -202,6 +202,39 @@ public class LinkedList_Java {
         size --;
         return nth.data;
     }
+
+    public boolean isPalindrome(Node head){
+        if(isEmpty() || size == 1)return true;
+        
+        Node slow = head,fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if(fast != null)slow=slow.next;
+    
+        Node curr = slow;
+        Node prev = null;
+
+        while(curr != null){
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node head2 = prev;
+        Node temp = head;
+        while(head2 != null){
+            // System.out.println(head2.data + ","+temp.data);
+            if(head2.data != temp.data){
+                return false;
+            }
+            temp = temp.next;
+            head2 = head2.next;
+        }
+        return true;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -214,11 +247,14 @@ public class LinkedList_Java {
         ll.add(2, 6);
         ll.printList();
         System.out.println(ll.size);
-        // LinkedList_Java ll2 = new LinkedList_Java();
-        // ll2.addFirst(3);
-        // ll2.addFirst(2);
-        // ll2.addFirst(1);
-        // System.out.println(ll2.size);
+        System.out.println("------------------");
+        LinkedList_Java ll2 = new LinkedList_Java();
+        ll2.addFirst(3);
+        ll2.addFirst(2);
+        ll2.addFirst(1);
+        System.out.println(ll2.size);
+        ll2.printList();
+        System.out.println("-----------------");
         System.out.println(ll.removeFirst());
         ll.printList();
         System.out.println(ll.removeLast());
@@ -233,5 +269,18 @@ public class LinkedList_Java {
         ll.addFirst(12);
         System.out.println(ll.removeNthNodeFromEnd(2));
         ll.printList();
+        System.out.println("---------------------- Question 4 -----------------------");
+        LinkedList_Java ll3 = new LinkedList_Java();
+        ll3.addFirst(1);
+        ll3.addFirst(2);
+        ll3.addFirst(3);
+        ll3.addFirst(3);
+        ll3.addFirst(2);
+        ll3.addFirst(1);
+        ll3.printList();
+        System.out.println(ll3.isPalindrome(ll3.head));
+        System.out.println("---------------------- Question 3 -----------------------");
+        System.out.println("---------------------- Question 3 -----------------------");
+
     }
 }
