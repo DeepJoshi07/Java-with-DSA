@@ -249,6 +249,36 @@ public class LinkedList_Java {
         }
         return false;
     }
+
+    public static void removeCycle(Node head){
+        if(head == null)return;
+
+        Node slow = head;
+        Node fast = head;
+        boolean isCycle = false;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                isCycle = true;
+                break;
+            }
+        }
+        if(!isCycle)return;
+
+        slow = head;
+        while(slow != fast){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        Node cycleStart = slow;
+
+        Node temp = cycleStart;
+        while(temp.next != cycleStart){
+            temp = temp.next;
+        }
+        temp.next = null;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -298,7 +328,14 @@ public class LinkedList_Java {
         head.next = new Node(2);
         head.next.next = new Node(3);
         head.next.next.next = head;
-        System.out.println(LinkedList_Java.isCycle(head));
+        System.out.println(isCycle(head));
+        System.out.println("---------------------- Question 6 -----------------------");
+        removeCycle(head);
+        System.out.println(isCycle(head));
+        System.out.println("---------------------- Question 7 -----------------------");
+        
+        System.out.println("---------------------- Question 6 -----------------------");
+        System.out.println("---------------------- Question 6 -----------------------");
         System.out.println("---------------------- Question 6 -----------------------");
 
     }
