@@ -235,6 +235,20 @@ public class LinkedList_Java {
         }
         return true;
     }
+
+    public static boolean isCycle(Node head){
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -279,8 +293,13 @@ public class LinkedList_Java {
         ll3.addFirst(1);
         ll3.printList();
         System.out.println(ll3.isPalindrome(ll3.head));
-        System.out.println("---------------------- Question 3 -----------------------");
-        System.out.println("---------------------- Question 3 -----------------------");
+        System.out.println("---------------------- Question 5 -----------------------");
+        Node head = new Node(1);
+        head.next = new Node(2);
+        head.next.next = new Node(3);
+        head.next.next.next = head;
+        System.out.println(LinkedList_Java.isCycle(head));
+        System.out.println("---------------------- Question 6 -----------------------");
 
     }
 }
