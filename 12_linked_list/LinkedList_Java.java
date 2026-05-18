@@ -1,4 +1,5 @@
 import java.util.NoSuchElementException;
+import java.util.LinkedList;
 
 public class LinkedList_Java {
     static class Node {
@@ -100,7 +101,7 @@ public class LinkedList_Java {
         }
         Node temp = head;
         int i = 0;
-        while(i < size-2){
+        while (i < size - 2) {
             temp = temp.next;
             i++;
         }
@@ -125,14 +126,14 @@ public class LinkedList_Java {
     }
 
     // O(n)
-    public int findTarget(int target){
-        if(isEmpty()){
+    public int findTarget(int target) {
+        if (isEmpty()) {
             return -1;
         }
         Node temp = head;
         int i = 0;
-        while(temp != null){
-            if(temp.data == target){
+        while (temp != null) {
+            if (temp.data == target) {
                 return i;
             }
             temp = temp.next;
@@ -141,30 +142,33 @@ public class LinkedList_Java {
         return -1;
     }
 
-    public int findTargetRecursive(Node head,int target){
-        if(head == null)return -1;
+    public int findTargetRecursive(Node head, int target) {
+        if (head == null)
+            return -1;
 
-        if(head.data == target){
+        if (head.data == target) {
             return 0;
         }
 
-        int idx = findTargetRecursive(head.next,target);
+        int idx = findTargetRecursive(head.next, target);
 
-        if(idx != -1)return idx+1;
+        if (idx != -1)
+            return idx + 1;
 
         return -1;
 
     }
 
     // O(n)
-    public void reverseLinkedList(){
-        if(isEmpty() || size == 1)return;
+    public void reverseLinkedList() {
+        if (isEmpty() || size == 1)
+            return;
 
         Node next;
         Node curr = tail = head;
         Node prev = null;
 
-        while(curr != null){
+        while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -174,24 +178,24 @@ public class LinkedList_Java {
     }
 
     // O(n)
-    public int removeNthNodeFromEnd(int n){
-        if(isEmpty()){
+    public int removeNthNodeFromEnd(int n) {
+        if (isEmpty()) {
             throw new NoSuchElementException("list is empty");
         }
-        if(n > size || n <= 0){
+        if (n > size || n <= 0) {
             throw new IllegalArgumentException("invalid n");
         }
-        if(n == size){
+        if (n == size) {
             return removeFirst();
         }
-        if(n == 1){
+        if (n == 1) {
             return removeLast();
         }
 
-        int idx = size-n;
+        int idx = size - n;
         int i = 1;
         Node temp = head;
-        while(i < idx){
+        while (i < idx) {
             i++;
             temp = temp.next;
         }
@@ -199,25 +203,27 @@ public class LinkedList_Java {
         Node nth = temp.next;
         temp.next = temp.next.next;
         nth.next = null;
-        size --;
+        size--;
         return nth.data;
     }
 
-    public boolean isPalindrome(Node head){
-        if(isEmpty() || size == 1)return true;
-        
-        Node slow = head,fast = head;
-        while(fast != null && fast.next != null){
+    public boolean isPalindrome(Node head) {
+        if (isEmpty() || size == 1)
+            return true;
+
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
-        if(fast != null)slow=slow.next;
-    
+        if (fast != null)
+            slow = slow.next;
+
         Node curr = slow;
         Node prev = null;
 
-        while(curr != null){
+        while (curr != null) {
             Node next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -225,9 +231,9 @@ public class LinkedList_Java {
         }
         Node head2 = prev;
         Node temp = head;
-        while(head2 != null){
+        while (head2 != null) {
             // System.out.println(head2.data + ","+temp.data);
-            if(head2.data != temp.data){
+            if (head2.data != temp.data) {
                 return false;
             }
             temp = temp.next;
@@ -236,49 +242,109 @@ public class LinkedList_Java {
         return true;
     }
 
-    public static boolean isCycle(Node head){
+    public static boolean isCycle(Node head) {
         Node slow = head;
         Node fast = head;
 
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if(slow == fast){
+            if (slow == fast) {
                 return true;
             }
         }
         return false;
     }
 
-    public static void removeCycle(Node head){
-        if(head == null)return;
+    public static void removeCycle(Node head) {
+        if (head == null)
+            return;
 
         Node slow = head;
         Node fast = head;
         boolean isCycle = false;
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if(slow == fast){
+            if (slow == fast) {
                 isCycle = true;
                 break;
             }
         }
-        if(!isCycle)return;
+        if (!isCycle)
+            return;
 
         slow = head;
-        while(slow != fast){
+        while (slow != fast) {
             slow = slow.next;
             fast = fast.next;
         }
         Node cycleStart = slow;
 
         Node temp = cycleStart;
-        while(temp.next != cycleStart){
+        while (temp.next != cycleStart) {
             temp = temp.next;
         }
         temp.next = null;
     }
+
+    private static Node findMid(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public static Node mergeSort(Node head) {
+        if (head == null || head.next == null)
+            return head;
+
+        Node mid = findMid(head);
+
+        Node rightHead = mid.next;
+        mid.next = null;
+
+        Node left = mergeSort(head);
+        Node right = mergeSort(rightHead);
+
+        return merge(left, right);
+    }
+
+    private static Node merge(Node head1, Node head2) {
+        Node mergedList = new Node(-1);
+        Node temp = mergedList;
+
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
+                temp.next = head1;
+                head1 = head1.next;
+                temp = temp.next;
+            } else {
+                temp.next = head2;
+                head2 = head2.next;
+                temp = temp.next;
+            }
+        }
+
+        while (head1 != null) {
+            temp.next = head1;
+            head1 = head1.next;
+            temp = temp.next;
+        }
+
+        while (head2 != null) {
+            temp.next = head2;
+            head2 = head2.next;
+            temp = temp.next;
+        }
+
+        return mergedList.next;
+    }
+
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -305,7 +371,7 @@ public class LinkedList_Java {
         ll.printList();
         System.out.println("---------------------- Question 1 -----------------------");
         System.out.println(ll.findTarget(6));
-        System.out.println(ll.findTargetRecursive(ll.head,5));
+        System.out.println(ll.findTargetRecursive(ll.head, 5));
         System.out.println("---------------------- Question 2 -----------------------");
         ll.reverseLinkedList();
         ll.printList();
@@ -333,7 +399,16 @@ public class LinkedList_Java {
         removeCycle(head);
         System.out.println(isCycle(head));
         System.out.println("---------------------- Question 7 -----------------------");
-        
+        LinkedList_Java list = new LinkedList_Java();
+        list.addFirst(1);
+        list.addFirst(2);
+        list.addFirst(3);
+        list.addFirst(4);
+        list.addFirst(5);
+        list.addFirst(6);
+        list.printList();
+        list.head = mergeSort(list.head);
+        list.printList();
         System.out.println("---------------------- Question 6 -----------------------");
         System.out.println("---------------------- Question 6 -----------------------");
         System.out.println("---------------------- Question 6 -----------------------");
