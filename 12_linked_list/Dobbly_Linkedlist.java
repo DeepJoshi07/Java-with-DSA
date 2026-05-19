@@ -69,6 +69,21 @@ public class Dobbly_Linkedlist {
         return data;
     }
 
+    public int removeLast(){
+        if(isEmpty()){
+            throw new NoSuchElementException("list is empty!");
+        }
+        int data = tail.data;
+        if(size == 1){
+            head = tail = null;
+        }else{
+            tail = tail.prev;
+            tail.next = null;
+        }
+        size--;
+        return data;
+    }
+
     public void printLinkedlist() {
         if (isEmpty())
             return;
@@ -86,6 +101,9 @@ public class Dobbly_Linkedlist {
         ddl.addFirst(1);
         ddl.addLast(3);
         ddl.addLast(4);
+        ddl.printLinkedlist();
+        System.out.println(ddl.removeFirst());
+        System.out.println(ddl.removeLast());
         ddl.printLinkedlist();
     }
 }
