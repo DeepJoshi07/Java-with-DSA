@@ -12,13 +12,13 @@ public class LinkedList_Java {
         }
     }
 
-    public boolean isEmpty() {
-        return head == null;
-    }
-
     public Node head;
     public Node tail;
     public int size;
+
+    public boolean isEmpty() {
+        return head == null;
+    }
 
     // O(1)
     public void addFirst(int data) {
@@ -345,6 +345,42 @@ public class LinkedList_Java {
         return mergedList.next;
     }
 
+    public static void zigZag(Node head) {
+        Node slow = head;
+        Node fast = head;
+        Node prev = null;
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node curr = slow;
+        prev.next = null;
+        prev = null;
+
+        while (curr != null) {
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node rightHead = prev, leftHead = head;
+
+        while (rightHead != null && leftHead != null) {
+            Node nextLeft = leftHead.next;
+            Node nextRight = rightHead.next;
+
+            leftHead.next = rightHead;
+            if (nextLeft == null)
+                break;
+            rightHead.next = nextLeft;
+
+            leftHead = nextLeft;
+            rightHead = nextRight;
+        }
+    }
+
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -409,9 +445,19 @@ public class LinkedList_Java {
         list.printList();
         list.head = mergeSort(list.head);
         list.printList();
-        System.out.println("---------------------- Question 6 -----------------------");
-        System.out.println("---------------------- Question 6 -----------------------");
-        System.out.println("---------------------- Question 6 -----------------------");
+        System.out.println("---------------------- Question 8 -----------------------");
+        LinkedList_Java list2 = new LinkedList_Java();
+        list2.addFirst(6);
+        list2.addFirst(5);
+        list2.addFirst(4);
+        list2.addFirst(3);
+        list2.addFirst(2);
+        list2.addFirst(1);
+        list2.printList();
+        zigZag(list2.head);
+        list2.printList();
+        System.out.println("---------------------- Question 9 -----------------------");
+        System.out.println("---------------------- Question 10 -----------------------");
 
     }
 }
