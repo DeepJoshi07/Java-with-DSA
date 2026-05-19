@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class Dobbly_Linkedlist {
     public class Node {
         int data;
@@ -35,10 +37,10 @@ public class Dobbly_Linkedlist {
         size++;
     }
 
-    public void addLast(int data){
+    public void addLast(int data) {
         Node newNode = new Node(data);
 
-        if(isEmpty()){
+        if (isEmpty()) {
             head = tail = newNode;
             size++;
             return;
@@ -50,15 +52,34 @@ public class Dobbly_Linkedlist {
         size++;
     }
 
-    public void printLinkedlist(){
-        if(isEmpty())return;
+    public int removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("list is empty!");
+        }
+        int data = head.data;
+
+        if (size == 1) {
+            head = tail = null;
+        } else {
+            head = head.next;
+            head.prev = null;
+        }
+
+        size--;
+        return data;
+    }
+
+    public void printLinkedlist() {
+        if (isEmpty())
+            return;
         Node temp = head;
-        while(temp != null){
-            System.out.print(temp.data+" ");
+        while (temp != null) {
+            System.out.print(temp.data + " ");
             temp = temp.next;
         }
         System.out.println();
     }
+
     public static void main(String[] args) {
         Dobbly_Linkedlist ddl = new Dobbly_Linkedlist();
         ddl.addFirst(2);
