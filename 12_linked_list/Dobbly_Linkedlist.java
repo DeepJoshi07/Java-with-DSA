@@ -47,9 +47,24 @@ public class Dobbly_Linkedlist {
         tail.next = newNode;
         newNode.prev = tail;
         tail = newNode;
+        size++;
     }
 
+    public void printLinkedlist(){
+        if(isEmpty())return;
+        Node temp = head;
+        while(temp != null){
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
-
+        Dobbly_Linkedlist ddl = new Dobbly_Linkedlist();
+        ddl.addFirst(2);
+        ddl.addFirst(1);
+        ddl.addLast(3);
+        ddl.addLast(4);
+        ddl.printLinkedlist();
     }
 }
