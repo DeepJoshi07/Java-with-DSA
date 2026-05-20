@@ -1,4 +1,5 @@
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class LinkedList_Java {
@@ -460,6 +461,21 @@ public class LinkedList_Java {
         currY.next = temp;
     }
 
+    public static void oddEvenLinkedlist(LinkedList<Integer>ll){
+        if(ll.isEmpty())return;
+
+        LinkedList<Integer> odd = new LinkedList<>();
+        Iterator<Integer> it = ll.iterator();
+
+        while(it.hasNext()){
+            int data = it.next();
+            if(data % 2 != 0){
+                odd.add(data);
+                it.remove();
+            }
+        }
+        ll.addAll(odd);
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -573,6 +589,16 @@ public class LinkedList_Java {
         swapNodes(list4, 2, 4);
         list4.printList();
         System.out.println("---------------------- Question 12 -----------------------");
+        LinkedList<Integer> list5 = new LinkedList<>();
+        list5.addFirst(6);
+        list5.addFirst(5);
+        list5.addFirst(4);
+        list5.addFirst(3);
+        list5.addFirst(2);
+        list5.addFirst(1);
+        System.out.println(list5);
+        oddEvenLinkedlist(list5);
+        System.out.println(list5);
         System.out.println("---------------------- Question 13 -----------------------");
 
     }
