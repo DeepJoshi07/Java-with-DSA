@@ -397,6 +397,26 @@ public class LinkedList_Java {
         }
         return null;
     }
+
+    public static void deleteNnodesAfterMnodes(LinkedList_Java ll,int n,int m){
+        if(ll.isEmpty())return;
+
+        Node temp = ll.head;
+
+        for(int i = 1; i < m && temp != null;i++ ){
+            temp = temp.next;
+        }
+
+        if(temp == null)return;
+
+        Node curr = temp.next;
+        
+        for(int i = 0; i < n && curr != null;i++){
+            curr = curr.next;
+        }
+
+        temp.next = curr;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -488,6 +508,16 @@ public class LinkedList_Java {
         Node intersection = intersactionInLinkedlist(llj,llj2);
         System.out.println(intersection.data);
         System.out.println("---------------------- Question 10 -----------------------");
+         LinkedList_Java list3 = new LinkedList_Java();
+        list3.addFirst(6);
+        list3.addFirst(5);
+        list3.addFirst(4);
+        list3.addFirst(3);
+        list3.addFirst(2);
+        list3.addFirst(1);
+        list3.printList();
+        deleteNnodesAfterMnodes(list3,2,2);
+        list3.printList();
         System.out.println("---------------------- Question 11 -----------------------");
         System.out.println("---------------------- Question 12 -----------------------");
         System.out.println("---------------------- Question 13 -----------------------");
