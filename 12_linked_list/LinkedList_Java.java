@@ -381,42 +381,85 @@ public class LinkedList_Java {
         }
     }
 
-    public static Node intersactionInLinkedlist(LinkedList_Java l1,LinkedList_Java l2){
+    public static Node intersactionInLinkedlist(LinkedList_Java l1, LinkedList_Java l2) {
         Node head1 = l1.head;
         Node head2;
 
-        while(head1 != null){
+        while (head1 != null) {
             head2 = l2.head;
-            while(head2 != null){
-                if(head1 == head2){
+            while (head2 != null) {
+                if (head1 == head2) {
                     return head1;
                 }
                 head2 = head2.next;
             }
-        head1 = head1.next;
+            head1 = head1.next;
         }
         return null;
     }
 
-    public static void deleteNnodesAfterMnodes(LinkedList_Java ll,int n,int m){
-        if(ll.isEmpty())return;
+    public static void deleteNnodesAfterMnodes(LinkedList_Java ll, int n, int m) {
+        if (ll.isEmpty())
+            return;
 
         Node temp = ll.head;
 
-        for(int i = 1; i < m && temp != null;i++ ){
+        for (int i = 1; i < m && temp != null; i++) {
             temp = temp.next;
         }
 
-        if(temp == null)return;
+        if (temp == null)
+            return;
 
         Node curr = temp.next;
-        
-        for(int i = 0; i < n && curr != null;i++){
+
+        for (int i = 0; i < n && curr != null; i++) {
             curr = curr.next;
         }
 
         temp.next = curr;
     }
+
+    public static void swapNodes(LinkedList_Java ll, int x, int y) {
+        if (ll.isEmpty() || x == y)
+            return;
+
+        Node prevX = null, currX = ll.head;
+        while (currX != null && currX.data != x) {
+            prevX = currX;
+            currX = currX.next;
+        }
+
+        Node prevY = null, currY = ll.head;
+        while (currY != null && currY.data != y) {
+            prevY = currY;
+            currY = currY.next;
+        }
+
+        // If either x or y is not present
+        if (currX == null || currY == null)
+            return;
+
+        // If x is not head
+        if (prevX != null) {
+            prevX.next = currY;
+        } else {
+            ll.head = currY;
+        }
+
+        // If y is not head
+        if (prevY != null) {
+            prevY.next = currX;
+        } else {
+            ll.head = currX;
+        }
+
+        // Swap next pointers
+        Node temp = currX.next;
+        currX.next = currY.next;
+        currY.next = temp;
+    }
+
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -498,17 +541,17 @@ public class LinkedList_Java {
         llj.head.next = new Node(5);
         llj.head.next.next = new Node(4);
         llj.head.next.next.next = new Node(3);
-        llj.head.next.next.next.next= new Node(2);
+        llj.head.next.next.next.next = new Node(2);
         llj.head.next.next.next.next.next = new Node(1);
         LinkedList_Java llj2 = new LinkedList_Java();
         llj2.head = new Node(6);
         llj2.head.next = new Node(5);
         llj2.head.next.next = new Node(4);
         llj2.head.next.next.next = llj.head.next.next.next;
-        Node intersection = intersactionInLinkedlist(llj,llj2);
+        Node intersection = intersactionInLinkedlist(llj, llj2);
         System.out.println(intersection.data);
         System.out.println("---------------------- Question 10 -----------------------");
-         LinkedList_Java list3 = new LinkedList_Java();
+        LinkedList_Java list3 = new LinkedList_Java();
         list3.addFirst(6);
         list3.addFirst(5);
         list3.addFirst(4);
@@ -516,9 +559,19 @@ public class LinkedList_Java {
         list3.addFirst(2);
         list3.addFirst(1);
         list3.printList();
-        deleteNnodesAfterMnodes(list3,2,2);
+        deleteNnodesAfterMnodes(list3, 2, 2);
         list3.printList();
         System.out.println("---------------------- Question 11 -----------------------");
+        LinkedList_Java list4 = new LinkedList_Java();
+        list4.addFirst(6);
+        list4.addFirst(5);
+        list4.addFirst(4);
+        list4.addFirst(3);
+        list4.addFirst(2);
+        list4.addFirst(1);
+        list4.printList();
+        swapNodes(list4, 2, 4);
+        list4.printList();
         System.out.println("---------------------- Question 12 -----------------------");
         System.out.println("---------------------- Question 13 -----------------------");
 
