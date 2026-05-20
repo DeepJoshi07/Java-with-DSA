@@ -381,6 +381,22 @@ public class LinkedList_Java {
         }
     }
 
+    public static Node intersactionInLinkedlist(LinkedList_Java l1,LinkedList_Java l2){
+        Node head1 = l1.head;
+        Node head2;
+
+        while(head1 != null){
+            head2 = l2.head;
+            while(head2 != null){
+                if(head1 == head2){
+                    return head1;
+                }
+                head2 = head2.next;
+            }
+        head1 = head1.next;
+        }
+        return null;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -457,7 +473,24 @@ public class LinkedList_Java {
         zigZag(list2.head);
         list2.printList();
         System.out.println("---------------------- Question 9 -----------------------");
+        LinkedList_Java llj = new LinkedList_Java();
+        llj.head = new Node(6);
+        llj.head.next = new Node(5);
+        llj.head.next.next = new Node(4);
+        llj.head.next.next.next = new Node(3);
+        llj.head.next.next.next.next= new Node(2);
+        llj.head.next.next.next.next.next = new Node(1);
+        LinkedList_Java llj2 = new LinkedList_Java();
+        llj2.head = new Node(6);
+        llj2.head.next = new Node(5);
+        llj2.head.next.next = new Node(4);
+        llj2.head.next.next.next = llj.head.next.next.next;
+        Node intersection = intersactionInLinkedlist(llj,llj2);
+        System.out.println(intersection.data);
         System.out.println("---------------------- Question 10 -----------------------");
+        System.out.println("---------------------- Question 11 -----------------------");
+        System.out.println("---------------------- Question 12 -----------------------");
+        System.out.println("---------------------- Question 13 -----------------------");
 
     }
 }
