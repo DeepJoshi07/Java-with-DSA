@@ -476,6 +476,39 @@ public class LinkedList_Java {
         }
         ll.addAll(odd);
     }
+    
+    public static Node mergeSortedList(Node arr[],int size){
+        while(size != 0){
+            int i = 0,j = size;
+            while(i < j){
+                arr[i] = sortedList(arr[i],arr[j]);
+                i++;
+                j--;
+                if(i >= j){
+                    size = j;
+                }
+            }
+        }
+        return arr[0];
+    }
+
+    private static Node sortedList(Node head1,Node head2){
+        Node result = null;
+        if(head1 == null){
+            return head2; 
+        }
+        if(head2 == null){
+            return head1;
+        }
+        if(head1.data < head2.data){
+            result = head1;
+            result.next = sortedList(head1.next, head2);
+        }else{
+            result = head2;
+            result.next = sortedList(head1, head2.next);
+        }
+        return result;
+    }
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
@@ -600,6 +633,30 @@ public class LinkedList_Java {
         oddEvenLinkedlist(list5);
         System.out.println(list5);
         System.out.println("---------------------- Question 13 -----------------------");
+        Node arr [] = new Node[3];
 
+        arr[0] = new Node(1);
+        arr[0].next = new Node(2);
+        arr[0].next.next = new Node(3);
+        arr[0].next.next.next = new Node(4);
+
+        arr[1] = new Node(3);
+        arr[1].next = new Node(4);
+        arr[1].next.next = new Node(5);
+        arr[1].next.next.next = new Node(6);
+
+        arr[2] = new Node(5);
+        arr[2].next = new Node(6);
+        arr[2].next.next = new Node(7);
+        arr[2].next.next.next = new Node(8);
+
+        Node result = mergeSortedList(arr,arr.length-1);
+
+        Node temp = result;
+        while(temp != null){
+            System.out.print(temp.data+" ");
+            temp = temp.next;
+        }
+        System.out.println();
     }
 }
