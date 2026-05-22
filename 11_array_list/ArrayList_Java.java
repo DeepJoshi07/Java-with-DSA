@@ -9,20 +9,21 @@ public class ArrayList_Java {
     // Collections.sort(list,Collections.reverseOrder())
     // modulos arithmetic
 
+    // O(n)
     public static void printArrayList(ArrayList<Integer> al) {
         for (int i = 0; i < al.size(); i++) {
             System.out.print(al.get(i) + " ");
         }
         System.out.println();
     }
-
+    // O(n)
     public static void printReverseArrayList(ArrayList<Integer> al) {
         for (int i = al.size() - 1; i >= 0; i--) {
             System.out.print(al.get(i) + " ");
         }
         System.out.println();
     }
-
+    // O(n)
     public static int findMaximum(ArrayList<Integer> al) {
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < al.size(); i++) {
@@ -32,13 +33,13 @@ public class ArrayList_Java {
         }
         return max;
     }
-
+    // O(1)
     public static void swap(ArrayList<Integer> al, int idx1, int idx2) {
         int temp = al.get(idx1);
         al.set(idx1, al.get(idx2));
         al.set(idx2, temp);
     }
-
+    // O(n)
     public static int maxWaterInContainer(ArrayList<Integer> height) {
         int maxWater = 0;
         int lp = 0;
@@ -58,7 +59,7 @@ public class ArrayList_Java {
         }
         return maxWater;
     }
-
+    // O(n)
     public static boolean pairSum(ArrayList<Integer> nums, int sum) {
         int left = 0;
         int right = nums.size() - 1;
@@ -75,8 +76,9 @@ public class ArrayList_Java {
         }
         return false;
     }
-
+    // O(n)
     public static boolean pairSum2(ArrayList<Integer> nums, int sum) {
+        // sorted and roteted array
         int breakingPoint = -1;
         for (int i = 1; i < nums.size(); i++) {
             if (nums.get(i) < nums.get(i - 1)) {
@@ -102,7 +104,7 @@ public class ArrayList_Java {
                 // clock wise
             } else {
                 rp = (n + rp - 1) % n;
-                // anti clock wise
+                // anti/counter clock wise
             }
         }
         return false;

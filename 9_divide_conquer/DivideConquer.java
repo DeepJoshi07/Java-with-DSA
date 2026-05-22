@@ -254,7 +254,7 @@ public class DivideConquer {
         for (i = 0; i < n; i++)
             arr[i] = output[i];
     }
-
+    // O(d*n) d => digits the largest number have
     public static void radixSort(int arr[],int n){
         int max = getMax(arr, n);
         for(int exp = 1;max/exp > 0;exp*=10){

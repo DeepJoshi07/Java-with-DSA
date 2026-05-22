@@ -16,8 +16,9 @@ public class BackTracking {
         changeArray(arr, i + 1, val + 1);
         arr[i] = arr[i] - 2;
     }
-    // O(2N)
+    // O(2^N)
     public static void allSubstring(String str, int i, StringBuilder sb) {
+        // (n*(n+1))/2
         if (i == str.length()) {
             if (sb.length() == 0) {
                 System.out.println("Null");
@@ -33,6 +34,7 @@ public class BackTracking {
     }
     // O(n*n!)
     public static void allPermutation(String s, StringBuilder sb) {
+        // n!
         if (s.length() == 0) {
             System.out.println(sb.toString());
             return;

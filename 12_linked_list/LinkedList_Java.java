@@ -207,7 +207,7 @@ public class LinkedList_Java {
         size--;
         return nth.data;
     }
-
+    // O(n)
     public boolean isPalindrome(Node head) {
         if (isEmpty() || size == 1)
             return true;
@@ -242,7 +242,7 @@ public class LinkedList_Java {
         }
         return true;
     }
-
+    // O(n)
     public static boolean isCycle(Node head) {
         Node slow = head;
         Node fast = head;
@@ -256,7 +256,7 @@ public class LinkedList_Java {
         }
         return false;
     }
-
+    // O(n)
     public static void removeCycle(Node head) {
         if (head == null)
             return;
@@ -299,7 +299,7 @@ public class LinkedList_Java {
         }
         return slow;
     }
-
+    //O(nlogn)
     public static Node mergeSort(Node head) {
         if (head == null || head.next == null)
             return head;
@@ -345,7 +345,7 @@ public class LinkedList_Java {
 
         return mergedList.next;
     }
-
+    //O(n)
     public static void zigZag(Node head) {
         Node slow = head;
         Node fast = head;
@@ -509,6 +509,7 @@ public class LinkedList_Java {
         }
         return result;
     }
+    
     public static void main(String[] args) {
         LinkedList_Java ll = new LinkedList_Java();
         // 3,2,1,5,4
