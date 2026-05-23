@@ -29,6 +29,25 @@ public class Stack_Java {
         reverseStack(s);
         pushAtbottom(s, data);
     }
+
+    public static void stockSpan(int stock[],int span[]){
+        Stack<Integer> s = new Stack<>();
+        s.push(0);
+        span[0] = 1;
+        for(int i = 1;i < stock.length;i++){
+            int curr = stock[i];
+            while(!s.isEmpty() && stock[s.peek()] <= curr){
+                s.pop();
+            }
+
+            if(s.isEmpty()){
+                span[i] = i + 1;
+            }else{
+                span[i] = i - s.peek();
+            }
+            s.push(i);
+        }
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -65,6 +84,13 @@ public class Stack_Java {
         reverseStack(s2);
         System.out.println(s2);
         System.out.println("------------------ Question 4 ---------------------");
+        int stocks [] = {100,80,60,70,60,85,100};
+        int span [] = new int[stocks.length];  
+        stockSpan(stocks,span);
+        for(int i = 0;i < span.length;i++){
+            System.out.print(span[i]+" ");
+        }
+        System.out.println();
         System.out.println("------------------ Question 5 ---------------------");
         System.out.println("------------------ Question 6 ---------------------");
         System.out.println("------------------ Question 7 ---------------------");
