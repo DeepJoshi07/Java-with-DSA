@@ -9,6 +9,18 @@ public class Stack_Java {
         pushAtbottom(s, n);
         s.push(data);
     }
+
+    public static String reverseString(String str){
+        Stack<Character> s = new Stack<>();
+        for(int i = 0;i < str.length();i++){
+            s.push(str.charAt(i));
+        }
+        StringBuilder sb = new StringBuilder();
+        while(!s.isEmpty()){
+            sb.append(s.pop());
+        }
+        return sb.toString();
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -32,7 +44,9 @@ public class Stack_Java {
         System.out.println(s1);
         pushAtbottom(s1,4);
         System.out.println(s1);
-        System.out.println("------------------ Question 1 ---------------------");
+        System.out.println("------------------ Question 2 ---------------------");
+        String str = "HelloWorld!";
+        System.out.println(reverseString(str));
         System.out.println("------------------ Question 1 ---------------------");
         System.out.println("------------------ Question 1 ---------------------");
         System.out.println("------------------ Question 1 ---------------------");
