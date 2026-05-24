@@ -1,7 +1,8 @@
 import java.util.Stack;
+
 public class Stack_Java {
-    public static void pushAtbottom(Stack<Integer>s,int n){
-        if(s.isEmpty()){
+    public static void pushAtbottom(Stack<Integer> s, int n) {
+        if (s.isEmpty()) {
             s.push(n);
             return;
         }
@@ -10,63 +11,86 @@ public class Stack_Java {
         s.push(data);
     }
 
-    public static String reverseString(String str){
+    public static String reverseString(String str) {
         Stack<Character> s = new Stack<>();
-        for(int i = 0;i < str.length();i++){
+        for (int i = 0; i < str.length(); i++) {
             s.push(str.charAt(i));
         }
         StringBuilder sb = new StringBuilder();
-        while(!s.isEmpty()){
+        while (!s.isEmpty()) {
             sb.append(s.pop());
         }
         return sb.toString();
     }
 
-    public static void reverseStack(Stack<Integer>s){
-        if(s.isEmpty())return;
+    public static void reverseStack(Stack<Integer> s) {
+        if (s.isEmpty())
+            return;
 
         int data = s.pop();
         reverseStack(s);
         pushAtbottom(s, data);
     }
 
-    public static void stockSpan(int stock[],int span[]){
+    public static void stockSpan(int stock[], int span[]) {
         Stack<Integer> s = new Stack<>();
         s.push(0);
         span[0] = 1;
-        for(int i = 1;i < stock.length;i++){
+        for (int i = 1; i < stock.length; i++) {
             int curr = stock[i];
-            while(!s.isEmpty() && stock[s.peek()] <= curr){
+            while (!s.isEmpty() && stock[s.peek()] <= curr) {
                 s.pop();
             }
 
-            if(s.isEmpty()){
+            if (s.isEmpty()) {
                 span[i] = i + 1;
-            }else{
+            } else {
                 span[i] = i - s.peek();
             }
             s.push(i);
         }
     }
 
-    public static int[] nextRightGreater(int arr[]){
+    public static int[] nextRightGreater(int arr[]) {
         Stack<Integer> s = new Stack<>();
-        int nextGreater [] = new int[arr.length];
+        int nextGreater[] = new int[arr.length];
 
-        for(int i = arr.length-1;i >= 0;i--){
+        for (int i = arr.length - 1; i >= 0; i--) {
             int curr = arr[i];
-            while(!s.isEmpty() && arr[s.peek()] < curr){
+            while (!s.isEmpty() && arr[s.peek()] < curr) {
                 s.pop();
             }
-            if(s.isEmpty()){
+            if (s.isEmpty()) {
                 nextGreater[i] = -1;
-            }else{
+            } else {
                 nextGreater[i] = arr[s.peek()];
             }
             s.push(i);
         }
         return nextGreater;
     }
+
+    public static boolean validParentheses(String str) {
+        Stack<Character> s = new Stack<>();
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (ch == '(' || ch == '{' || ch == '[') {
+                s.push(ch);
+            } else {
+                if ((ch == '}' && s.peek() == '{')
+                        || (ch == ')' && s.peek() == '(')
+                        || (ch == ']' && s.peek() == '[')) {
+                    s.pop();
+                } else {
+                    return false;
+                }
+            }
+
+        }
+        return s.isEmpty();
+    }
+
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -88,7 +112,7 @@ public class Stack_Java {
         s1.push(2);
         s1.push(3);
         System.out.println(s1);
-        pushAtbottom(s1,4);
+        pushAtbottom(s1, 4);
         System.out.println(s1);
         System.out.println("------------------ Question 2 ---------------------");
         String str = "HelloWorld!";
@@ -103,21 +127,23 @@ public class Stack_Java {
         reverseStack(s2);
         System.out.println(s2);
         System.out.println("------------------ Question 4 ---------------------");
-        int stocks [] = {100,80,60,70,60,85,100};
-        int span [] = new int[stocks.length];  
-        stockSpan(stocks,span);
-        for(int i = 0;i < span.length;i++){
-            System.out.print(span[i]+" ");
+        int stocks[] = { 100, 80, 60, 70, 60, 85, 100 };
+        int span[] = new int[stocks.length];
+        stockSpan(stocks, span);
+        for (int i = 0; i < span.length; i++) {
+            System.out.print(span[i] + " ");
         }
         System.out.println();
         System.out.println("------------------ Question 5 ---------------------");
-        int numbers [] = {6,8,0,1,3};
-        int next_Right_Greater [] = nextRightGreater(numbers);
-        for(int i = 0;i < next_Right_Greater.length;i++){
-            System.out.print(next_Right_Greater[i]+" ");
+        int numbers[] = { 6, 8, 0, 1, 3 };
+        int next_Right_Greater[] = nextRightGreater(numbers);
+        for (int i = 0; i < next_Right_Greater.length; i++) {
+            System.out.print(next_Right_Greater[i] + " ");
         }
         System.out.println();
         System.out.println("------------------ Question 6 ---------------------");
+        String str1 = "({{[]}}()";
+        System.out.println(validParentheses(str1));
         System.out.println("------------------ Question 7 ---------------------");
     }
 }
