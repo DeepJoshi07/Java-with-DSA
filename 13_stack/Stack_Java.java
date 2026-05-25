@@ -91,6 +91,28 @@ public class Stack_Java {
         return s.isEmpty();
     }
 
+    public static boolean isDuplicate(String str){
+        Stack<Character> s = new Stack<>();
+
+        for(int i = 0;i < str.length();i++){
+            char ch = str.charAt(i);
+            if(ch == ')'){
+                int count  = 0;
+                while(!s.isEmpty() && s.peek() != '('){
+                    s.pop();
+                    count++;
+                }
+                if(count > 0){
+                    s.pop();
+                }else{
+                    return true;
+                }
+            }else{
+                s.push(ch);
+            }
+        }
+        return !s.isEmpty();
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -145,5 +167,11 @@ public class Stack_Java {
         String str1 = "({{[]}}()";
         System.out.println(validParentheses(str1));
         System.out.println("------------------ Question 7 ---------------------");
+        String str2 = "((a+b)+(c+d)())";
+        System.out.println(isDuplicate(str2));
+        System.out.println("------------------ Question 8 ---------------------");
+        System.out.println("------------------ Question 9 ---------------------");
+        System.out.println("------------------ Question 10 ---------------------");
+        System.out.println("------------------ Question 11 ---------------------");
     }
 }
