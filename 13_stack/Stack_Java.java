@@ -196,6 +196,34 @@ public class Stack_Java {
         }
         System.out.println(sb.toString());
     }
+    
+     public static String decodeString(String s) {
+        Stack<Integer> countStack = new Stack<>();
+        Stack<StringBuilder> stringStack = new Stack<>();
+        StringBuilder currStr = new StringBuilder();
+        int num = 0;
+
+        for (char c : s.toCharArray()) {
+            if (Character.isDigit(c)) {
+                num = num * 10 + (c - '0'); // build multi-digit number
+            } else if (c == '[') {
+                countStack.push(num);
+                stringStack.push(currStr);
+                currStr = new StringBuilder();
+                num = 0;
+            } else if (c == ']') {
+                int repeat = countStack.pop();
+                StringBuilder prevStr = stringStack.pop();
+                for (int i = 0; i < repeat; i++) {
+                    prevStr.append(currStr);
+                }
+                currStr = prevStr;
+            } else {
+                currStr.append(c);
+            }
+        }
+        return currStr.toString();
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -270,5 +298,9 @@ public class Stack_Java {
         // /deepjoshi/
         simplifyPath(str3);
         System.out.println("------------------ Question 11 ---------------------");
+        String str4 = "3[b2[v]]l";
+        System.out.println(decodeString(str4));
+        System.out.println("------------------ Question 12 ---------------------");
+        System.out.println("------------------ Question 13 ---------------------");
     }
 }
