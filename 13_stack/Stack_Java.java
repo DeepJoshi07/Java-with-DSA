@@ -91,28 +91,75 @@ public class Stack_Java {
         return s.isEmpty();
     }
 
-    public static boolean isDuplicate(String str){
+    public static boolean isDuplicate(String str) {
         Stack<Character> s = new Stack<>();
 
-        for(int i = 0;i < str.length();i++){
+        for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            if(ch == ')'){
-                int count  = 0;
-                while(!s.isEmpty() && s.peek() != '('){
+            if (ch == ')') {
+                int count = 0;
+                while (!s.isEmpty() && s.peek() != '(') {
                     s.pop();
                     count++;
                 }
-                if(count > 0){
+                if (count > 0) {
                     s.pop();
-                }else{
+                } else {
                     return true;
                 }
-            }else{
+            } else {
                 s.push(ch);
             }
         }
         return !s.isEmpty();
     }
+
+    public static int maxAreaInHistogram(int arr[]) {
+        int n = arr.length;
+        Stack<Integer> s = new Stack<>();
+        int nextRightSmaller[] = new int[arr.length];
+
+        for (int i = n - 1; i >= 0; i--) {
+            int curr = arr[i];
+
+            while (!s.isEmpty() && arr[s.peek()] >= curr) {
+                s.pop();
+            }
+            nextRightSmaller[i] = s.isEmpty() ? n : s.peek();
+
+            s.push(i);
+        }
+        s.clear();
+        int nextLeftSmaller[] = new int[arr.length];
+
+        for (int i = 0; i < n; i++) {
+            int curr = arr[i];
+
+            while (!s.isEmpty() && arr[s.peek()] >= curr) {
+                s.pop();
+            }
+            nextLeftSmaller[i] = s.isEmpty() ? -1 : s.peek();
+
+            s.push(i);
+        }
+        
+        int maxArea = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int height = arr[i];
+            int width = (nextRightSmaller[i] - nextLeftSmaller[i] - 1);
+            int currArea = height * width;
+            maxArea = Math.max(maxArea, currArea);
+        }
+        return maxArea;
+    }
+
+    public static void printArray(int arr[]) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -170,6 +217,8 @@ public class Stack_Java {
         String str2 = "((a+b)+(c+d)())";
         System.out.println(isDuplicate(str2));
         System.out.println("------------------ Question 8 ---------------------");
+        int heights[] = { 2, 1, 5, 6, 3, 2 };
+        System.out.println(maxAreaInHistogram(heights));
         System.out.println("------------------ Question 9 ---------------------");
         System.out.println("------------------ Question 10 ---------------------");
         System.out.println("------------------ Question 11 ---------------------");
