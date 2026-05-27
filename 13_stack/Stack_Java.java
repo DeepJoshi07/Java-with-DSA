@@ -176,6 +176,26 @@ public class Stack_Java {
         }
         return true;
     }
+   
+    public static void simplifyPath(String str){
+        Stack<String> s = new Stack<>();
+        String parts[] = str.split("/");
+
+        for(String part:parts){
+            if(part.equals("") || part.equals(".")){
+                continue;
+            }else if(part.equals("..")){
+                if(!s.isEmpty())s.pop();
+            }else{
+                s.push(part);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(String dir:s){
+            sb.append("/").append(dir);
+        }
+        System.out.println(sb.toString());
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -246,6 +266,9 @@ public class Stack_Java {
         ll.addFirst(1);
         System.out.println(palindromeLinkedlist(ll));
         System.out.println("------------------ Question 10 ---------------------");
+        String str3 = "/deepjoshi/hello/../.././by";
+        // /deepjoshi/
+        simplifyPath(str3);
         System.out.println("------------------ Question 11 ---------------------");
     }
 }
