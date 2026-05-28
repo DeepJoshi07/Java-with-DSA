@@ -41,6 +41,45 @@ public class Queue_With_Stack {
         }
     }
     
+     static class Queue_Using_Stack2{
+        Stack<Integer> s1 = new Stack<>();
+        Stack<Integer> s2 = new Stack<>();
+
+        public boolean isEmpty(){
+            return s1.isEmpty() && s2.isEmpty();
+        }
+
+        public void add(int data){
+            s1.push(data);
+        }
+
+        public int remove(){
+            if(isEmpty()){
+                throw new NoSuchElementException("queue is empty!");
+            }
+
+            if(s2.isEmpty()){
+                while(!s1.isEmpty()){
+                    s2.push(s1.pop());
+                }
+            }
+            return s2.pop();
+        }
+
+        public int peek(){
+             if(isEmpty()){
+                throw new NoSuchElementException("queue is empty!");
+            }
+
+            if(s2.isEmpty()){
+                while(!s1.isEmpty()){
+                    s2.push(s1.pop());
+                }
+            }
+            return s2.peek();
+        }
+    }
+
        public static void main(String[] args) {
         Queue_Using_Stack1  qus1 = new Queue_Using_Stack1();
         qus1.add(1);
