@@ -224,6 +224,26 @@ public class Stack_Java {
         }
         return currStr.toString();
     }
+    
+    public static void trappingRainWater(int heights[]){
+        Stack<Integer> s = new Stack<>();
+        int water = 0;
+        for(int i = 0;i < heights.length;i++){
+           
+            while(!s.isEmpty() && heights[i] > heights[s.peek()]){
+                int top = s.pop();
+
+                if(s.isEmpty())break;
+               
+                int distance = i - s.peek() - 1;
+                int boundedHeight = Math.min(heights[i], heights[s.peek()]) - heights[top];
+                
+                water += distance * boundedHeight; 
+            }
+            s.push(i);
+        }
+        System.out.println(water);
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -301,6 +321,8 @@ public class Stack_Java {
         String str4 = "3[b2[v]]l";
         System.out.println(decodeString(str4));
         System.out.println("------------------ Question 12 ---------------------");
+        int levels [] = {7,0,4,2,5,0,6,4,0,5};
+        trappingRainWater(levels);
         System.out.println("------------------ Question 13 ---------------------");
     }
 }
