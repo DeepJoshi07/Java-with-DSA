@@ -42,6 +42,18 @@ public class Queue_Java {
             q.add(q.remove());
         }
     }
+
+    public static void queueReversal(Queue<Integer> q){
+        Stack<Integer> s = new Stack<>();
+
+        while(!q.isEmpty()){
+            s.push(q.remove());
+        }
+
+        while(!s.isEmpty()){
+            q.add(s.pop());
+        }
+    }
     public static void main(String[] args) {
         System.out.println("---------------------- Question 1 --------------------------");
         String str1 = "aabccxb";
@@ -64,6 +76,17 @@ public class Queue_Java {
         }
         System.out.println();
         System.out.println("---------------------- Question 3 --------------------------");
+        Queue<Integer> q2 = new LinkedList<>();
+        q2.add(1);
+        q2.add(2);
+        q2.add(3);
+        q2.add(4);
+        q2.add(5);
+        queueReversal(q2);
+         while(!q2.isEmpty()){
+            System.out.print(q2.remove()+" ");
+        }
+        System.out.println();
         System.out.println("---------------------- Question 4 --------------------------");
     }
 }
