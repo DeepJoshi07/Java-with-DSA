@@ -88,5 +88,17 @@ public class Queue_Java {
         }
         System.out.println();
         System.out.println("---------------------- Question 4 --------------------------");
+        Deque<Integer> dq = new LinkedList<>();
+        dq.addFirst(1);
+        dq.addFirst(2);
+        dq.addLast(3);
+        dq.addLast(4);
+        dq.addLast(5);
+        System.out.println(dq.getFirst());
+        System.out.println(dq.getLast());
+        System.out.println(dq);
+        System.out.println(dq.removeFirst());
+        System.out.println(dq.removeLast());
+        System.out.println(dq);
     }
 }
