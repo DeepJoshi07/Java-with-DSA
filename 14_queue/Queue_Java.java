@@ -54,6 +54,18 @@ public class Queue_Java {
             q.add(s.pop());
         }
     }
+
+    public static void printBinaryToN(int number){
+        Queue<String> q = new LinkedList<>();
+        q.add("1");
+        while(number-- > 0){
+            String s1 = q.peek();
+            System.out.println(q.remove());
+            String s2 = s1;
+            q.add(s1+"0");
+            q.add(s2+"1");
+        }
+    }
     public static void main(String[] args) {
         System.out.println("---------------------- Question 1 --------------------------");
         String str1 = "aabccxb";
@@ -88,6 +100,7 @@ public class Queue_Java {
         }
         System.out.println();
         System.out.println("---------------------- Question 4 --------------------------");
+        System.out.println("-------- Deque ---------");
         Deque<Integer> dq = new LinkedList<>();
         dq.addFirst(1);
         dq.addFirst(2);
@@ -100,5 +113,11 @@ public class Queue_Java {
         System.out.println(dq.removeFirst());
         System.out.println(dq.removeLast());
         System.out.println(dq);
+        System.out.println("---------------------- Question 5 --------------------------");
+        int num = 10;
+        printBinaryToN(num);
+        System.out.println("---------------------- Question 6 --------------------------");
+        System.out.println("---------------------- Question 7 --------------------------");
+        System.out.println("---------------------- Question 8 --------------------------");
     }
 }
