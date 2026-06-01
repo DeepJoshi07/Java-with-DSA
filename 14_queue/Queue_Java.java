@@ -66,6 +66,24 @@ public class Queue_Java {
             q.add(s2+"1");
         }
     }
+
+    public static void minimumCost(int len[]){
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for(int i = 0;i < len.length;i++){
+            pq.add(len[i]);
+        }
+
+        int result = 0;
+        while(pq.size() > 1){
+            int first = pq.remove();
+            int second = pq.remove();
+            result += first+second;
+            pq.add(first+second);
+        }
+        System.out.println(result);
+    }
     public static void main(String[] args) {
         System.out.println("---------------------- Question 1 --------------------------");
         String str1 = "aabccxb";
@@ -117,6 +135,8 @@ public class Queue_Java {
         int num = 10;
         printBinaryToN(num);
         System.out.println("---------------------- Question 6 --------------------------");
+        int len [] = {4,3,2,6};
+        minimumCost(len);
         System.out.println("---------------------- Question 7 --------------------------");
         System.out.println("---------------------- Question 8 --------------------------");
     }
