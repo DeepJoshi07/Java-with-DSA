@@ -84,6 +84,47 @@ public class Queue_Java {
         }
         System.out.println(result);
     }
+
+    static class Job{
+        String jobId;
+        int time;
+        int profit;
+        public Job(String jobId,int time,int profit){
+            this.time = time;
+            this.jobId = jobId;
+            this.profit = profit;
+        }
+
+    }
+
+    public static void jobSequence(ArrayList<Job> al){
+        PriorityQueue<Job> pq = new PriorityQueue<>((a,b) -> b.profit-a.profit);
+
+        pq.addAll(al);
+
+        int maxDeadline = 0;
+
+        for(Job j:pq){
+            maxDeadline = Math.max(maxDeadline, j.time);
+        }
+        String slot[] = new String[maxDeadline+1];
+
+        while(!pq.isEmpty()){
+            Job j = pq.remove();
+            for(int i = j.time;i > 0 ;i--){
+                if(slot[i] == null){
+                    slot[i] = j.jobId;
+                    break;
+                }
+            }
+        }
+
+        for(int i = 1;i <= maxDeadline;i++){
+            if(slot[i] != null)
+            System.out.print(slot[i]+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         System.out.println("---------------------- Question 1 --------------------------");
         String str1 = "aabccxb";
@@ -138,6 +179,12 @@ public class Queue_Java {
         int len [] = {4,3,2,6};
         minimumCost(len);
         System.out.println("---------------------- Question 7 --------------------------");
+        ArrayList<Job> al = new ArrayList<>();
+        al.add (new Job("a",4,20));
+        al.add (new Job("b",1,10));
+        al.add (new Job("c",1,40));
+        al.add (new Job("d",1,30));
+        jobSequence(al);
         System.out.println("---------------------- Question 8 --------------------------");
     }
 }
