@@ -68,6 +68,23 @@ public class Greedy_Algorythms {
 
         System.out.println("minimum absolute difference = "+ minimumDifference);
     }
+
+    public static void maxLengthchainOfPair(int pairs[][]){
+        Arrays.sort(pairs,Comparator.comparingInt(o -> o[1]));
+
+        int length = 1;
+        int last = pairs[0][1];
+
+        for(int i = 1;i < pairs.length;i++){
+            int curr = pairs[i][0];
+            if(curr > last){
+                length++;
+                last = pairs[i][1];
+            }
+        }
+
+        System.out.println("the max length of chain is = "+length);
+    }
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = {1,3,0,5,8,5};
@@ -82,6 +99,8 @@ public class Greedy_Algorythms {
         int B[] = {2,3,6,5};
         minSumAbsDifference(A,B);
         System.out.println("----------------- Question 4 ---------------");
+        int pairs[][] = {{5,24},{39,60},{5,28},{27,40},{50,90}};
+        maxLengthchainOfPair(pairs);
         System.out.println("----------------- Question 5 ---------------");
         System.out.println("----------------- Question 6 ---------------");
         System.out.println("----------------- Question 7 ---------------");
