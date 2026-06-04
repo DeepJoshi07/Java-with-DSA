@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Arrays;
 
 public class Greedy_Algorythms {
     public static void activitySelection(int start[],int end[]){
@@ -54,6 +55,19 @@ public class Greedy_Algorythms {
         }
         System.out.println("maximum value in knapsack is = "+maxValue);
     }
+
+    public static void minSumAbsDifference(int A[],int B[]){
+        Arrays.sort(A);
+        Arrays.sort(B);
+
+        int minimumDifference = 0;
+
+        for(int i = 0;i < A.length;i++){
+            minimumDifference += Math.abs(A[i]-B[i]);
+        }
+
+        System.out.println("minimum absolute difference = "+ minimumDifference);
+    }
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = {1,3,0,5,8,5};
@@ -64,6 +78,9 @@ public class Greedy_Algorythms {
         int weight[] = {10,20,30};
         fractionalKnapsack(val,weight,50);
         System.out.println("----------------- Question 3 ---------------");
+        int A[] = {4,1,8,7};
+        int B[] = {2,3,6,5};
+        minSumAbsDifference(A,B);
         System.out.println("----------------- Question 4 ---------------");
         System.out.println("----------------- Question 5 ---------------");
         System.out.println("----------------- Question 6 ---------------");
