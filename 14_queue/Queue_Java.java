@@ -142,6 +142,33 @@ public class Queue_Java {
         }
         System.out.println(q);
     }
+
+    public static void maximumForSubarrayOfSizeK(int[] arr, int k) {
+        // 1,2,3,1,4,5,2,3,6
+        // index 
+        Deque<Integer> dq = new LinkedList<>();
+        int n = arr.length;
+        
+        for (int i = 0; i < n; i++) {
+            // Remove elements out of this window
+            while (!dq.isEmpty() && dq.peekFirst() <= i - k) {
+                dq.pollFirst();
+            }
+
+            // Remove smaller elements (they’re useless)
+            while (!dq.isEmpty() && arr[dq.peekLast()] <= arr[i]) {
+                dq.pollLast();
+            }
+
+            // Add current element index
+            dq.offerLast(i);
+
+            // Print max for current window
+            if (i >= k - 1) {
+                System.out.print(arr[dq.peekFirst()] + " ");
+            }
+        }
+    }
     public static void main(String[] args) {
         System.out.println("---------------------- Question 1 --------------------------");
         String str1 = "aabccxb";
@@ -215,5 +242,9 @@ public class Queue_Java {
         q.add(90);
         q.add(100);
         reverseQueueTillNthElement(q,5);
+        System.out.println("---------------------- Question 9 --------------------------");
+        int arr2[] = {1,2,3,1,4,5,2,3,6};
+        maximumForSubarrayOfSizeK(arr2,3);
+        System.out.println();
     }
 }
