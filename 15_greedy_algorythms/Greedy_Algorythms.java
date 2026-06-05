@@ -105,6 +105,43 @@ public class Greedy_Algorythms {
         }
         System.out.println();
     }
+    
+    static class Job {
+        int id;
+        int deadline;
+        int profit;
+        public Job(int id,int deadline,int profit){
+            this.deadline = deadline;
+            this.id = id;
+            this.profit = profit;
+        }
+    }
+    public static void jobSequencing(int jobInfo[][]){
+
+        ArrayList<Job> job = new ArrayList<>();
+        for(int i = 0;i < jobInfo.length;i++){
+            job.add(new Job(i,jobInfo[i][0],jobInfo[i][1]));
+        }
+
+        Collections.sort(job,((a,b) -> b.profit - a.profit));
+
+        int time = 0;
+        ArrayList<Integer> al = new ArrayList<>();
+        for(int i = 0;i < job.size();i++){
+            Job curr = job.get(i);
+            if(curr.deadline > time){
+                time++;
+                al.add(curr.id);
+            }
+        }
+
+        System.out.println("total jobs that can be done are = "+al.size());
+        for(int i = 0;i < al.size();i++){
+            System.out.print("id"+al.get(i)+" ");
+        }
+        System.out.println();
+        
+    }
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = {1,3,0,5,8,5};
@@ -125,6 +162,8 @@ public class Greedy_Algorythms {
         Integer coins [] = {1,2,5,10,20,50,100,500,2000};
         indianCoin(coins,1059);
         System.out.println("----------------- Question 6 ---------------");
+        int jobInfo[][] = {{4,20},{1,10},{1,40},{1,30}};
+        jobSequencing(jobInfo);
         System.out.println("----------------- Question 7 ---------------");
         System.out.println("----------------- Question 8 ---------------");
         System.out.println("----------------- Question 9 ---------------");
