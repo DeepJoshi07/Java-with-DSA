@@ -85,6 +85,26 @@ public class Greedy_Algorythms {
 
         System.out.println("the max length of chain is = "+length);
     }
+
+    public static void indianCoin(Integer coins[],int change){
+        Arrays.sort(coins,Comparator.reverseOrder());
+        int totalCoins = 0;
+        ArrayList<Integer> al = new ArrayList<>();
+
+        for(int i = 0;i < coins.length;i++){
+            while(coins[i] <= change){
+                totalCoins++;
+                change -= coins[i];
+                al.add(coins[i]);
+            }
+        }
+
+        System.out.println("Total minimum coin change = "+totalCoins);
+        for(Integer val:al){
+            System.out.print(val+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = {1,3,0,5,8,5};
@@ -102,6 +122,8 @@ public class Greedy_Algorythms {
         int pairs[][] = {{5,24},{39,60},{5,28},{27,40},{50,90}};
         maxLengthchainOfPair(pairs);
         System.out.println("----------------- Question 5 ---------------");
+        Integer coins [] = {1,2,5,10,20,50,100,500,2000};
+        indianCoin(coins,1059);
         System.out.println("----------------- Question 6 ---------------");
         System.out.println("----------------- Question 7 ---------------");
         System.out.println("----------------- Question 8 ---------------");
