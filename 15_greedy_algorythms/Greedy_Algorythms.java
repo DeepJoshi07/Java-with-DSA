@@ -146,8 +146,8 @@ public class Greedy_Algorythms {
     }
 
     public static void chocola(Integer costHor[], Integer costVar[]) {
-        Arrays.sort(costVar,Collections.reverseOrder());
-        Arrays.sort(costHor,Collections.reverseOrder());
+        Arrays.sort(costVar, Collections.reverseOrder());
+        Arrays.sort(costHor, Collections.reverseOrder());
 
         int h = 0, v = 0;
         int hp = 1, vp = 1;
@@ -177,27 +177,49 @@ public class Greedy_Algorythms {
             v++;
         }
 
-        System.out.println("total minimum cost of cuts = "+cost);
+        System.out.println("total minimum cost of cuts = " + cost);
     }
 
-    public static void balancedPartition(String str){
+    public static void balancedPartition(String str) {
         int length = str.length();
-        int l = 0,r = 0;
+        int l = 0, r = 0;
         int ans = 0;
 
-        for(int i = 0;i < length;i++){
+        for (int i = 0; i < length; i++) {
             char ch = str.charAt(i);
-            if(ch == 'R'){
+            if (ch == 'R') {
                 r++;
-            }else if(ch == 'L'){
+            } else if (ch == 'L') {
                 l++;
             }
 
-            if(l == r)ans++;
+            if (l == r)
+                ans++;
         }
 
-        System.out.println("total number of balanced partition are : "+ans);
+        System.out.println("total number of balanced partition are : " + ans);
     }
+
+    public static int kthOdd(int[] range, int K) {
+        if (K <= 0)
+            return 0;
+        int L = range[0];
+        int R = range[1];
+
+        int count;
+        if ((R & 1) == 1) { // R is odd
+            count = (int) Math.ceil((R - L + 1) / 2.0);
+            if (K > count)
+                return 0;
+            return R - 2 * K + 2; // K-th odd from end
+        } else { // R is even
+            count = (R - L + 1) / 2;
+            if (K > count)
+                return 0;
+            return R - 2 * K + 1; // K-th odd from end
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = { 1, 3, 0, 5, 8, 5 };
