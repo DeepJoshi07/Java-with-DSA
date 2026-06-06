@@ -220,6 +220,26 @@ public class Greedy_Algorythms {
         }
     }
 
+    public static char[] lexicoSmall(int n, int k) {
+        char arr[] = new char[n];
+        Arrays.fill(arr, 'a');
+        for (int i = n - 1; i >= 0; i--) {
+            k -= i;
+            if (k >= 0) {
+                if (k >= 26) {
+                    arr[i] = 'z';
+                    k -= 26;
+                } else {
+                    arr[i] = (char) (k + 97 - 1);
+                    k -= arr[i] - 'a' + 1;
+                }
+            } else
+                break;
+            k += i;
+        }
+        return arr;
+    }
+
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = { 1, 3, 0, 5, 8, 5 };
@@ -250,6 +270,10 @@ public class Greedy_Algorythms {
         String str = "LRRRRLLRLLRL";
         balancedPartition(str);
         System.out.println("----------------- Question 9 ---------------");
+        int range[] = { -10, 10 };
+        System.out.println(kthOdd(range, 8));
         System.out.println("----------------- Question 10 ---------------");
+        char charArr[] = lexicoSmall(5, 42);
+        System.out.println(new String(charArr));
     }
 }
