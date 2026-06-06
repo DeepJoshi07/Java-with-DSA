@@ -180,6 +180,24 @@ public class Greedy_Algorythms {
         System.out.println("total minimum cost of cuts = "+cost);
     }
 
+    public static void balancedPartition(String str){
+        int length = str.length();
+        int l = 0,r = 0;
+        int ans = 0;
+
+        for(int i = 0;i < length;i++){
+            char ch = str.charAt(i);
+            if(ch == 'R'){
+                r++;
+            }else if(ch == 'L'){
+                l++;
+            }
+
+            if(l == r)ans++;
+        }
+
+        System.out.println("total number of balanced partition are : "+ans);
+    }
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = { 1, 3, 0, 5, 8, 5 };
@@ -207,6 +225,8 @@ public class Greedy_Algorythms {
         Integer costHor[] = { 4, 1, 2 };
         chocola(costHor, costVar);
         System.out.println("----------------- Question 8 ---------------");
+        String str = "LRRRRLLRLLRL";
+        balancedPartition(str);
         System.out.println("----------------- Question 9 ---------------");
         System.out.println("----------------- Question 10 ---------------");
     }
