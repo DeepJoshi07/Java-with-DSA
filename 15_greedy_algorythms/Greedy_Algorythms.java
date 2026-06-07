@@ -1,7 +1,39 @@
 import java.util.*;
 import java.util.Arrays;
+import java.util.stream.Gatherer.Integrator.Greedy;
 
 public class Greedy_Algorythms {
+//     ⚡ Greedy Algorithm Tricks
+// Earliest Finish Wins  
+// If tasks overlap (like meetings or activities), always pick the one that finishes earliest. This leaves maximum room for others.
+// → Example: Activity Selection Problem.
+
+// Highest Ratio First  
+// When items have a value/weight tradeoff, sort by value per unit weight and take as much as possible.
+// When items have a value/weight tradeoff, sort by value per unit weight and take as much as possible.
+// → Example: Fractional Knapsack.
+
+// Local Optimal Choice  
+// At each step, ask: “If I make the best choice right now, does it block me from reaching the global optimum?”
+// If the answer is no, greedy works.
+// → Example: Huffman Coding (always merge two smallest frequencies).
+
+// Sort + Sweep  
+// Many greedy problems boil down to:
+
+// Sort by a key (end time, ratio, cost).
+
+// Sweep through, making the best choice at each step.
+// → Example: Minimum number of platforms at a railway station.
+
+// Proof by Exchange  
+// To prove greedy works, use the “exchange argument”:
+
+// Assume an optimal solution exists.
+
+// Show you can swap greedy’s choice into it without hurting optimality.
+
+// Therefore greedy is correct.
     public static void activitySelection(int start[], int end[]) {
         int activities[][] = new int[start.length][3];
         for (int i = 0; i < start.length; i++) {
@@ -240,6 +272,7 @@ public class Greedy_Algorythms {
         return arr;
     }
 
+    
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
         int start[] = { 1, 3, 0, 5, 8, 5 };
