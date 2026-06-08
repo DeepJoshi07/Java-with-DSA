@@ -272,6 +272,26 @@ public class Greedy_Algorythms {
         return arr;
     }
 
+    public static int findPlatforms(int[] arr, int[] dep) {
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+
+        int n = arr.length;
+        int i = 0, j = 0;
+        int platforms = 0, maxPlatforms = 0;
+
+        while (i < n && j < n) {
+            if (arr[i] <= dep[j]) {
+                platforms++;   // train arrives
+                maxPlatforms = Math.max(maxPlatforms, platforms);
+                i++;
+            } else {
+                platforms--;   // train departs
+                j++;
+            }
+        }
+        return maxPlatforms;
+    }
     
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------");
@@ -308,5 +328,9 @@ public class Greedy_Algorythms {
         System.out.println("----------------- Question 10 ---------------");
         char charArr[] = lexicoSmall(5, 42);
         System.out.println(new String(charArr));
+        System.out.println("----------------- Question 11 ---------------");
+        int[] arr = {900, 940, 950, 1100, 1500, 1800};
+        int[] dep = {910, 1200, 1120, 1130, 1900, 2000};
+        System.out.println("Minimum platforms needed = " + findPlatforms(arr, dep));
     }
 }
