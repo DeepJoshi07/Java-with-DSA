@@ -244,6 +244,27 @@ public class Stack_Java {
         }
         System.out.println(water);
     }
+
+    public static int[] dailyTemperatures(int[] temperatures) {
+        int n = temperatures.length;
+        int[] answer = new int[n];
+
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+
+            while (!stack.isEmpty() &&
+                   temperatures[i] > temperatures[stack.peek()]) {
+
+                int prevIndex = stack.pop();
+                answer[prevIndex] = i - prevIndex;
+            }
+
+            stack.push(i);
+        }
+
+        return answer;
+    }
     public static void main(String[] args) {
         Stack<Integer> s = new Stack<>();
         s.push(1);
@@ -324,5 +345,8 @@ public class Stack_Java {
         int levels [] = {7,0,4,2,5,0,6,4,0,5};
         trappingRainWater(levels);
         System.out.println("------------------ Question 13 ---------------------");
+        int temp[] = {73,74,75,71,69,72,76,73};
+        dailyTemperatures(temp);
+
     }
 }
