@@ -100,6 +100,19 @@ public class Binary_Tree {
 
         return left + right + root.data;
     }
+   
+    public static int diameterOfTree(Node root){
+        if(root == null)return 0;
+
+        int leftDiameter = diameterOfTree(root.left);
+        int rightDiameter = diameterOfTree(root.right);
+        int left = height(root.left);
+        int right =  height(root.right);
+
+        int selfDiameter = left + right + 1;
+
+        return Math.max(selfDiameter, Math.max(rightDiameter,leftDiameter));
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -123,6 +136,7 @@ public class Binary_Tree {
         System.out.println("-------------------- Question 8 -------------------");
         System.out.println(sumOfTree(root));
         System.out.println("-------------------- Question 9 -------------------");
+        System.out.println(diameterOfTree(root));
         System.out.println("-------------------- Question 10 -------------------");
     }
 }
