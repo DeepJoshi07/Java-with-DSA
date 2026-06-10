@@ -113,6 +113,30 @@ public class Binary_Tree {
 
         return Math.max(selfDiameter, Math.max(rightDiameter,leftDiameter));
     }
+    
+    static class DiameterInfo{
+        int height;
+        int diameter;
+
+        public DiameterInfo(int height,int diameter){
+            this.diameter = diameter;
+            this.height = height;
+        }
+    }
+
+    public static DiameterInfo diameterOfTree2(Node root){
+        if(root == null){
+            return new DiameterInfo(0, 0);
+        }
+
+        DiameterInfo left = diameterOfTree2(root.left);
+        DiameterInfo right = diameterOfTree2(root.right);
+
+        int selfDiameter = Math.max(Math.max(left.diameter, right.diameter),left.height+right.height+1);
+        int height = Math.max(left.height, right.height)+1 ;
+
+        return new DiameterInfo(height, selfDiameter);
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -136,7 +160,8 @@ public class Binary_Tree {
         System.out.println("-------------------- Question 8 -------------------");
         System.out.println(sumOfTree(root));
         System.out.println("-------------------- Question 9 -------------------");
-        System.out.println(diameterOfTree(root));
+        System.out.println("Diameter approch 1 :"+diameterOfTree(root));
         System.out.println("-------------------- Question 10 -------------------");
+        System.out.println("Diameter approch 2 :"+diameterOfTree2(root).diameter);
     }
 }
