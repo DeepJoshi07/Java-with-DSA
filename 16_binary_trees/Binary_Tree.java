@@ -33,6 +33,14 @@ public class Binary_Tree {
         preOrder(root.left);
         preOrder(root.right);
     }
+
+    public static void inOrder(Node root){
+        if(root == null)return;
+
+        inOrder(root.left);
+        System.out.print(root.data+" ");
+        inOrder(root.right);
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -42,6 +50,8 @@ public class Binary_Tree {
         preOrder(root);
         System.out.println();
         System.out.println("-------------------- Question 3 -------------------");
+        inOrder(root);
+        System.out.println();
         System.out.println("-------------------- Question 4 -------------------");
         System.out.println("-------------------- Question 5 -------------------");
         System.out.println("-------------------- Question 6 -------------------");
