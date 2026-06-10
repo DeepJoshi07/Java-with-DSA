@@ -82,6 +82,15 @@ public class Binary_Tree {
 
         return Math.max(left, right) + 1;
     }
+   
+    public static int countOfNodes(Node root){
+        if(root == null)return 0;
+
+        int left = countOfNodes(root.left);
+        int right = countOfNodes(root.right);
+
+        return left + right + 1;
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -101,6 +110,7 @@ public class Binary_Tree {
         System.out.println("-------------------- Question 6 -------------------");
         System.out.println(height(root));
         System.out.println("-------------------- Question 7 -------------------");
+        System.out.println(countOfNodes(root));
         System.out.println("-------------------- Question 8 -------------------");
         System.out.println("-------------------- Question 9 -------------------");
         System.out.println("-------------------- Question 10 -------------------");
