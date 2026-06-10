@@ -91,6 +91,15 @@ public class Binary_Tree {
 
         return left + right + 1;
     }
+    
+    public static int sumOfTree(Node root){
+        if(root == null)return 0;
+
+        int left = sumOfTree(root.left);
+        int right = sumOfTree(root.right);
+
+        return left + right + root.data;
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
@@ -112,6 +121,7 @@ public class Binary_Tree {
         System.out.println("-------------------- Question 7 -------------------");
         System.out.println(countOfNodes(root));
         System.out.println("-------------------- Question 8 -------------------");
+        System.out.println(sumOfTree(root));
         System.out.println("-------------------- Question 9 -------------------");
         System.out.println("-------------------- Question 10 -------------------");
     }
