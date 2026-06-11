@@ -184,6 +184,7 @@ public class Binary_Tree {
             this.node = node;
         }
     }
+    
     public static void topView(Node root){
         Queue<HDInfo> q = new LinkedList<>();
         int min = 0,max = 0;
@@ -216,6 +217,18 @@ public class Binary_Tree {
             System.out.print(hm.get(i).data+" ");
         }
         System.out.println();
+    }
+
+    public static void kthLevelNodes(Node root,int level,int k){
+        if(root == null)return;
+
+        if(level == k){
+            System.out.print(root.data+" ");
+            return;
+        }
+
+        kthLevelNodes(root.left, level+1, k);
+        kthLevelNodes(root.right, level+1, k);
     }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
@@ -259,7 +272,10 @@ public class Binary_Tree {
         root2.left.right.right = new Node(6);
         topView(root2);
         System.out.println("-------------------- Question 13 -------------------");
+        kthLevelNodes(root, 1, 3);
+        System.out.println();
         System.out.println("-------------------- Question 14 -------------------");
+        
         System.out.println("-------------------- Question 15 -------------------");
     }
 }
