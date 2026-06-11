@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.ArrayList;
 
 public class Binary_Tree {
 
@@ -230,6 +231,42 @@ public class Binary_Tree {
         kthLevelNodes(root.left, level+1, k);
         kthLevelNodes(root.right, level+1, k);
     }
+
+    private static boolean getPath(Node root,int n,ArrayList<Node>al){
+        if(root == null){
+            return false;
+        }
+        al.add(root);
+        if(root.data == n){
+            return true;
+        }
+        boolean left = getPath(root.left, n, al);
+        boolean right = getPath(root.right, n, al);
+
+        if(left || right){
+            return true;
+        }
+        al.remove(al.size()-1);
+        return false;
+    }
+
+    public static Node lca(Node root,int n1,int n2){
+        ArrayList<Node> path1 = new ArrayList<>();
+        ArrayList<Node> path2 = new ArrayList<>();
+
+        boolean found1 = getPath(root,n1,path1);
+        boolean found2 = getPath(root,n2,path2);
+
+        if(!found1 || !found2)return null;
+
+        int i = 0;
+        for(;i < path1.size() && i < path2.size();i++){
+            if(path1.get(i) != path2.get(i)){
+                break;
+            }
+        }
+        return path1.get(i-1);
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -275,7 +312,7 @@ public class Binary_Tree {
         kthLevelNodes(root, 1, 3);
         System.out.println();
         System.out.println("-------------------- Question 14 -------------------");
-        
+        System.out.println(lca(root,4,5).data);
         System.out.println("-------------------- Question 15 -------------------");
     }
 }
