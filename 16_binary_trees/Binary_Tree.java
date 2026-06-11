@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -175,6 +176,47 @@ public class Binary_Tree {
         return left || right;
     }
 
+    static class HDInfo{
+        int hd;
+        Node node;
+        public HDInfo(int hd,Node node){
+            this.hd = hd;
+            this.node = node;
+        }
+    }
+    public static void topView(Node root){
+        Queue<HDInfo> q = new LinkedList<>();
+        int min = 0,max = 0;
+        HashMap<Integer,Node> hm = new HashMap<>();
+        q.add(new HDInfo(0,root));
+        q.add(null);
+
+        while(!q.isEmpty()){
+            HDInfo curr = q.remove();
+            if(curr == null){
+                if(q.isEmpty()){
+                    break;
+                }
+            }else{
+                if(!hm.containsKey(curr.hd)){
+                    hm.put(curr.hd,curr.node);
+                }
+                if(curr.node.left != null){
+                    q.add(new HDInfo(curr.hd - 1,curr.node.left));
+                    min = Math.min(min,curr.hd-1);
+                }
+                if(curr.node.right != null){
+                    q.add(new HDInfo(curr.hd+1, curr.node.right));
+                    max = Math.max(max,curr.hd+1);
+                }
+            }
+
+        }
+        for(int i = min;i <= max;i++){
+            System.out.print(hm.get(i).data+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -207,6 +249,15 @@ public class Binary_Tree {
         subRoot.right = new Node(5);
         System.out.println(isSubtree(root, subRoot));
         System.out.println("-------------------- Question 12 -------------------");
+        topView(root);
+        Node root2 = new Node(1);
+        root2.left = new Node(2);
+        root2.left.left = new Node(4);
+        root2.left.left.left = new Node(10);
+        root2.left.left.right = new Node(5);
+        root2.left.right = new Node(3);
+        root2.left.right.right = new Node(6);
+        topView(root2);
         System.out.println("-------------------- Question 13 -------------------");
         System.out.println("-------------------- Question 14 -------------------");
         System.out.println("-------------------- Question 15 -------------------");
