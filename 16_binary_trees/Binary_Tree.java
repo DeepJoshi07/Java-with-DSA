@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.ArrayList;
 
@@ -267,6 +268,42 @@ public class Binary_Tree {
         }
         return path1.get(i-1);
     }
+
+    private static boolean isExists(Node root, int val){
+        if(root == null)return false;
+
+        if(root.data == val)return true;
+
+        // boolean left = isExists(root.left, val);
+        // boolean right = isExists(root.right, val);
+
+        // return left || right;
+
+        return isExists(root.left, val) || isExists(root.right, val);
+    }
+    
+    private static Node lca2(Node root,int n1,int n2){
+        if(root == null)return root;
+        if(root.data == n1 || root.data == n2)return root;
+
+        Node left = lca2(root.left, n1, n2);
+        Node right = lca2(root.right, n1, n2);
+
+        if(left != null && right != null)return root;
+
+        return (left == null)? right:left;
+        
+    }
+
+    public static Node safeLca(Node root,int n1,int n2){
+        if(!isExists(root, n1) || !isExists(root, n2)) throw new NoSuchElementException("n1 or n2 does not exists");
+        Node val = lca2(root, n1, n2);
+        if(val == null){
+            throw new NoSuchElementException("n1 or n2 does not exists");
+        }
+        return val;
+
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -314,5 +351,6 @@ public class Binary_Tree {
         System.out.println("-------------------- Question 14 -------------------");
         System.out.println(lca(root,4,5).data);
         System.out.println("-------------------- Question 15 -------------------");
+        System.out.println(safeLca(root,4,5).data);
     }
 }
