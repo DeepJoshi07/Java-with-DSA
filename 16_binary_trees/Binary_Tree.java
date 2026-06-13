@@ -304,6 +304,30 @@ public class Binary_Tree {
         return val;
 
     }
+
+    private static int distenceFromLca(Node node,int val){
+        if(node == null){
+            return -1;
+        }
+        if(node.data == val){
+            return 0;
+        }
+        int left = distenceFromLca(node.left, val);
+        int right = distenceFromLca(node.right, val);
+
+        if(left == -1 && right == -1){
+            return -1;
+        }
+        if(left == -1) return right+1;
+        else return left+1;
+    }
+
+    public static int distenceBetweenTwoNodes(Node root,int n1,int n2){
+        Node lca = safeLca(root, n1, n2);
+        int d1 = distenceFromLca(lca,n1);
+        int d2 = distenceFromLca(lca,n2);
+        return d1+d2;
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -352,5 +376,11 @@ public class Binary_Tree {
         System.out.println(lca(root,4,5).data);
         System.out.println("-------------------- Question 15 -------------------");
         System.out.println(safeLca(root,4,5).data);
+        System.out.println("-------------------- Question 16 -------------------");
+        System.out.println(distenceBetweenTwoNodes(root,4,5));
+        System.out.println("-------------------- Question 17 -------------------");
+        System.out.println("-------------------- Question 18 -------------------");
+        System.out.println("-------------------- Question 19 -------------------");
+        System.out.println("-------------------- Question 20 -------------------");
     }
 }
