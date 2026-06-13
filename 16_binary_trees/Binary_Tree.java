@@ -328,6 +328,24 @@ public class Binary_Tree {
         int d2 = distenceFromLca(lca,n2);
         return d1+d2;
     }
+
+    public static int kthAnsector(Node root,int val,int k){
+        if(root == null)return -1;
+
+        if(root.data == val)return 0;
+
+        int left = kthAnsector(root.left, val, k);
+        int right = kthAnsector(root.right, val, k);
+
+        if(left == -1 && right == -1)return -1;
+
+        int max = Math.max(left, right);
+
+        if(max+1 == k){
+            System.out.println(root.data);
+        }
+        return max+1;
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -379,6 +397,7 @@ public class Binary_Tree {
         System.out.println("-------------------- Question 16 -------------------");
         System.out.println(distenceBetweenTwoNodes(root,4,5));
         System.out.println("-------------------- Question 17 -------------------");
+        kthAnsector(root,5,2);
         System.out.println("-------------------- Question 18 -------------------");
         System.out.println("-------------------- Question 19 -------------------");
         System.out.println("-------------------- Question 20 -------------------");
