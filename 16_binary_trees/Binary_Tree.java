@@ -346,6 +346,32 @@ public class Binary_Tree {
         }
         return max+1;
     }
+
+    // public static int sumTree(Node root){
+    //     if(root == null)return 0; 
+
+    //     int left = sumTree(root.left);
+    //     int right = sumTree(root.right);
+
+    //     int data = root.data;
+    //     int newLeft = root.left != null? root.left.data:0;
+    //     int newRight = root.right != null? root.right.data:0;
+    //     root.data = newLeft + newRight + left + right;
+    //     return data;
+
+    // }
+    
+    public static int sumTree(Node root) {
+    if (root == null) return 0;
+
+    int left = sumTree(root.left);
+    int right = sumTree(root.right);
+
+    int data = root.data;
+    root.data = left + right + data;          // update node’s data to sum of children
+    return left + right + data;        // return total sum of subtree
+}
+
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -399,6 +425,9 @@ public class Binary_Tree {
         System.out.println("-------------------- Question 17 -------------------");
         kthAnsector(root,5,2);
         System.out.println("-------------------- Question 18 -------------------");
+        System.out.println(sumTree(root));
+        preOrder(root);
+        System.out.println();
         System.out.println("-------------------- Question 19 -------------------");
         System.out.println("-------------------- Question 20 -------------------");
     }
