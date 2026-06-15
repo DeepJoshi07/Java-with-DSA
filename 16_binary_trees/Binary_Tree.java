@@ -372,6 +372,15 @@ public class Binary_Tree {
     return left + right + data;        // return total sum of subtree
 }
 
+    public static boolean uniValued(Node root){
+        if(root == null)return true;
+
+        if(root.left != null && root.left.data != root.data)return false;
+        if(root.right != null && root.right.data != root.data)return false;
+
+        return uniValued(root.left) && uniValued(root.right);
+        
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -429,6 +438,13 @@ public class Binary_Tree {
         preOrder(root);
         System.out.println();
         System.out.println("-------------------- Question 19 -------------------");
+        Node root3 = new Node(2);
+        root3.left = new Node(2);
+        root3.right = new Node(2);
+        root3.left.left = new Node(2);
+        root3.left.right = new Node(2);
+        root3.right.left = new Node(2);
+        System.out.println(uniValued(root3));
         System.out.println("-------------------- Question 20 -------------------");
     }
 }
