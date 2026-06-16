@@ -381,6 +381,19 @@ public class Binary_Tree {
         return uniValued(root.left) && uniValued(root.right);
         
     }
+
+    public static Node invertBinaryTree(Node root){
+        if(root == null)return null;
+
+        Node left = invertBinaryTree(root.left);
+        Node right = invertBinaryTree(root.right);
+
+        root.left = right;
+        root.right = left;
+
+        return root;
+        
+    }
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -446,5 +459,20 @@ public class Binary_Tree {
         root3.right.left = new Node(2);
         System.out.println(uniValued(root3));
         System.out.println("-------------------- Question 20 -------------------");
+        Node root4 = new Node(1);
+        root4.left = new Node(2);
+        root4.right = new Node(3);
+        root4.left.left = new Node(4);
+        root4.left.right = new Node(5);
+        root4.right.left = new Node(6);
+        root4.right.right = new Node(7);
+        preOrder(root4);
+        System.out.println();
+        preOrder(invertBinaryTree(root4));
+        System.out.println();
+        System.out.println("-------------------- Question 21 -------------------");
+        System.out.println("-------------------- Question 22 -------------------");
+        System.out.println("-------------------- Question 23 -------------------");
+        
     }
 }
