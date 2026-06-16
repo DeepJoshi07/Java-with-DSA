@@ -178,101 +178,106 @@ public class Binary_Tree {
         return left || right;
     }
 
-    static class HDInfo{
+    static class HDInfo {
         int hd;
         Node node;
-        public HDInfo(int hd,Node node){
+
+        public HDInfo(int hd, Node node) {
             this.hd = hd;
             this.node = node;
         }
     }
-    
-    public static void topView(Node root){
+
+    public static void topView(Node root) {
         Queue<HDInfo> q = new LinkedList<>();
-        int min = 0,max = 0;
-        HashMap<Integer,Node> hm = new HashMap<>();
-        q.add(new HDInfo(0,root));
+        int min = 0, max = 0;
+        HashMap<Integer, Node> hm = new HashMap<>();
+        q.add(new HDInfo(0, root));
         q.add(null);
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             HDInfo curr = q.remove();
-            if(curr == null){
-                if(q.isEmpty()){
+            if (curr == null) {
+                if (q.isEmpty()) {
                     break;
                 }
-            }else{
-                if(!hm.containsKey(curr.hd)){
-                    hm.put(curr.hd,curr.node);
+            } else {
+                if (!hm.containsKey(curr.hd)) {
+                    hm.put(curr.hd, curr.node);
                 }
-                if(curr.node.left != null){
-                    q.add(new HDInfo(curr.hd - 1,curr.node.left));
-                    min = Math.min(min,curr.hd-1);
+                if (curr.node.left != null) {
+                    q.add(new HDInfo(curr.hd - 1, curr.node.left));
+                    min = Math.min(min, curr.hd - 1);
                 }
-                if(curr.node.right != null){
-                    q.add(new HDInfo(curr.hd+1, curr.node.right));
-                    max = Math.max(max,curr.hd+1);
+                if (curr.node.right != null) {
+                    q.add(new HDInfo(curr.hd + 1, curr.node.right));
+                    max = Math.max(max, curr.hd + 1);
                 }
             }
 
         }
-        for(int i = min;i <= max;i++){
-            System.out.print(hm.get(i).data+" ");
+        for (int i = min; i <= max; i++) {
+            System.out.print(hm.get(i).data + " ");
         }
         System.out.println();
     }
 
-    public static void kthLevelNodes(Node root,int level,int k){
-        if(root == null)return;
+    public static void kthLevelNodes(Node root, int level, int k) {
+        if (root == null)
+            return;
 
-        if(level == k){
-            System.out.print(root.data+" ");
+        if (level == k) {
+            System.out.print(root.data + " ");
             return;
         }
 
-        kthLevelNodes(root.left, level+1, k);
-        kthLevelNodes(root.right, level+1, k);
+        kthLevelNodes(root.left, level + 1, k);
+        kthLevelNodes(root.right, level + 1, k);
     }
 
-    private static boolean getPath(Node root,int n,ArrayList<Node>al){
-        if(root == null){
+    private static boolean getPath(Node root, int n, ArrayList<Node> al) {
+        if (root == null) {
             return false;
         }
         al.add(root);
-        if(root.data == n){
+        if (root.data == n) {
             return true;
         }
         boolean left = getPath(root.left, n, al);
         boolean right = getPath(root.right, n, al);
 
-        if(left || right){
+        if (left || right) {
             return true;
         }
-        al.remove(al.size()-1);
+        al.remove(al.size() - 1);
         return false;
     }
 
-    public static Node lca(Node root,int n1,int n2){
+    public static Node lca(Node root, int n1, int n2) {
         ArrayList<Node> path1 = new ArrayList<>();
         ArrayList<Node> path2 = new ArrayList<>();
 
-        boolean found1 = getPath(root,n1,path1);
-        boolean found2 = getPath(root,n2,path2);
+        boolean found1 = getPath(root, n1, path1);
+        boolean found2 = getPath(root, n2, path2);
 
-        if(!found1 || !found2)return null;
+        if (!found1 || !found2)
+            return null;
 
         int i = 0;
-        for(;i < path1.size() && i < path2.size();i++){
-            if(path1.get(i) != path2.get(i)){
+        for (; i < path1.size() && i < path2.size(); i++) {
+            if (path1.get(i) != path2.get(i)) {
                 break;
             }
         }
-        return path1.get(i-1);
+        return path1.get(i - 1);
     }
 
-    private static boolean isExists(Node root, int val){
-        if(root == null)return false;
+    private static boolean isExists(Node root, int val) {
+        if (root == null)
+            return false;
 
-        if(root.data == val)return true;
+        if (root.data == val)
+            return true;
 
         // boolean left = isExists(root.left, val);
         // boolean right = isExists(root.right, val);
@@ -281,109 +286,123 @@ public class Binary_Tree {
 
         return isExists(root.left, val) || isExists(root.right, val);
     }
-    
-    private static Node lca2(Node root,int n1,int n2){
-        if(root == null)return root;
-        if(root.data == n1 || root.data == n2)return root;
+
+    private static Node lca2(Node root, int n1, int n2) {
+        if (root == null)
+            return root;
+        if (root.data == n1 || root.data == n2)
+            return root;
 
         Node left = lca2(root.left, n1, n2);
         Node right = lca2(root.right, n1, n2);
 
-        if(left != null && right != null)return root;
+        if (left != null && right != null)
+            return root;
 
-        return (left == null)? right:left;
-        
+        return (left == null) ? right : left;
+
     }
 
-    public static Node safeLca(Node root,int n1,int n2){
-        if(!isExists(root, n1) || !isExists(root, n2)) throw new NoSuchElementException("n1 or n2 does not exists");
+    public static Node safeLca(Node root, int n1, int n2) {
+        if (!isExists(root, n1) || !isExists(root, n2))
+            throw new NoSuchElementException("n1 or n2 does not exists");
         Node val = lca2(root, n1, n2);
-        if(val == null){
+        if (val == null) {
             throw new NoSuchElementException("n1 or n2 does not exists");
         }
         return val;
 
     }
 
-    private static int distenceFromLca(Node node,int val){
-        if(node == null){
+    private static int distenceFromLca(Node node, int val) {
+        if (node == null) {
             return -1;
         }
-        if(node.data == val){
+        if (node.data == val) {
             return 0;
         }
         int left = distenceFromLca(node.left, val);
         int right = distenceFromLca(node.right, val);
 
-        if(left == -1 && right == -1){
+        if (left == -1 && right == -1) {
             return -1;
         }
-        if(left == -1) return right+1;
-        else return left+1;
+        if (left == -1)
+            return right + 1;
+        else
+            return left + 1;
     }
 
-    public static int distenceBetweenTwoNodes(Node root,int n1,int n2){
+    public static int distenceBetweenTwoNodes(Node root, int n1, int n2) {
         Node lca = safeLca(root, n1, n2);
-        int d1 = distenceFromLca(lca,n1);
-        int d2 = distenceFromLca(lca,n2);
-        return d1+d2;
+        int d1 = distenceFromLca(lca, n1);
+        int d2 = distenceFromLca(lca, n2);
+        return d1 + d2;
     }
 
-    public static int kthAnsector(Node root,int val,int k){
-        if(root == null)return -1;
+    public static int kthAnsector(Node root, int val, int k) {
+        if (root == null)
+            return -1;
 
-        if(root.data == val)return 0;
+        if (root.data == val)
+            return 0;
 
         int left = kthAnsector(root.left, val, k);
         int right = kthAnsector(root.right, val, k);
 
-        if(left == -1 && right == -1)return -1;
+        if (left == -1 && right == -1)
+            return -1;
 
         int max = Math.max(left, right);
 
-        if(max+1 == k){
+        if (max + 1 == k) {
             System.out.println(root.data);
         }
-        return max+1;
+        return max + 1;
     }
 
     // public static int sumTree(Node root){
-    //     if(root == null)return 0; 
+    // if(root == null)return 0;
 
-    //     int left = sumTree(root.left);
-    //     int right = sumTree(root.right);
+    // int left = sumTree(root.left);
+    // int right = sumTree(root.right);
 
-    //     int data = root.data;
-    //     int newLeft = root.left != null? root.left.data:0;
-    //     int newRight = root.right != null? root.right.data:0;
-    //     root.data = newLeft + newRight + left + right;
-    //     return data;
+    // int data = root.data;
+    // int newLeft = root.left != null? root.left.data:0;
+    // int newRight = root.right != null? root.right.data:0;
+    // root.data = newLeft + newRight + left + right;
+    // return data;
 
     // }
-    
+
     public static int sumTree(Node root) {
-    if (root == null) return 0;
+        if (root == null)
+            return 0;
 
-    int left = sumTree(root.left);
-    int right = sumTree(root.right);
+        int left = sumTree(root.left);
+        int right = sumTree(root.right);
 
-    int data = root.data;
-    root.data = left + right + data;          // update node’s data to sum of children
-    return left + right + data;        // return total sum of subtree
-}
-
-    public static boolean uniValued(Node root){
-        if(root == null)return true;
-
-        if(root.left != null && root.left.data != root.data)return false;
-        if(root.right != null && root.right.data != root.data)return false;
-
-        return uniValued(root.left) && uniValued(root.right);
-        
+        int data = root.data;
+        root.data = left + right + data; // update node’s data to sum of children
+        return left + right + data; // return total sum of subtree
     }
 
-    public static Node invertBinaryTree(Node root){
-        if(root == null)return null;
+    public static boolean uniValued(Node root) {
+        if (root == null)
+            return true;
+
+        if (root.left != null && root.left.data != root.data)
+            return false;
+        if (root.right != null && root.right.data != root.data)
+            return false;
+
+        return uniValued(root.left) && uniValued(root.right);
+
+    }
+
+    public static Node invertBinaryTree(Node root) {
+        if (root == null)
+            return null;
 
         Node left = invertBinaryTree(root.left);
         Node right = invertBinaryTree(root.right);
@@ -392,13 +411,14 @@ public class Binary_Tree {
         root.right = left;
 
         return root;
-        
+
     }
 
-    public static Node deleteLeafNodesWialueX(Node root,int val){
-        if(root == null)return null;
+    public static Node deleteLeafNodesWialueX(Node root, int val) {
+        if (root == null)
+            return null;
 
-        if(root.left == null && root.right == null && root.data == val){
+        if (root.left == null && root.right == null && root.data == val) {
             return null;
         }
         Node left = deleteLeafNodesWialueX(root.left, val);
@@ -409,6 +429,24 @@ public class Binary_Tree {
 
         return root;
     }
+
+    public static String duplicateSubTree(Node node, HashMap<String, Integer> m) {
+        if (node == null)
+            return "";
+        String str = "(";
+        str += duplicateSubTree(node.left, m);
+        str += Integer.toString(node.data);
+        str += duplicateSubTree(node.right, m);
+        str += ")";
+        if (m.get(str) != null && m.get(str) == 1)
+            System.out.print(node.data + " ");
+        if (m.containsKey(str))
+            m.put(str, m.get(str) + 1);
+        else
+            m.put(str, 1);
+        return str;
+    }
+
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -454,13 +492,13 @@ public class Binary_Tree {
         kthLevelNodes(root, 1, 3);
         System.out.println();
         System.out.println("-------------------- Question 14 -------------------");
-        System.out.println(lca(root,4,5).data);
+        System.out.println(lca(root, 4, 5).data);
         System.out.println("-------------------- Question 15 -------------------");
-        System.out.println(safeLca(root,4,5).data);
+        System.out.println(safeLca(root, 4, 5).data);
         System.out.println("-------------------- Question 16 -------------------");
-        System.out.println(distenceBetweenTwoNodes(root,4,5));
+        System.out.println(distenceBetweenTwoNodes(root, 4, 5));
         System.out.println("-------------------- Question 17 -------------------");
-        kthAnsector(root,5,2);
+        kthAnsector(root, 5, 2);
         System.out.println("-------------------- Question 18 -------------------");
         System.out.println(sumTree(root));
         preOrder(root);
@@ -486,11 +524,25 @@ public class Binary_Tree {
         preOrder(invertBinaryTree(root4));
         System.out.println();
         System.out.println("-------------------- Question 21 -------------------");
-        deleteLeafNodesWialueX(root4,6);
+        deleteLeafNodesWialueX(root4, 6);
         postOrder(root4);
         System.out.println();
         System.out.println("-------------------- Question 22 -------------------");
+        HashMap<String, Integer> hm = new HashMap<>();
+        Node root5 = null;
+        root5 = new Node(1);
+        root5.left = new Node(4);
+        root5.right = new Node(3);
+        root5.left.left = new Node(3);
+        root5.right.left = new Node(4);
+        root5.right.left.left = new Node(3);
+        root5.right.right = new Node(3);
+        duplicateSubTree(root5, hm);
+        System.out.println();
+        for(String key:hm.keySet()){
+            System.out.println(hm.get(key));
+        }
         System.out.println("-------------------- Question 23 -------------------");
-        
+
     }
 }
