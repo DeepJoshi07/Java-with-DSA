@@ -35,6 +35,17 @@ public class Binary_Search_Trees {
         inOrder(root.right);
     }
 
+    public static boolean searchKey(Node root,int key){
+        if(root == null)return false;
+
+        if(root.data == key)return true;
+
+        if(root.data > key){
+            return searchKey(root.left, key);
+        }else{
+            return searchKey(root.right, key);
+        }
+    }
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -45,6 +56,8 @@ public class Binary_Search_Trees {
         inOrder(root);
         System.out.println();
         System.out.println("------------------------ Question 2 ----------------------");
+        System.out.println(searchKey(root,7));
+        System.out.println(searchKey(root,6));
         System.out.println("------------------------ Question 3 ----------------------");
         System.out.println("------------------------ Question 4 ----------------------");
         System.out.println("------------------------ Question 5 ----------------------");
