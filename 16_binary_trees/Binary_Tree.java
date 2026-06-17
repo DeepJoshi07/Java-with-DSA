@@ -447,6 +447,28 @@ public class Binary_Tree {
         return str;
     }
 
+    static class Result {
+        int maxSum = Integer.MIN_VALUE;
+    }
+
+    public static int maxSumInPath(Node root, Result res) {
+        if (root == null)
+            return 0;
+
+        if (root.left == null && root.right == null) {
+            return root.data;
+        }
+
+        int left = Math.max(0, maxSumInPath(root.left, res));
+        int right = Math.max(0, maxSumInPath(root.right, res));
+
+        // Update global maximum: path through this node
+        res.maxSum = Math.max(res.maxSum, root.data + left + right);
+
+        // Return max path sum going down from this node
+        return root.data + Math.max(left, right);
+    }
+
     public static void main(String[] args) {
         System.out.println("-------------------- Question 1 -------------------");
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
@@ -539,10 +561,18 @@ public class Binary_Tree {
         root5.right.right = new Node(3);
         duplicateSubTree(root5, hm);
         System.out.println();
-        for(String key:hm.keySet()){
+        for (String key : hm.keySet()) {
             System.out.println(hm.get(key));
         }
         System.out.println("-------------------- Question 23 -------------------");
+        Node root6 = new Node(-10);
+        root6.left = new Node(9);
+        root6.right = new Node(20);
+        root6.right.left = new Node(15);
+        root6.right.right = new Node(7);
+        Result res = new Result();
+        maxSumInPath(root6, res);
+        System.out.println(res.maxSum);
 
     }
 }
