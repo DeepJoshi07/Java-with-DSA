@@ -46,6 +46,34 @@ public class Binary_Search_Trees {
             return searchKey(root.right, key);
         }
     }
+
+    public static Node deleteNode(Node root,int val){
+        if(root.data < val){
+            root.right = deleteNode(root.right, val);
+        }else if(root.data > val){
+            root.left = deleteNode(root.left, val);
+        }else{
+            if(root.left == null && root.right == null){
+                return null;
+            }else if(root.left != null){
+                return root.left;
+            }else if(root.right != null){
+                return root.right;
+            }else{
+                Node IS = inorderSuccessor(root.right);
+                root.data = IS.data;
+                return deleteNode(root, IS.data);
+            }
+        }
+        return root;
+    }
+
+    public static Node inorderSuccessor(Node root){
+        while(root.left != null){
+            root = root.left;
+        }
+        return root;
+    }
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -59,6 +87,16 @@ public class Binary_Search_Trees {
         System.out.println(searchKey(root,7));
         System.out.println(searchKey(root,6));
         System.out.println("------------------------ Question 3 ----------------------");
+        int values2 [] = {8,5,3,1,4,6,10,11,14};
+        Node root2 = null;
+        for(int i = 0;i < values2.length;i++){
+            root2 = insert(root2, i);
+        }
+        inOrder(root2);
+        System.out.println();
+        deleteNode(root2,5);
+        inOrder(root2);
+        System.out.println();
         System.out.println("------------------------ Question 4 ----------------------");
         System.out.println("------------------------ Question 5 ----------------------");
         System.out.println("------------------------ Question 6 ----------------------");
