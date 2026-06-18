@@ -100,6 +100,8 @@ public class Binary_Search_Trees {
 
         if(root.left == null && root.right == null){
             System.out.println(path);
+            path.remove(path.size()-1);
+            return;
         }
 
         pathRootToLeaf(root.left, path);
@@ -107,6 +109,18 @@ public class Binary_Search_Trees {
         path.remove(path.size()-1);
     }
 
+    public static boolean isValidBST(Node root,Node min,Node max){
+        if(root == null)return true;
+
+        if(min != null && root.data <= min.data)return false;//right side even in subtrees
+
+        if(max != null && root.data >= max.data)return false;// left side even in subtrees
+
+        boolean left = isValidBST(root.left, min, root);
+        boolean right = isValidBST(root.right, root, max);
+
+        return left && right;
+    }
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -135,7 +149,10 @@ public class Binary_Search_Trees {
         System.out.println();
         System.out.println("------------------------ Question 5 ----------------------");
         pathRootToLeaf(root, new ArrayList<>());
+        inOrder(root);
+        System.out.println();
         System.out.println("------------------------ Question 6 ----------------------");
+        System.out.println(isValidBST(root2, null,null));
         System.out.println("------------------------ Question 7 ----------------------");
     }
 }
