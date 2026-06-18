@@ -116,10 +116,19 @@ public class Binary_Search_Trees {
 
         if(max != null && root.data >= max.data)return false;// left side even in subtrees
 
-        boolean left = isValidBST(root.left, min, root);
-        boolean right = isValidBST(root.right, root, max);
+        return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
+    }
 
-        return left && right;
+    public static Node mirrorTree(Node root){
+        if(root == null)return null;
+
+        Node left = mirrorTree(root.left);
+        Node right = mirrorTree(root.right);
+
+        root.left = right;
+        root.right = left;
+
+        return root;
     }
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
@@ -153,6 +162,14 @@ public class Binary_Search_Trees {
         System.out.println();
         System.out.println("------------------------ Question 6 ----------------------");
         System.out.println(isValidBST(root2, null,null));
+        System.out.println("------------------------ Question 7 ----------------------");
+        inOrder(root);
+        System.out.println();
+        inOrder(mirrorTree(root));
+        System.out.println();
+        System.out.println("------------------------ Question 7 ----------------------");
+        System.out.println("------------------------ Question 7 ----------------------");
+        System.out.println("------------------------ Question 7 ----------------------");
         System.out.println("------------------------ Question 7 ----------------------");
     }
 }
