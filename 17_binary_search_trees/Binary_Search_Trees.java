@@ -130,6 +130,17 @@ public class Binary_Search_Trees {
 
         return root;
     }
+
+    public static Node createBalancedBST(int arr[],int s,int e){
+        if(s > e)return null;
+
+        int mid = (s+e)/2;
+        Node root = new Node(arr[mid]);
+        root.left = createBalancedBST(arr, s, mid-1);
+        root.right = createBalancedBST(arr, mid+1, e);
+
+        return root;
+    }
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -168,6 +179,9 @@ public class Binary_Search_Trees {
         inOrder(mirrorTree(root));
         System.out.println();
         System.out.println("------------------------ Question 7 ----------------------");
+        int arr [] = {3,5,6,8,10,11,12};
+        inOrder(createBalancedBST(arr,0,arr.length-1));
+        System.out.println();
         System.out.println("------------------------ Question 7 ----------------------");
         System.out.println("------------------------ Question 7 ----------------------");
         System.out.println("------------------------ Question 7 ----------------------");
