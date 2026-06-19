@@ -141,6 +141,81 @@ public class Binary_Search_Trees {
 
         return root;
     }
+
+     public static Node createBalancedBST2(ArrayList<Integer> al,int s,int e){
+        if(s > e)return null;
+
+        int mid = (s+e)/2;
+        Node root = new Node(al.get(mid));
+        root.left = createBalancedBST2(al, s, mid-1);
+        root.right = createBalancedBST2(al, mid+1, e);
+
+        return root;
+    }
+
+    public static void preOrder(Node root){
+        if(root == null)return;
+
+        System.out.print(root.data+" ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+
+    public static void addValueInArrayListInorder(Node root, ArrayList<Integer>al){
+        if(root == null)return;
+
+        addValueInArrayListInorder(root.left, al);
+        al.add(root.data);
+        addValueInArrayListInorder(root.right, al);
+    }
+
+    public static Node balanceBST(Node root){
+        ArrayList<Integer> al = new ArrayList<>();
+
+        addValueInArrayListInorder(root, al);
+
+        root = createBalancedBST2(al, 0, al.size()-1);
+
+        return root;
+
+    }
+
+    static class InfoBT{
+        int min;
+        int max;
+        boolean isBST;
+        int size;
+        
+        public InfoBT(boolean isBST,int size,int min,int max){
+            this.isBST = isBST;
+            this.min = min;
+            this.max = max;
+            this.size = size;
+        }
+    }
+
+    public static int maxSizeOfBST = 0;
+    public static InfoBT largestBSTinBT(Node root){
+        if(root == null) return new InfoBT(true,0, Integer.MAX_VALUE, Integer.MIN_VALUE);
+
+        InfoBT left = largestBSTinBT(root.left);
+        InfoBT right = largestBSTinBT(root.right);
+
+        int min = Math.min(root.data,Math.min(left.min,right.min));
+        int max = Math.max(root.data,Math.max(left.max,right.max));
+        int size = left.size + right.size + 1;
+
+        if(root.data <= left.max || root.data >= right.min){
+            return new InfoBT(false, size, min, max);
+        }
+
+        if(left.isBST && right.isBST){
+            maxSizeOfBST = Math.max(maxSizeOfBST, size);
+            return new InfoBT(true,size,min,max);
+        }
+
+        return new InfoBT(false, size, min, max);
+    }
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -178,12 +253,36 @@ public class Binary_Search_Trees {
         System.out.println();
         inOrder(mirrorTree(root));
         System.out.println();
-        System.out.println("------------------------ Question 7 ----------------------");
+        System.out.println("------------------------ Question 8 ----------------------");
         int arr [] = {3,5,6,8,10,11,12};
         inOrder(createBalancedBST(arr,0,arr.length-1));
         System.out.println();
-        System.out.println("------------------------ Question 7 ----------------------");
-        System.out.println("------------------------ Question 7 ----------------------");
-        System.out.println("------------------------ Question 7 ----------------------");
+        System.out.println("------------------------ Question 9 ----------------------");
+        Node root3 = new Node(8);
+        root3.left = new Node(6);
+        root3.left.left = new Node(5);
+        root3.left.left.left = new Node(3);
+
+        root3.right = new Node(10);
+        root3.right.right = new Node(11);
+        root3.right.right.right = new Node(12);
+        
+        preOrder(balanceBST(root3));
+        System.out.println();
+        System.out.println("------------------------ Question 10 ----------------------");
+        Node root4 = new Node(50);
+        root4.left = new Node(30);
+        root4.left.left = new Node(5);
+        root4.left.left = new Node(20);
+
+        root4.right = new Node(60);
+        root4.right.left = new Node(45);
+        root4.right.right = new Node(70);
+        root4.right.right.left = new Node(65);
+        root4.right.right.right = new Node(80);
+
+        largestBSTinBT(root4);
+        System.out.println(maxSizeOfBST);
+        System.out.println("------------------------ Question 11 ----------------------");
     }
 }
