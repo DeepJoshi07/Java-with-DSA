@@ -15,5 +15,16 @@ public class PQ {
         while (!pq1.isEmpty()) {
             System.out.println(pq1.remove());
         }
+        System.out.println("-------------- reverse ------------------");
+        PriorityQueue<Integer> pq2 = new PriorityQueue<>(Comparator.reverseOrder());
+        pq2.add(7);
+        pq2.add(1);
+        pq2.add(5);
+        pq2.add(2);
+        pq2.add(9);
+
+        while (!pq2.isEmpty()) {
+            System.out.println(pq2.remove());
+        }
     }
 }
