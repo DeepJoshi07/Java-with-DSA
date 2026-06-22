@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class Heaps_Imp {
     ArrayList<Integer> al = new ArrayList<>();
@@ -19,6 +20,12 @@ public class Heaps_Imp {
         }
     }
 
+     public int peek(){
+        if(al.isEmpty()){
+            throw new NoSuchElementException("Heap is empty!");
+        }
+        return al.get(0);
+    }
     public static void main(String[] args) {
 
     }
