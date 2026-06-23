@@ -26,7 +26,49 @@ public class Heaps_Imp {
         }
         return al.get(0);
     }
-    public static void main(String[] args) {
 
+    private void heapify(int i){
+        int left = i*2 + 1;
+        int right = i*2 + 2;
+        int minIdx = i;
+
+        if(left < al.size() && al.get(minIdx) > al.get(left)) minIdx = left;
+        if(right < al.size() && al.get(minIdx) > al.get(right)) minIdx = right;
+
+        if(minIdx != i){
+            int temp = al.get(i);
+            al.set(i,al.get(minIdx));
+            al.set(minIdx,temp);
+
+            heapify(minIdx);
+        }
+    }
+
+    public int remove(){
+
+        int temp = al.get(0);
+        int val = al.remove(al.size()-1);
+        
+        if(al.size() > 0){
+            al.set(0,val);
+            heapify(0);
+        }
+        return temp;
+    }
+
+    public boolean isEmpty(){
+        return al.size() == 0;
+    }
+    public static void main(String[] args) {
+        Heaps_Imp hpm = new Heaps_Imp();
+        hpm.insert(6);
+        hpm.insert(1);
+        hpm.insert(8);
+        hpm.insert(2);
+        hpm.insert(9);
+
+        while(!hpm.isEmpty()){
+            System.out.println(hpm.remove());
+        }
     }
 }
