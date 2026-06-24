@@ -46,6 +46,21 @@ public class PQ {
         }
     }
 
+    public static void connectNRopes(int ropes[]){
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int i = 0;i < ropes.length;i++){
+            pq.add(ropes[i]);
+        }
+
+        int cost = 0;
+        while(pq.size() > 1){
+            int c1 = pq.remove();
+            int c2 = pq.remove();
+            cost += c1 + c2;
+            pq.add(c1+c2);
+        }
+        System.out.println("minimum cost to connect n ropes is : "+cost);
+    }
     public static void main(String[] args) {
         PriorityQueue<Integer> pq1 = new PriorityQueue<>();
         pq1.add(7);
@@ -85,6 +100,8 @@ public class PQ {
         int k = 2;
         kNearestCars(pts,k);
         System.out.println("----------------------- Question 2 ---------------------------");
+        int ropes[] = {4,3,2,6};
+        connectNRopes(ropes);
         System.out.println("----------------------- Question 3 ---------------------------");
         System.out.println("----------------------- Question 4 ---------------------------");
         System.out.println("----------------------- Question 5 ---------------------------");
