@@ -93,6 +93,37 @@ public class PQ {
         }
         System.out.println();
     }
+
+    static class Pair implements Comparable<Pair>{
+        int val,idx;
+        public Pair(int val,int idx){
+            this.idx = idx;
+            this.val = val;
+        }
+
+        @Override
+        public int compareTo(Pair p){
+            return p.val - this.val;
+        }
+    }
+
+    public static void slidingWindowMaximum(int nums[],int k){
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        for(int i = 0;i < k;i++){
+            pq.add(new Pair(nums[i], i));
+        }
+
+        System.out.print(pq.peek().val+" ");
+
+        for(int i = k;i < nums.length;i++){
+            while(!pq.isEmpty() && pq.peek().idx <= i - k){
+                pq.remove();
+            }
+            pq.add(new Pair(nums[i], i));
+            System.out.print(pq.peek().val+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         PriorityQueue<Integer> pq1 = new PriorityQueue<>();
         pq1.add(7);
@@ -143,6 +174,9 @@ public class PQ {
         };
         weakestSoldierRow(army);
         System.out.println("----------------------- Question 4 ---------------------------");
+        int numbers[] = {1,3,-1,-3,5,3,6,7};
+        int size = 3;
+        slidingWindowMaximum(numbers,size);
         System.out.println("----------------------- Question 5 ---------------------------");
     }
 }
