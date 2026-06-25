@@ -61,6 +61,38 @@ public class PQ {
         }
         System.out.println("minimum cost to connect n ropes is : "+cost);
     }
+
+    static class ArmyRow implements Comparable<ArmyRow>{
+        int soldiers,idx;
+        public ArmyRow(int soldiers,int idx){
+            this.idx = idx;
+            this.soldiers = soldiers;
+        }
+
+        @Override
+        public int compareTo(ArmyRow a){
+            if(this.soldiers == a.soldiers){
+                return this.idx - a.idx;
+            }
+            return this.soldiers - a.soldiers;
+        }
+    }
+
+    public static void weakestSoldierRow(int arr[][]){
+        PriorityQueue<ArmyRow> pq = new PriorityQueue<>();
+        for(int i = 0;i < arr.length;i++){
+            int count = 0;
+            for(int j = 0;j < arr[0].length;j++){
+                count += arr[i][j] == 1? 1:0;
+            }
+            pq.add(new ArmyRow(count, i));
+        }
+
+        while(!pq.isEmpty()){
+            System.out.print("S"+pq.remove().idx+" ");
+        }
+        System.out.println();
+    }
     public static void main(String[] args) {
         PriorityQueue<Integer> pq1 = new PriorityQueue<>();
         pq1.add(7);
@@ -103,6 +135,13 @@ public class PQ {
         int ropes[] = {4,3,2,6};
         connectNRopes(ropes);
         System.out.println("----------------------- Question 3 ---------------------------");
+        int army [][] = {
+            {1,0,0,0},
+            {1,1,1,1},
+            {1,0,0,0},
+            {1,0,0,0},
+        };
+        weakestSoldierRow(army);
         System.out.println("----------------------- Question 4 ---------------------------");
         System.out.println("----------------------- Question 5 ---------------------------");
     }
