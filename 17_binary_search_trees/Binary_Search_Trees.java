@@ -51,21 +51,23 @@ public class Binary_Search_Trees {
     }
 
     public static Node deleteNode(Node root, int val) {
-        if (root.data < val) {
+        if(root == null)return null;
+
+        if (val > root.data) {
             root.right = deleteNode(root.right, val);
-        } else if (root.data > val) {
+        } else if (val < root.data) {
             root.left = deleteNode(root.left, val);
         } else {
             if (root.left == null && root.right == null) {
                 return null;
-            } else if (root.left != null) {
-                return root.left;
-            } else if (root.right != null) {
+            } else if (root.left == null) {
                 return root.right;
+            } else if (root.right == null) {
+                return root.left;
             } else {
                 Node IS = inorderSuccessor(root.right);
                 root.data = IS.data;
-                return deleteNode(root, IS.data);
+                root.right = deleteNode(root.right, IS.data);
             }
         }
         return root;
@@ -78,20 +80,24 @@ public class Binary_Search_Trees {
         return root;
     }
 
-    // public static void printInRange(Node root, int k1, int k2) {
-    //     if (root == null)
-    //         return;
+    public static void printInRange(Node root, int x, int y) {
+        if(root == null)return ;
+        
+        if(root.data >= x && root.data <= y){
+            printInRange(root.left, x, y);
+            System.out.print(root.data+" ");
+            printInRange(root.right, x, y);
+        }
 
-    //     if (root.data >= k1 && root.data <= k2) {
-    //         printInRange(root.left, k1, k2);
-    //         System.out.print(root.data + " ");
-    //         printInRange(root.right, k1, k2);
-    //     } else if (root.data < k1) {
-    //         printInRange(root.right, k1, k2);
-    //     } else {
-    //         printInRange(root.left, k1, k2);
-    //     }
-    // }
+        if(root.data < x){
+            printInRange(root.right, x, y);
+        }
+
+        if(root.data > y){
+            printInRange(root.left, x, y);
+        }
+
+    }
 
     public static void pathRootToLeaf(Node root, ArrayList<Integer>path){
         if(root == null)return;
@@ -216,6 +222,20 @@ public class Binary_Search_Trees {
 
         return new InfoBT(false, size, min, max);
     }
+    
+    public static int sumInRange(Node root,int x, int y){
+        if(root == null)return 0;
+        
+        if(root.data < x){
+            return sumInRange(root.right, x, y);
+        }
+
+        if(root.data > y){
+            return sumInRange(root.left, x, y);
+        }
+
+        return root.data + sumInRange(root.left, x, y) + sumInRange(root.right, x, y);
+    }
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -232,7 +252,7 @@ public class Binary_Search_Trees {
         int values2[] = { 8, 5, 3, 1, 4, 6, 10, 11, 14 };
         Node root2 = null;
         for (int i = 0; i < values2.length; i++) {
-            root2 = insert(root2, i);
+            root2 = insert(root2, values2[i]);
         }
         inOrder(root2);
         System.out.println();
@@ -240,7 +260,7 @@ public class Binary_Search_Trees {
         inOrder(root2);
         System.out.println();
         System.out.println("------------------------ Question 4 ----------------------");
-        // printInRange(root2, 5, 12);
+        printInRange(root2, 5, 12);
         System.out.println();
         System.out.println("------------------------ Question 5 ----------------------");
         pathRootToLeaf(root, new ArrayList<>());
@@ -272,8 +292,8 @@ public class Binary_Search_Trees {
         System.out.println("------------------------ Question 10 ----------------------");
         Node root4 = new Node(50);
         root4.left = new Node(30);
-        root4.left.left = new Node(5);
         root4.left.left = new Node(20);
+        root4.left.left.left = new Node(5);
 
         root4.right = new Node(60);
         root4.right.left = new Node(45);
@@ -284,5 +304,10 @@ public class Binary_Search_Trees {
         largestBSTinBT(root4);
         System.out.println(maxSizeOfBST);
         System.out.println("------------------------ Question 11 ----------------------");
+        System.out.println(sumInRange(root4, 5,70));
+        System.out.println("------------------------ Question 12 ----------------------");
+        System.out.println("------------------------ Question 13 ----------------------");
+        System.out.println("------------------------ Question 14 ----------------------");
+        System.out.println("------------------------ Question 15 ----------------------");
     }
 }
