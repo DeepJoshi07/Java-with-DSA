@@ -51,7 +51,8 @@ public class Binary_Search_Trees {
     }
 
     public static Node deleteNode(Node root, int val) {
-        if(root == null)return null;
+        if (root == null)
+            return null;
 
         if (val > root.data) {
             root.right = deleteNode(root.right, val);
@@ -81,52 +82,58 @@ public class Binary_Search_Trees {
     }
 
     public static void printInRange(Node root, int x, int y) {
-        if(root == null)return ;
-        
-        if(root.data >= x && root.data <= y){
+        if (root == null)
+            return;
+
+        if (root.data >= x && root.data <= y) {
             printInRange(root.left, x, y);
-            System.out.print(root.data+" ");
+            System.out.print(root.data + " ");
             printInRange(root.right, x, y);
         }
 
-        if(root.data < x){
+        if (root.data < x) {
             printInRange(root.right, x, y);
         }
 
-        if(root.data > y){
+        if (root.data > y) {
             printInRange(root.left, x, y);
         }
 
     }
 
-    public static void pathRootToLeaf(Node root, ArrayList<Integer>path){
-        if(root == null)return;
+    public static void pathRootToLeaf(Node root, ArrayList<Integer> path) {
+        if (root == null)
+            return;
 
         path.add(root.data);
 
-        if(root.left == null && root.right == null){
+        if (root.left == null && root.right == null) {
             System.out.println(path);
-            path.remove(path.size()-1);
+            path.remove(path.size() - 1);
             return;
         }
 
         pathRootToLeaf(root.left, path);
         pathRootToLeaf(root.right, path);
-        path.remove(path.size()-1);
+        path.remove(path.size() - 1);
     }
 
-    public static boolean isValidBST(Node root,Node min,Node max){
-        if(root == null)return true;
+    public static boolean isValidBST(Node root, Node min, Node max) {
+        if (root == null)
+            return true;
 
-        if(min != null && root.data <= min.data)return false;//right side even in subtrees
+        if (min != null && root.data <= min.data)
+            return false;// right side even in subtrees
 
-        if(max != null && root.data >= max.data)return false;// left side even in subtrees
+        if (max != null && root.data >= max.data)
+            return false;// left side even in subtrees
 
         return isValidBST(root.left, min, root) && isValidBST(root.right, root, max);
     }
 
-    public static Node mirrorTree(Node root){
-        if(root == null)return null;
+    public static Node mirrorTree(Node root) {
+        if (root == null)
+            return null;
 
         Node left = mirrorTree(root.left);
         Node right = mirrorTree(root.right);
@@ -137,62 +144,66 @@ public class Binary_Search_Trees {
         return root;
     }
 
-    public static Node createBalancedBST(int arr[],int s,int e){
-        if(s > e)return null;
+    public static Node createBalancedBST(int arr[], int s, int e) {
+        if (s > e)
+            return null;
 
-        int mid = (s+e)/2;
+        int mid = (s + e) / 2;
         Node root = new Node(arr[mid]);
-        root.left = createBalancedBST(arr, s, mid-1);
-        root.right = createBalancedBST(arr, mid+1, e);
+        root.left = createBalancedBST(arr, s, mid - 1);
+        root.right = createBalancedBST(arr, mid + 1, e);
 
         return root;
     }
 
-     public static Node createBalancedBST2(ArrayList<Integer> al,int s,int e){
-        if(s > e)return null;
+    public static Node createBalancedBST2(ArrayList<Integer> al, int s, int e) {
+        if (s > e)
+            return null;
 
-        int mid = (s+e)/2;
+        int mid = (s + e) / 2;
         Node root = new Node(al.get(mid));
-        root.left = createBalancedBST2(al, s, mid-1);
-        root.right = createBalancedBST2(al, mid+1, e);
+        root.left = createBalancedBST2(al, s, mid - 1);
+        root.right = createBalancedBST2(al, mid + 1, e);
 
         return root;
     }
 
-    public static void preOrder(Node root){
-        if(root == null)return;
+    public static void preOrder(Node root) {
+        if (root == null)
+            return;
 
-        System.out.print(root.data+" ");
+        System.out.print(root.data + " ");
         preOrder(root.left);
         preOrder(root.right);
     }
 
-    public static void addValueInArrayListInorder(Node root, ArrayList<Integer>al){
-        if(root == null)return;
+    public static void addValueInArrayListInorder(Node root, ArrayList<Integer> al) {
+        if (root == null)
+            return;
 
         addValueInArrayListInorder(root.left, al);
         al.add(root.data);
         addValueInArrayListInorder(root.right, al);
     }
 
-    public static Node balanceBST(Node root){
+    public static Node balanceBST(Node root) {
         ArrayList<Integer> al = new ArrayList<>();
 
         addValueInArrayListInorder(root, al);
 
-        root = createBalancedBST2(al, 0, al.size()-1);
+        root = createBalancedBST2(al, 0, al.size() - 1);
 
         return root;
 
     }
 
-    static class InfoBT{
+    static class InfoBT {
         int min;
         int max;
         boolean isBST;
         int size;
-        
-        public InfoBT(boolean isBST,int size,int min,int max){
+
+        public InfoBT(boolean isBST, int size, int min, int max) {
             this.isBST = isBST;
             this.min = min;
             this.max = max;
@@ -201,60 +212,83 @@ public class Binary_Search_Trees {
     }
 
     public static int maxSizeOfBST = 0;
-    public static InfoBT largestBSTinBT(Node root){
-        if(root == null) return new InfoBT(true,0, Integer.MAX_VALUE, Integer.MIN_VALUE);
+
+    public static InfoBT largestBSTinBT(Node root) {
+        if (root == null)
+            return new InfoBT(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
 
         InfoBT left = largestBSTinBT(root.left);
         InfoBT right = largestBSTinBT(root.right);
 
-        int min = Math.min(root.data,Math.min(left.min,right.min));
-        int max = Math.max(root.data,Math.max(left.max,right.max));
+        int min = Math.min(root.data, Math.min(left.min, right.min));
+        int max = Math.max(root.data, Math.max(left.max, right.max));
         int size = left.size + right.size + 1;
 
-        if(root.data <= left.max || root.data >= right.min){
+        if (root.data <= left.max || root.data >= right.min) {
             return new InfoBT(false, size, min, max);
         }
 
-        if(left.isBST && right.isBST){
+        if (left.isBST && right.isBST) {
             maxSizeOfBST = Math.max(maxSizeOfBST, size);
-            return new InfoBT(true,size,min,max);
+            return new InfoBT(true, size, min, max);
         }
 
         return new InfoBT(false, size, min, max);
     }
-    
-    public static int sumInRange(Node root,int x, int y){
-        if(root == null)return 0;
-        
-        if(root.data < x){
+
+    public static int sumInRange(Node root, int x, int y) {
+        if (root == null)
+            return 0;
+
+        if (root.data < x) {
             return sumInRange(root.right, x, y);
         }
 
-        if(root.data > y){
+        if (root.data > y) {
             return sumInRange(root.left, x, y);
         }
 
         return root.data + sumInRange(root.left, x, y) + sumInRange(root.right, x, y);
     }
+
     public static int closestElement(Node root, int val) {
-    int closest = root.data;
+        int closest = root.data;
 
-    while (root != null) {
-        if (Math.abs(root.data - val) < Math.abs(closest - val)) {
-            closest = root.data;
+        while (root != null) {
+            if (Math.abs(root.data - val) < Math.abs(closest - val)) {
+                closest = root.data;
+            }
+
+            if (val < root.data) {
+                root = root.left;
+            } else if (val > root.data) {
+                root = root.right;
+            } else {
+                return root.data; // exact match
+            }
         }
 
-        if (val < root.data) {
-            root = root.left;
-        } else if (val > root.data) {
-            root = root.right;
-        } else {
-            return root.data;   // exact match
-        }
+        return closest;
     }
 
-    return closest;
-}
+    public static int count = 0;
+
+    public static void kThSmallestElement(Node root, int k) {
+        if (root == null)
+            return;
+
+        kThSmallestElement(root.left, k);
+
+        count++;
+
+        if (count == k) {
+            System.out.println(root.data);
+        }
+
+        kThSmallestElement(root.right, k);
+
+    }
+
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -286,15 +320,15 @@ public class Binary_Search_Trees {
         inOrder(root);
         System.out.println();
         System.out.println("------------------------ Question 6 ----------------------");
-        System.out.println(isValidBST(root2, null,null));
+        System.out.println(isValidBST(root2, null, null));
         System.out.println("------------------------ Question 7 ----------------------");
         inOrder(root);
         System.out.println();
         inOrder(mirrorTree(root));
         System.out.println();
         System.out.println("------------------------ Question 8 ----------------------");
-        int arr [] = {3,5,6,8,10,11,12};
-        inOrder(createBalancedBST(arr,0,arr.length-1));
+        int arr[] = { 3, 5, 6, 8, 10, 11, 12 };
+        inOrder(createBalancedBST(arr, 0, arr.length - 1));
         System.out.println();
         System.out.println("------------------------ Question 9 ----------------------");
         Node root3 = new Node(8);
@@ -305,7 +339,7 @@ public class Binary_Search_Trees {
         root3.right = new Node(10);
         root3.right.right = new Node(11);
         root3.right.right.right = new Node(12);
-        
+
         preOrder(balanceBST(root3));
         System.out.println();
         System.out.println("------------------------ Question 10 ----------------------");
@@ -323,10 +357,11 @@ public class Binary_Search_Trees {
         largestBSTinBT(root4);
         System.out.println(maxSizeOfBST);
         System.out.println("------------------------ Question 11 ----------------------");
-        System.out.println(sumInRange(root4, 5,70));
+        System.out.println(sumInRange(root4, 5, 70));
         System.out.println("------------------------ Question 12 ----------------------");
-        System.out.println(closestElement(root4,67));
+        System.out.println(closestElement(root4, 67));
         System.out.println("------------------------ Question 13 ----------------------");
+        kThSmallestElement(root4, 3);
         System.out.println("------------------------ Question 14 ----------------------");
         System.out.println("------------------------ Question 15 ----------------------");
     }
