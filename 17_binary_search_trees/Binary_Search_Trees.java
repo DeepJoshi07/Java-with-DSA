@@ -236,6 +236,25 @@ public class Binary_Search_Trees {
 
         return root.data + sumInRange(root.left, x, y) + sumInRange(root.right, x, y);
     }
+    public static int closestElement(Node root, int val) {
+    int closest = root.data;
+
+    while (root != null) {
+        if (Math.abs(root.data - val) < Math.abs(closest - val)) {
+            closest = root.data;
+        }
+
+        if (val < root.data) {
+            root = root.left;
+        } else if (val > root.data) {
+            root = root.right;
+        } else {
+            return root.data;   // exact match
+        }
+    }
+
+    return closest;
+}
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -306,6 +325,7 @@ public class Binary_Search_Trees {
         System.out.println("------------------------ Question 11 ----------------------");
         System.out.println(sumInRange(root4, 5,70));
         System.out.println("------------------------ Question 12 ----------------------");
+        System.out.println(closestElement(root4,67));
         System.out.println("------------------------ Question 13 ----------------------");
         System.out.println("------------------------ Question 14 ----------------------");
         System.out.println("------------------------ Question 15 ----------------------");
