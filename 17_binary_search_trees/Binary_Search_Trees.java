@@ -311,6 +311,42 @@ public class Binary_Search_Trees {
         transformToGreaterSumTree(root.left);
     }
 
+    static class NodeInfo2 {
+        int sum;
+        boolean isBST;
+        int min, max;
+
+        public NodeInfo2(int sum, int min, int max, boolean isBST) {
+            this.sum = sum;
+            this.isBST = isBST;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    public static int maxSum = 0;
+
+    public static NodeInfo2 maxSumOfBSTInBT(Node root) {
+        if (root == null)
+            return new NodeInfo2(0, Integer.MAX_VALUE, Integer.MIN_VALUE, true);
+
+        NodeInfo2 left = maxSumOfBSTInBT(root.left);
+        NodeInfo2 right = maxSumOfBSTInBT(root.right);
+
+        if (left.isBST && right.isBST && left.max < root.data && right.min > root.data) {
+            int sum = left.sum + right.sum + root.data;
+
+            maxSum = Math.max(maxSum, sum);
+
+            int min = Math.min(root.data, left.min);
+            int max = Math.max(root.data, right.max);
+
+            return new NodeInfo2(min, max, sum, true);
+        }
+
+        return new NodeInfo2(0,0,0, false);
+    }
+
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -389,5 +425,15 @@ public class Binary_Search_Trees {
         inOrder(root4);
         System.out.println();
         System.out.println("------------------------ Question 15 ----------------------");
+        Node root5 = new Node(5);
+        root5.left = new Node(9);
+        root5.left.left = new Node(6);
+        root5.left.left.left = new Node(8);
+        root5.left.left.right = new Node(7);
+
+        root5.right = new Node(2);
+        root5.right.right = new Node(3);
+        maxSumOfBSTInBT(root5);
+        System.out.println(maxSum);
     }
 }
