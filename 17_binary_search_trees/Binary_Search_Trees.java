@@ -289,6 +289,28 @@ public class Binary_Search_Trees {
 
     }
 
+    public static int sum = 0;
+
+    public static void transformToGreaterSumTree(Node root) {
+        if (root == null)
+            return;
+
+        // visit greater values first
+        transformToGreaterSumTree(root.right);
+
+        // save old value
+        int temp = root.data;
+
+        // replace with sum of greater nodes
+        root.data = sum;
+
+        // update running sum
+        sum += temp;
+
+        // process smaller values
+        transformToGreaterSumTree(root.left);
+    }
+
     public static void main(String[] args) {
         System.out.println("------------------------ Question 1 ----------------------");
         int values[] = { 5, 1, 3, 4, 2, 7 };
@@ -363,6 +385,9 @@ public class Binary_Search_Trees {
         System.out.println("------------------------ Question 13 ----------------------");
         kThSmallestElement(root4, 3);
         System.out.println("------------------------ Question 14 ----------------------");
+        transformToGreaterSumTree(root4);
+        inOrder(root4);
+        System.out.println();
         System.out.println("------------------------ Question 15 ----------------------");
     }
 }
