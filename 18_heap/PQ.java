@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.PriorityQueue;
 
 public class PQ {
@@ -153,6 +155,30 @@ public class PQ {
         return list;
     }
 
+    public static int minTimeToFillNSlots(int arr[],int n,int k){
+        Queue<Integer> q = new LinkedList<>();
+        boolean slots[] = new boolean[n+1]; 
+        for(int i = 0;i < arr.length;i++){
+            q.add(arr[i]);
+            slots[arr[i]] = true;
+        }
+        int time = 0;
+        while(q.size() > 0){
+            for(int i = 0;i < q.size();i++){
+                int curr = q.poll();
+                if(curr-1 >= 1 && !slots[curr-1]){
+                    q.add(curr-1);
+                    slots[curr-1] = true;
+                }
+                if(curr+1 <= n && !slots[curr+1]){
+                    q.add(curr+1);
+                    slots[curr+1] = true;
+                }
+            }
+            time++;
+        }
+        return time;
+    }
     public static void main(String[] args) {
         PriorityQueue<Integer> pq1 = new PriorityQueue<>();
         pq1.add(7);
@@ -215,6 +241,10 @@ public class PQ {
             System.out.print(x + " ");
         System.out.println();
         System.out.println("----------------------- Question 6 ---------------------------");
+        int n = 6, el = 2;
+        int nums[] = {2,6};
+        int time = minTimeToFillNSlots(nums,n,el);
+        System.out.println("minimum time to fill the slots is : "+(time-1));
         System.out.println("----------------------- Question 7 ---------------------------");
         System.out.println("----------------------- Question 8 ---------------------------");
         System.out.println("----------------------- Question 9 ---------------------------");
