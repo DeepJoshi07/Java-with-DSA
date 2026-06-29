@@ -3,6 +3,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class PQ {
@@ -155,30 +156,95 @@ public class PQ {
         return list;
     }
 
-    public static int minTimeToFillNSlots(int arr[],int n,int k){
+    public static int minTimeToFillNSlots(int arr[], int n, int k) {
         Queue<Integer> q = new LinkedList<>();
-        boolean slots[] = new boolean[n+1]; 
-        for(int i = 0;i < arr.length;i++){
+        boolean slots[] = new boolean[n + 1];
+        for (int i = 0; i < arr.length; i++) {
             q.add(arr[i]);
             slots[arr[i]] = true;
         }
         int time = 0;
-        while(q.size() > 0){
-            for(int i = 0;i < q.size();i++){
+        while (q.size() > 0) {
+            for (int i = 0; i < q.size(); i++) {
                 int curr = q.poll();
-                if(curr-1 >= 1 && !slots[curr-1]){
-                    q.add(curr-1);
-                    slots[curr-1] = true;
+                if (curr - 1 >= 1 && !slots[curr - 1]) {
+                    q.add(curr - 1);
+                    slots[curr - 1] = true;
                 }
-                if(curr+1 <= n && !slots[curr+1]){
-                    q.add(curr+1);
-                    slots[curr+1] = true;
+                if (curr + 1 <= n && !slots[curr + 1]) {
+                    q.add(curr + 1);
+                    slots[curr + 1] = true;
                 }
             }
             time++;
         }
         return time;
     }
+
+    static class Cell implements Comparable<Cell> {
+        int row, col, cost;
+
+        Cell(int row, int col, int cost) {
+            this.row = row;
+            this.col = col;
+            this.cost = cost;
+        }
+
+        public int compareTo(Cell other) {
+            return this.cost - other.cost;
+        }
+    }
+
+    public static int minCost(int grid[][]) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int dist[][] = new int[n][m];
+
+        for (int i = 0; i < n; i++)
+            Arrays.fill(dist[i], Integer.MAX_VALUE);
+
+        PriorityQueue<Cell> pq = new PriorityQueue<>();
+
+        // start from top-left
+        dist[0][0] = grid[0][0];
+        pq.add(new Cell(0, 0, grid[0][0]));
+
+        int dir[][] = {
+                { -1, 0 }, // up
+                { 1, 0 }, // down
+                { 0, -1 }, // left
+                { 0, 1 } // right
+        };
+
+        while (!pq.isEmpty()) {
+            Cell curr = pq.poll();
+
+            int r = curr.row;
+            int c = curr.col;
+
+            // reached destination
+            if (r == n - 1 && c == m - 1)
+                return curr.cost;
+
+            for (int d[] : dir) {
+                int nr = r + d[0];
+                int nc = c + d[1];
+
+                if (nr >= 0 && nr < n && nc >= 0 && nc < m) {
+                    int newCost = curr.cost + grid[nr][nc];
+
+                    if (newCost < dist[nr][nc]) {
+                        dist[nr][nc] = newCost;
+                        pq.add(new Cell(nr, nc, newCost));
+                    }
+                }
+            }
+        }
+
+        return -1;
+    }
+
     public static void main(String[] args) {
         PriorityQueue<Integer> pq1 = new PriorityQueue<>();
         pq1.add(7);
@@ -242,10 +308,19 @@ public class PQ {
         System.out.println();
         System.out.println("----------------------- Question 6 ---------------------------");
         int n = 6, el = 2;
-        int nums[] = {2,6};
-        int time = minTimeToFillNSlots(nums,n,el);
-        System.out.println("minimum time to fill the slots is : "+(time-1));
+        int nums[] = { 2, 6 };
+        int time = minTimeToFillNSlots(nums, n, el);
+        System.out.println("minimum time to fill the slots is : " + (time - 1));
         System.out.println("----------------------- Question 7 ---------------------------");
+        int grid[][] = {
+                { 31, 100, 65, 12, 18 },
+                { 10, 13, 47, 157, 6 },
+                { 100, 113, 174, 11, 33 },
+                { 88, 124, 41, 20, 140 },
+                { 99, 32, 111, 41, 20 }
+        };
+
+        System.out.println(minCost(grid));
         System.out.println("----------------------- Question 8 ---------------------------");
         System.out.println("----------------------- Question 9 ---------------------------");
     }
