@@ -245,6 +245,27 @@ public class PQ {
         return -1;
     }
 
+    public static int minops(ArrayList<Integer> nums){
+        int sum = 0;
+        for(int i = 0 ; i < nums.size() ; i++){
+            sum += nums.get(i);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        for(int i = 0 ; i < nums.size() ; i++){
+            pq.add(-nums.get(i));
+        }
+        double temp = sum;
+        int cnt = 0;
+        while (temp > sum / 2) {
+            int x = -pq.peek();
+            pq.remove();
+            temp -= Math.ceil(x * 1.0 / 2);
+            pq.add(x / 2);
+            cnt++;
+        }
+        return cnt;
+    }
+
     public static void main(String[] args) {
         PriorityQueue<Integer> pq1 = new PriorityQueue<>();
         pq1.add(7);
@@ -322,6 +343,9 @@ public class PQ {
 
         System.out.println(minCost(grid));
         System.out.println("----------------------- Question 8 ---------------------------");
+        ArrayList<Integer> nums2 = new ArrayList<Integer>(List.of(4, 6, 3, 9, 10, 2));
+        int count = minops(nums2);
+        System.out.println(count);
         System.out.println("----------------------- Question 9 ---------------------------");
     }
 }
