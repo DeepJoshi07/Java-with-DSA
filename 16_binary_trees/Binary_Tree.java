@@ -279,11 +279,6 @@ public class Binary_Tree {
         if (root.data == val)
             return true;
 
-        // boolean left = isExists(root.left, val);
-        // boolean right = isExists(root.right, val);
-
-        // return left || right;
-
         return isExists(root.left, val) || isExists(root.right, val);
     }
 
@@ -414,15 +409,15 @@ public class Binary_Tree {
 
     }
 
-    public static Node deleteLeafNodesWialueX(Node root, int val) {
+    public static Node deleteLeafNodesWithValueX(Node root, int val) {
         if (root == null)
             return null;
 
         if (root.left == null && root.right == null && root.data == val) {
             return null;
         }
-        Node left = deleteLeafNodesWialueX(root.left, val);
-        Node right = deleteLeafNodesWialueX(root.right, val);
+        Node left = deleteLeafNodesWithValueX(root.left, val);
+        Node right = deleteLeafNodesWithValueX(root.right, val);
 
         root.left = left;
         root.right = right;
@@ -546,7 +541,7 @@ public class Binary_Tree {
         preOrder(invertBinaryTree(root4));
         System.out.println();
         System.out.println("-------------------- Question 21 -------------------");
-        deleteLeafNodesWialueX(root4, 6);
+        deleteLeafNodesWithValueX(root4, 6);
         postOrder(root4);
         System.out.println();
         System.out.println("-------------------- Question 22 -------------------");
