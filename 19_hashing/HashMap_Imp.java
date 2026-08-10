@@ -2,6 +2,8 @@
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Map.Entry;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
 
 public class HashMap_Imp {
     public static void main(String[] args) {
@@ -51,7 +53,26 @@ public class HashMap_Imp {
         for(Entry<String,Integer> s:s2){
             System.out.println(s);
         }
+
+        System.out.println("------------------ LinkedHashMap ----------------------");
+        
+        LinkedHashMap<String,Integer> lhm = new LinkedHashMap<>();
+        lhm.put("india", 150);
+        lhm.put("chaina",160);
+        lhm.put("us",44);
+        System.out.println(lhm);
+        
+        System.out.println("------------------ TreeHashMap ----------------------");
+        TreeMap<String,Integer> tm = new TreeMap<>();
+        tm.put("india",150);
+        tm.put("chaina",160);
+        tm.put("indonasia",34);
+        tm.put("us",44);
+        System.out.println(tm);
+
         System.out.println("----------------- Question 1 ------------------------");
+        int nums [] = {1,3,2,5,1,3,1,5,1};
+        
         System.out.println("----------------- Question 1 ------------------------");
         System.out.println("----------------- Question 1 ------------------------");
     }
