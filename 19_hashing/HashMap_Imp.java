@@ -6,6 +6,21 @@ import java.util.LinkedHashMap;
 import java.util.TreeMap;
 
 public class HashMap_Imp {
+    public static void majorityElement(int arr[]){
+        HashMap<Integer,Integer> hm = new HashMap<>();
+
+        for(int i = 0;i < arr.length;i++){
+            hm.put(arr[i],hm.getOrDefault(arr[i], 0)+1);
+        }
+
+        for(Integer key: hm.keySet()){
+            if(hm.get(key) > arr.length/3){
+                System.out.println(key);
+            }
+        }
+    }
+
+    
     public static void main(String[] args) {
         System.out.println("----------------- implimantation ------------------------");
         HashMap<String,Integer> hm = new HashMap<>();
@@ -72,8 +87,11 @@ public class HashMap_Imp {
 
         System.out.println("----------------- Question 1 ------------------------");
         int nums [] = {1,3,2,5,1,3,1,5,1};
-        
-        System.out.println("----------------- Question 1 ------------------------");
-        System.out.println("----------------- Question 1 ------------------------");
+        majorityElement(nums);
+        System.out.println("----------------- Question 2 ------------------------");
+        String str1 = "race";
+        String str2 = "care";
+        System.out.println(isAnangram(str1,str2));
+        System.out.println("----------------- Question 3 ------------------------");
     }
 }
