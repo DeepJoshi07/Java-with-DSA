@@ -71,7 +71,7 @@ public class HashMap_Imp {
         }
     }
 
-     public static void largestSubarryWithSum0(int arr[]) {
+    public static void largestSubarryWithSum0(int arr[]) {
         HashMap<Integer, Integer> hm = new HashMap<>();
         int sum = 0;
         int len = 0;
@@ -88,6 +88,20 @@ public class HashMap_Imp {
         System.out.println("largest length is : " + len);
     }
 
+    public static void numberOfSubarryWithSumK(int arr[],int k){
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        int sum = 0;
+        hm.put(0, 1);
+        int count = 0;
+        for(int i = 0;i < arr.length;i++){
+            sum += arr[i];
+            if(hm.containsKey(sum - k)){
+                count += hm.get(sum-k);
+            }
+            hm.put(sum,hm.getOrDefault(sum, 0)+1);
+        }
+        System.out.println("the number of subarry with sum "+k+" is : "+count);
+    }
     public static void main(String[] args) {
         System.out.println("----------------- implimantation ------------------------");
         HashMap<String, Integer> hm = new HashMap<>();
@@ -170,6 +184,8 @@ public class HashMap_Imp {
         int arr[] = { 15, -2, 2, -8, 1, 7, 10, 23 };
         largestSubarryWithSum0(arr);
         System.out.println("----------------- Question 5 ------------------------");
+        int arr2[] = { 10, 2, -2, -20, 10 };
+        numberOfSubarryWithSumK(arr2, -10);
         System.out.println("----------------- Question 6 ------------------------");
         System.out.println("----------------- Question 7 ------------------------");
         System.out.println("----------------- Question 8 ------------------------");
