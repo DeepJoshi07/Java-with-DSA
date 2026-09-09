@@ -71,6 +71,22 @@ public class HashMap_Imp {
         }
     }
 
+     public static void largestSubarryWithSum0(int arr[]) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        int sum = 0;
+        int len = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (hm.containsKey(sum)) {
+                len = Math.max(len, i - hm.get(sum));
+            } else {
+                hm.put(sum, i);
+            }
+        }
+
+        System.out.println("largest length is : " + len);
+    }
 
     public static void main(String[] args) {
         System.out.println("----------------- implimantation ------------------------");
