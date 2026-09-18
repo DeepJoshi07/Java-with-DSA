@@ -95,6 +95,19 @@ public class Tries{
             }
         }
     }
+
+    public static boolean startsWith(String word){
+        Node curr = root;
+
+        for(int i = 0;i < word.length();i++){
+            int idx = word.charAt(i) - 'a';
+            if(curr.children[idx] == null){
+                return false;
+            }
+            curr = curr.children[idx];
+        }
+        return true;
+    }
     public static void main(String[] args) {
         System.out.println("------------------ Question 1 -------------------");
         String words[] = {"the","a","there","their","any","thee"};
@@ -112,12 +125,22 @@ public class Tries{
         // System.out.println(wordBreak("ilikesamsung"));
         System.out.println("------------------ Question 4 -------------------");
         String arr2[] = {"zebra","duck","dog","dove"};
-        for(int i = 0;i < arr2.length;i++){
-            insert2(arr2[i]);
-        }
-        root2.freq = -1;
-        findPrefix(root2,"");
+        // for(int i = 0;i < arr2.length;i++){
+        //     insert2(arr2[i]);
+        // }
+        // root2.freq = -1;
+        // findPrefix(root2,"");
         System.out.println("------------------ Question 5 -------------------");
+        String arr3[] ={"apple", "app", "mango", "man", "woman"};
+        for(int i = 0;i < arr3.length;i++){
+            insert(arr3[i]);
+        }
+        System.out.println(startsWith("man")); // "more"   
+        System.out.println("------------------ Question 6 -------------------");
         
+        System.out.println("------------------ Question 7 -------------------");
+        System.out.println("------------------ Question 8 -------------------");
+        System.out.println("------------------ Question 9 -------------------");
+        System.out.println("------------------ Question 10 -------------------");
     }
 }
