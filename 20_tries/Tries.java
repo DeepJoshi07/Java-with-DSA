@@ -26,7 +26,21 @@ public class Tries{
         curr.endOfWord = true;
     }
 
-    
+    public static boolean search(String str){
+        Node curr = root;
+
+        for(int i = 0;i < str.length();i++){
+            int idx = str.charAt(i) - 'a';
+
+            if(curr.children[idx] == null){
+                return false;
+            }
+            curr = curr.children[idx];
+        }
+        return curr.endOfWord;
+    }
+
+   
     public static void main(String[] args) {
         System.out.println("------------------ Question 1 -------------------");
         String words[] = {"the","a","there","their","any","thee"};
