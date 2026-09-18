@@ -108,6 +108,19 @@ public class Tries{
         }
         return true;
     }
+
+    public static int countAllUniquePrefix(Node root){
+        if(root == null){
+            return 0;
+        }
+        int count = 0;
+        for(int i = 0;i < 26;i++){
+            if(root.children[i] != null){
+                count += countAllUniquePrefix(root.children[i]);
+            }
+        }
+        return count + 1;
+    }
     public static void main(String[] args) {
         System.out.println("------------------ Question 1 -------------------");
         String words[] = {"the","a","there","their","any","thee"};
@@ -131,13 +144,18 @@ public class Tries{
         // root2.freq = -1;
         // findPrefix(root2,"");
         System.out.println("------------------ Question 5 -------------------");
-        String arr3[] ={"apple", "app", "mango", "man", "woman"};
-        for(int i = 0;i < arr3.length;i++){
-            insert(arr3[i]);
-        }
-        System.out.println(startsWith("man")); // "more"   
+        // String arr3[] ={"apple", "app", "mango", "man", "woman"};
+        // for(int i = 0;i < arr3.length;i++){
+        //     insert(arr3[i]);
+        // }
+        // System.out.println(startsWith("man")); // "more"   
         System.out.println("------------------ Question 6 -------------------");
-        
+        String str = "apple";
+        for(int i = 0;i < str.length();i++){
+            String sufix = str.substring(i);
+            insert(sufix);
+        }
+        System.out.println(countAllUniquePrefix(root));
         System.out.println("------------------ Question 7 -------------------");
         System.out.println("------------------ Question 8 -------------------");
         System.out.println("------------------ Question 9 -------------------");
