@@ -40,7 +40,18 @@ public class Tries{
         return curr.endOfWord;
     }
 
-   
+    public static boolean wordBreak(String str){
+        if(str.length() == 0){
+            return true;
+        }
+
+        for(int i = 1;i <= str.length();i++){
+            if(search(str.substring(0,i)) && wordBreak(str.substring(i))){
+                return true;
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) {
         System.out.println("------------------ Question 1 -------------------");
         String words[] = {"the","a","there","their","any","thee"};
