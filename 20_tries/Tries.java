@@ -121,6 +121,23 @@ public class Tries{
         }
         return count + 1;
     }
+    public static String ans = "" ;
+    public static void longestWordWithAllPrefixes(Node root, StringBuilder temp){
+        if(root == null){
+            return;
+        }
+
+        for(int i = 0;i < 26;i++){
+            if(root.children[i] != null && root.children[i].endOfWord == true){
+                temp.append((char)(i + 'a'));
+                if(temp.length() > ans.length()){
+                    ans = temp.toString();
+                }
+                longestWordWithAllPrefixes(root.children[i], temp);
+                temp.deleteCharAt(temp.length()-1);
+            } 
+        }
+    }
     public static void main(String[] args) {
         System.out.println("------------------ Question 1 -------------------");
         String words[] = {"the","a","there","their","any","thee"};
@@ -131,7 +148,7 @@ public class Tries{
         // System.out.println(search("thee"));
         // System.out.println(search("an"));
         System.out.println("------------------ Question 3 -------------------");
-        // String arr[] = {"i", "like","sam", "samsung","mobile","ice"};
+        String arr[] = {"i", "like","sam", "samsung","mobile","ice"};
         // for(int i = 0 ;i < arr.length;i++){
         //     insert(arr[i]);
         // }
@@ -144,19 +161,25 @@ public class Tries{
         // root2.freq = -1;
         // findPrefix(root2,"");
         System.out.println("------------------ Question 5 -------------------");
-        // String arr3[] ={"apple", "app", "mango", "man", "woman"};
+        String arr3[] ={"apple", "app", "mango", "man", "woman"};
         // for(int i = 0;i < arr3.length;i++){
         //     insert(arr3[i]);
         // }
         // System.out.println(startsWith("man")); // "more"   
         System.out.println("------------------ Question 6 -------------------");
         String str = "apple";
-        for(int i = 0;i < str.length();i++){
-            String sufix = str.substring(i);
-            insert(sufix);
-        }
-        System.out.println(countAllUniquePrefix(root));
+        // for(int i = 0;i < str.length();i++){
+        //     String sufix = str.substring(i);
+        //     insert(sufix);
+        // }
+        // System.out.println(countAllUniquePrefix(root));
         System.out.println("------------------ Question 7 -------------------");
+        String arr4[] = {"a","banana","app","appl","ap","apply","apple"};
+        for(int i = 0;i < arr4.length;i++){
+            insert(arr4[i]);
+        }
+        longestWordWithAllPrefixes(root,new StringBuilder(""));
+        System.out.println(ans);
         System.out.println("------------------ Question 8 -------------------");
         System.out.println("------------------ Question 9 -------------------");
         System.out.println("------------------ Question 10 -------------------");
