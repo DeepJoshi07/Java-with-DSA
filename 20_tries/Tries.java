@@ -52,6 +52,49 @@ public class Tries{
         }
         return false;
     }
+    
+    static class Node2{
+        Node2[] children;
+        int freq;
+
+        public Node2(){
+            this.children = new Node2[26];
+            this.freq = 1;
+        }
+    }
+
+    public static Node2 root2 = new Node2();
+
+    public static void insert2(String str){
+        Node2 curr = root2;
+
+        for(int i = 0;i < str.length();i++){
+            int idx = str.charAt(i) - 'a';
+            if(curr.children[idx] == null){
+                curr.children[idx] = new Node2();
+            }else{
+                curr.children[idx].freq += 1;
+            }
+            curr = curr.children[idx];
+        }
+    }
+    
+    public static void findPrefix(Node2 root,String ans){
+        if(root == null){
+            return;
+        }
+
+        if(root.freq == 1){
+            System.out.println(ans);
+            return;
+        }
+
+        for(int i = 0; i < root.children.length;i++){
+            if(root.children[i] != null){
+                findPrefix(root.children[i], ans+(char)(i + 'a'));
+            }
+        }
+    }
     public static void main(String[] args) {
         System.out.println("------------------ Question 1 -------------------");
         String words[] = {"the","a","there","their","any","thee"};
@@ -62,12 +105,18 @@ public class Tries{
         // System.out.println(search("thee"));
         // System.out.println(search("an"));
         System.out.println("------------------ Question 3 -------------------");
-        String arr[] = {"i", "like","sam", "samsung","mobile","ice"};
-        for(int i = 0 ;i < arr.length;i++){
-            insert(arr[i]);
-        }
-        System.out.println(wordBreak("ilikesamsung"));
+        // String arr[] = {"i", "like","sam", "samsung","mobile","ice"};
+        // for(int i = 0 ;i < arr.length;i++){
+        //     insert(arr[i]);
+        // }
+        // System.out.println(wordBreak("ilikesamsung"));
         System.out.println("------------------ Question 4 -------------------");
+        String arr2[] = {"zebra","duck","dog","dove"};
+        for(int i = 0;i < arr2.length;i++){
+            insert2(arr2[i]);
+        }
+        root2.freq = -1;
+        findPrefix(root2,"");
         System.out.println("------------------ Question 5 -------------------");
         
     }
