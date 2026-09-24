@@ -15,6 +15,26 @@ public class Graphs{
         }
     }
 
+    public static void bfs(ArrayList<Edge>[]graph){
+        Queue<Integer> q = new LinkedList<>(); 
+        boolean visted[] = new boolean[graph.length];
+        q.add(0);
+
+        while(!q.isEmpty()){
+            int curr = q.remove();
+
+            if(!visted[curr]){
+                System.out.print(curr + " ");
+                visted[curr] = true;
+                for(int i = 0;i < graph[curr].size();i++){
+                    q.add(graph[curr].get(i).dst);
+                }
+            }
+        }
+    }
+
+    
+  
       public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
