@@ -33,7 +33,17 @@ public class Graphs{
         }
     }
 
-    
+    public static void dfs(ArrayList<Edge>[]graph,int curr,boolean visited[]){
+        System.out.print(curr+" ");
+        visited[curr] = true;
+
+        for(int i = 0;i < graph[curr].size();i++){
+            int e = graph[curr].get(i).dst;
+            if(!visited[e]){
+                dfs(graph,e,visited);
+            }
+        }
+    } 
   
       public static void main(String[] args) {
         int V = 5;
