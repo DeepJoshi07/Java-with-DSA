@@ -28,7 +28,7 @@ public class Graphs {
 
     }
 
-    public static void bfsUtil(ArrayList<Edge>[] graph, boolean visited[], Queue<Integer> q) {
+    private static void bfsUtil(ArrayList<Edge>[] graph, boolean visited[], Queue<Integer> q) {
 
         while (!q.isEmpty()) {
             int curr = q.remove();
@@ -51,7 +51,7 @@ public class Graphs {
         }
     }
 
-    public static void dfsUtil(ArrayList<Edge>[] graph, int curr, boolean visited[]) {
+    private static void dfsUtil(ArrayList<Edge>[] graph, int curr, boolean visited[]) {
         System.out.print(curr + " ");
         visited[curr] = true;
 
@@ -76,7 +76,33 @@ public class Graphs {
         return false;
     }
 
-    public static void main(String[] args) {
+    public static boolean detectCycle(ArrayList<Edge>[]graph){
+        boolean visited[] = new boolean[graph.length];
+        for(int i = 0;i < graph.length;i++){
+            if(!visited[i]){
+                if(detectCycleUtil(graph,visited,i,-1)){
+                    return true;
+                };
+            }
+        }
+        return false;
+    }
+
+    private static boolean detectCycleUtil(ArrayList<Edge>[] graph,boolean visited[],int curr,int parent){
+        visited[curr] = true;
+        for(Edge e : graph[curr]){
+            if(!visited[e.dst]){
+                if(detectCycleUtil(graph, visited, e.dst, curr)){
+                    return true;
+                }
+            }else if(visited[e.dst] && e.dst != parent){
+                return true;
+            }
+        }
+        return false;
+    }
+
+     public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] g = new ArrayList[V];
@@ -109,7 +135,7 @@ public class Graphs {
         System.out.println("---------------- Question 1 -----------------");
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph = new ArrayList[7];
-
+        
         for (int i = 0; i < 7; i++) {
             graph[i] = new ArrayList<>();
         }
@@ -145,7 +171,53 @@ public class Graphs {
         System.out.println("---------------- Question 3 -----------------");
         System.out.println(hasPath(graph, 0, 5, new boolean[graph.length]));
         System.out.println("---------------- Question 4 -----------------");
+        @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph2 = new ArrayList[5];
+
+        for(int i = 0; i < graph2.length;i++){
+            graph2[i] = new ArrayList<>();
+        }
+
+        graph2[0].add(new Edge(0,1,1));
+        graph2[0].add(new Edge(0,2,1));
+        graph2[0].add(new Edge(0,3,1));
+
+        graph2[1].add(new Edge(1, 0, 1));
+        graph2[1].add(new Edge(1, 2, 1));
+
+        graph2[2].add(new Edge(2, 1, 1));
+        graph2[2].add(new Edge(2, 0, 1));
+
+        graph2[3].add(new Edge(3, 0, 1));
+        graph2[3].add(new Edge(3, 4, 1));
+
+        graph2[4].add(new Edge(4, 3, 1));
+
+        System.out.println(detectCycle(graph2));
         System.out.println("---------------- Question 5 -----------------");
+         @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph3 = new ArrayList[5];
+
+        for(int i = 0; i < graph2.length;i++){
+            graph3[i] = new ArrayList<>();
+        }
+
+        graph3[0].add(new Edge(0, 1, 1));
+        graph3[0].add(new Edge(0, 2, 1));
+
+        graph3[1].add(new Edge(1, 0, 1));
+        graph3[1].add(new Edge(1, 3, 1));
+
+        graph3[2].add(new Edge(2, 0, 1));
+        // graph3[2].add(new Edge(2, 4, 1));
+
+        graph3[3].add(new Edge(3, 1, 1));
+        graph3[3].add(new Edge(3, 4, 1));
+
+        graph3[4].add(new Edge(4, 3, 1));
+        // graph3[4].add(new Edge(4, 2, 1));
+
+        System.out.println(isBipartite(graph3));
         System.out.println("---------------- Question 6 -----------------");
         System.out.println("---------------- Question 7 -----------------");
     }
