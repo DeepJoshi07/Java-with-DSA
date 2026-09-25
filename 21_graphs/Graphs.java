@@ -102,7 +102,34 @@ public class Graphs {
         return false;
     }
 
-     public static void main(String[] args) {
+    public static boolean isBipartite(ArrayList<Edge>[]graph){
+        int color[] = new int[graph.length];
+        Queue<Integer> q = new LinkedList<>();
+        for(int i = 0;i < color.length;i++){
+            color[i] = -1;
+        }
+
+        for(int i = 0;i < graph.length;i++){
+            if(color[i] == -1){
+                q.add(i);
+                color[i] = 0;
+                while(!q.isEmpty()){
+                    int curr = q.remove();
+                    for(Edge e : graph[curr]){
+                        if(color[e.dst] == -1){
+                            q.add(e.dst);
+                            int nextColor = color[e.src] == 0? 1: 0;
+                            color[e.dst] = nextColor;
+                        }else if(color[e.dst] == color[e.src]) {
+                            return false;
+                        }
+                    }
+                } 
+            }
+        }
+        return true;
+    }
+    public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] g = new ArrayList[V];
@@ -209,7 +236,7 @@ public class Graphs {
         graph3[1].add(new Edge(1, 3, 1));
 
         graph3[2].add(new Edge(2, 0, 1));
-        // graph3[2].add(new Edge(2, 4, 1));
+        graph3[2].add(new Edge(2, 4, 1));
 
         graph3[3].add(new Edge(3, 1, 1));
         graph3[3].add(new Edge(3, 4, 1));
