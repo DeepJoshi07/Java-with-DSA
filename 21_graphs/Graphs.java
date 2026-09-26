@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Graphs {
     static class Edge {
@@ -162,6 +163,32 @@ public class Graphs {
         stack[curr] = false;
         return false;
     }
+
+    public static void topologicalSort(ArrayList<Edge>[]graph){
+        boolean[] visited = new boolean[graph.length];
+        Stack<Integer> s = new Stack<>();
+
+        for(int i = 0;i < graph.length;i++){
+            if(!visited[i]){
+                topologicalSortUtil(graph, visited, s, i);
+            }
+        }
+
+        while(!s.isEmpty()){
+            System.out.print(s.pop()+" ");
+        }
+        System.out.println();
+    }
+
+    private static void topologicalSortUtil(ArrayList<Edge>[]graph,boolean visted[],Stack<Integer> s,int curr){
+        visted[curr] = true;
+        for(Edge e : graph[curr]){
+            if(!visted[e.dst]){
+                topologicalSortUtil(graph, visted, s, e.dst);
+            }
+        }
+        s.push(curr);
+    }
     public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
@@ -292,5 +319,26 @@ public class Graphs {
         graph4[3].add(new Edge(3, 0, 1));
         System.out.println(isCycle(graph4));
         System.out.println("---------------- Question 7 -----------------");
+         @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph5 = new ArrayList[6];
+
+        for (int i = 0; i < graph5.length; i++) {
+            graph5[i] = new ArrayList<>();
+        }
+
+        graph5[2].add(new Edge(2, 3, 1));
+
+        graph5[3].add(new Edge(3, 1, 1));
+        
+        graph5[4].add(new Edge(4, 0, 1));
+        graph5[4].add(new Edge(4, 1, 1));
+
+        graph5[5].add(new Edge(5, 0, 1));
+        graph5[5].add(new Edge(5, 2, 1));
+
+        topologicalSort(graph5);
+        System.out.println("---------------- Question 8 -----------------");
+        System.out.println("---------------- Question 9 -----------------");
+        System.out.println("---------------- Question 10 -----------------");
     }
 }
