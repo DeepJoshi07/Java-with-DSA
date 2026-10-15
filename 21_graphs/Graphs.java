@@ -189,6 +189,39 @@ public class Graphs {
         }
         s.push(curr);
     }
+
+    private static void calIndegree(ArrayList<Edge>[] graph,int indigree[]){
+        for(int i = 0;i < graph.length;i++){
+            for(Edge e : graph[i]){
+                indigree[e.dst]++;
+            }
+        }
+    }
+
+    public static void topologicalSort2(ArrayList<Edge>[] graph){
+        int indegree[] = new int[graph.length];
+        Queue<Integer> q = new LinkedList<>();
+        calIndegree(graph, indegree);
+
+        for(int i = 0;i < indegree.length;i++){
+            if(indegree[i] == 0){
+                q.add(i);
+            }
+        }
+
+       while(!q.isEmpty()){
+        int curr = q.remove();
+        System.out.print(curr+" ");
+        for(Edge e : graph[curr]){
+            indegree[e.dst]--;
+            if(indegree[e.dst] == 0){
+                q.add(e.dst);
+            }
+        }
+       }
+       System.out.println();
+    }
+
     public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
@@ -319,7 +352,7 @@ public class Graphs {
         graph4[3].add(new Edge(3, 0, 1));
         System.out.println(isCycle(graph4));
         System.out.println("---------------- Question 7 -----------------");
-         @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph5 = new ArrayList[6];
 
         for (int i = 0; i < graph5.length; i++) {
@@ -338,6 +371,7 @@ public class Graphs {
 
         topologicalSort(graph5);
         System.out.println("---------------- Question 8 -----------------");
+        topologicalSort2(graph5);
         System.out.println("---------------- Question 9 -----------------");
         System.out.println("---------------- Question 10 -----------------");
     }
