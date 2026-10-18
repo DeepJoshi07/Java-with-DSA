@@ -222,6 +222,17 @@ public class Graphs {
        System.out.println();
     }
 
+    public static void printAllPaths(ArrayList<Edge>[]graph,int src,int dst,StringBuilder sb){
+        if(src == dst){
+            System.out.println(sb.toString()+dst);
+            return;
+        }
+
+        for(Edge e: graph[src]){
+            printAllPaths(graph, e.dst, dst, sb.append(e.src));
+            sb.deleteCharAt(sb.length()-1);
+        }
+    }
     public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
@@ -373,6 +384,24 @@ public class Graphs {
         System.out.println("---------------- Question 8 -----------------");
         topologicalSort2(graph5);
         System.out.println("---------------- Question 9 -----------------");
+         @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph6 = new ArrayList[6];
+
+        for (int i = 0; i < graph6.length; i++) {
+            graph6[i] = new ArrayList<>();
+        }
+        graph6[0].add(new Edge(0, 3, 1));
+
+        graph6[2].add(new Edge(2, 3, 1));
+
+        graph6[3].add(new Edge(3, 1, 1));
+        
+        graph6[4].add(new Edge(4, 0, 1));
+        graph6[4].add(new Edge(4, 1, 1));
+
+        graph6[5].add(new Edge(5, 0, 1));
+        graph6[5].add(new Edge(5, 2, 1));
+        printAllPaths(graph6,5,1,new StringBuilder(""));
         System.out.println("---------------- Question 10 -----------------");
     }
 }
