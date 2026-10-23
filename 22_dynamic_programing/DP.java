@@ -25,8 +25,31 @@ public class DP{
         return dp[num];
     }
 
-    
-    public static void main(String[] args) {
+    public static int countingStairs(int stairs,int ways[]){
+        if(stairs == 0)return 1;
+        if(stairs < 0)return 0;
+        if(ways[stairs] != -1){
+            return ways[stairs];
+        }
+        ways[stairs] = countingStairs(stairs-1, ways) + countingStairs(stairs-2, ways);
+        return ways[stairs];
+    }
+
+    public static int countingStairs2(int stairs){
+        int dp[] = new int[stairs+1];
+        dp[0] = 1;
+
+        for(int i = 1;i < dp.length;i++){
+            if(i == 1){
+                dp[i] = dp[i-1];
+            }else{
+                dp[i] = dp[i-1] + dp[i-2];
+            }
+        }
+        return dp[stairs];
+    }
+
+     public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
         int arr[] = new int[num+1];
