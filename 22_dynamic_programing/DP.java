@@ -146,6 +146,27 @@ public class DP{
         printMatrix2(dp);
         return dp[numbers.length][sum];
     }
+
+    public static int unboundedKnapsack(int val[],int weight[],int W){
+        int dp[][] = new int[val.length+1][W+1];
+        for(int i = 0;i < dp.length;i++){
+            dp[i][0] = 0;
+        }
+        for(int j = 0;j < dp[0].length;j++){
+            dp[0][j] = 0;
+        }
+        for(int i = 1;i < dp.length;i++){
+            for(int j = 1;j < dp[0].length;j++){
+                int v = val[i-1];
+                if(weight[i-1] <= j){
+                    dp[i][j] = Math.max(v + dp[i][j-weight[i-1]],dp[i-1][j]);
+                }else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[val.length][W];
+    }
      public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
@@ -187,6 +208,7 @@ public class DP{
         int sum =10;
         System.out.println(targetSumSubset(numbers,sum));
         System.out.println("--------------------- Question 5 -----------------------");
+        System.out.println(unboundedKnapsack(val,weight,W));
         System.out.println("--------------------- Question 6 -----------------------");
     }
 }
