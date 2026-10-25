@@ -126,7 +126,7 @@ public class DP{
 
         return dp[val.length][W];
     }
-   
+
     public static boolean targetSumSubset(int numbers[],int sum){
         boolean dp[][] = new boolean[numbers.length+1][sum+1];
         for(int i = 0;i < dp.length;i++){
@@ -167,7 +167,30 @@ public class DP{
         }
         return dp[val.length][W];
     }
-     public static void main(String[] args) {
+    
+    public static int coinChange(int coins[],int change){
+        int dp[][] = new int[coins.length+1][change+1];
+        for(int i = 0;i < dp.length;i++){
+            dp[i][0] = 1;
+        }
+        for(int j = 0;j < dp[0].length;j++){
+            dp[0][j] = 0;
+        }
+
+        for(int i = 1;i < dp.length;i++){
+            for(int j = 1;j < dp[0].length;j++){
+                int val = coins[i-1];
+                if(val <= j){
+                    dp[i][j] = dp[i][j-val] + dp[i-1][j];
+                }else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[coins.length][change];
+    }
+   
+    public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
         int arr[] = new int[num+1];
@@ -210,5 +233,12 @@ public class DP{
         System.out.println("--------------------- Question 5 -----------------------");
         System.out.println(unboundedKnapsack(val,weight,W));
         System.out.println("--------------------- Question 6 -----------------------");
+        int coins[] = {1,2,3};
+        int change = 4;
+        System.out.println(coinChange(coins, change));
+        System.out.println("--------------------- Question 7 -----------------------");
+        System.out.println("--------------------- Question 8 -----------------------");
+        System.out.println("--------------------- Question 9 -----------------------");
+        System.out.println("--------------------- Question 10 -----------------------");
     }
 }
