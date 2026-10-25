@@ -9,6 +9,7 @@ public class DP{
             System.out.println();
         }
     }
+    
     public static void printMatrix2(boolean matrix[][]){
         for(int i = 0;i < matrix.length;i++){
             for(int j = 0;j < matrix[0].length;j++){
@@ -17,6 +18,7 @@ public class DP{
             System.out.println();
         }
     }
+    
     public static int fibonachhi(int num,int arr[]){
         if(num == 0 || num == 1)return num;
 
@@ -64,6 +66,7 @@ public class DP{
         }
         return dp[stairs];
     }
+    
     public static int knapsack(int val[],int weight[],int W,int items){
         if(W == 0 || items == 0)return 0;
 
@@ -190,6 +193,27 @@ public class DP{
         return dp[coins.length][change];
     }
    
+    public static int rodCutting(int len[],int price[],int totalRod){
+        int dp[][] = new int[price.length+1][totalRod+1];
+        for(int i = 0;i < dp.length;i++){
+            for(int j = 0;j < dp[0].length;j++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 0;
+                }
+            }
+        }
+
+        for(int i = 1;i < dp.length;i++){
+            for(int j = 1;j < dp[0].length;j++){
+                if(len[i-1] <= j){
+                    dp[i][j] = Math.max(price[i-1]+ dp[i][j-len[i-1]],dp[i-1][j]);
+                }else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        return dp[price.length][totalRod];
+    }
     public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
@@ -233,10 +257,14 @@ public class DP{
         System.out.println("--------------------- Question 5 -----------------------");
         System.out.println(unboundedKnapsack(val,weight,W));
         System.out.println("--------------------- Question 6 -----------------------");
-        int coins[] = {1,2,3};
-        int change = 4;
+        int coins[] = {2,5,3,6};
+        int change = 10;
         System.out.println(coinChange(coins, change));
         System.out.println("--------------------- Question 7 -----------------------");
+        int len[] = {1,2,3,4,5,6,7,8};
+        int price[] = {1,5,8,9,10,17,17,20};
+        int totalRod = len.length;
+        System.out.println(rodCutting(len,price,totalRod));
         System.out.println("--------------------- Question 8 -----------------------");
         System.out.println("--------------------- Question 9 -----------------------");
         System.out.println("--------------------- Question 10 -----------------------");
