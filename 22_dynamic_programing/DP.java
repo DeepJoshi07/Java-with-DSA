@@ -214,6 +214,62 @@ public class DP{
         }
         return dp[price.length][totalRod];
     }
+    
+    public static int lcs(String s1,int m,String s2,int n){
+        if(m < 0 || n < 0)return 0;
+
+        if(s1.charAt(m) == s2.charAt(n)){
+            return lcs(s1, m-1, s2, n-1) + 1;
+        }else{
+            int ans1 = lcs(s1, m-1, s2, n);
+            int ans2 = lcs(s1, m, s2, n-1);
+            return Math.max(ans1, ans2);
+        }
+    }
+
+    public static int lcs2(String s1,int m,String s2,int n,int dp[][]){
+        if(m < 0 || n < 0)return 0;
+
+        if(dp[m][n] != -1){
+            return dp[m][n];
+        }
+
+        if(s1.charAt(m) == s2.charAt(n)){
+            dp[m][n] = lcs2(s1, m-1, s2, n-1,dp) + 1;
+            return dp[m][n];
+        }else{
+            int ans1 = lcs2(s1, m-1, s2, n,dp);
+            int ans2 = lcs2(s1, m, s2, n-1,dp);
+            dp[m][n] = Math.max(ans1, ans2);
+            return dp[m][n];
+        }
+    }
+    
+    public static int lcs3(String s1,String s2){
+        int n = s1.length();
+        int m = s2.length();
+        int dp[][] = new int[n+1][m+1];
+        for(int i = 0;i < dp.length;i++){
+            for(int j = 0;j < dp[0].length;j++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 0;
+                }
+            }
+        }
+
+        for(int i = 1;i < dp.length;i++ ){
+            for(int j = 1;j < dp[0].length;j++){
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                }else{
+                    int ans1 = dp[i-1][j];
+                    int ans2 = dp[i][j-1];
+                    dp[i][j] = Math.max(ans1,ans2);
+                }
+            }
+        }
+        return dp[n][m];
+    }
     public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
@@ -266,7 +322,22 @@ public class DP{
         int totalRod = len.length;
         System.out.println(rodCutting(len,price,totalRod));
         System.out.println("--------------------- Question 8 -----------------------");
+        String str1 = "abcdge";
+        String str2 = "abedg";
+        // lowest common subsequeance
+        System.out.println(lcs(str1,str1.length()-1,str2,str2.length()-1));
+        System.out.println("-----------");
+        int dp2[][] = new int[str1.length()+1][str2.length()+1];
+        for(int i = 0;i < dp2.length;i++){
+            for(int j = 0;j < dp2[0].length;j++){
+                dp2[i][j] = -1;
+            }
+        }
+        System.out.println(lcs2(str1, str1.length()-1, str2, str2.length()-1, dp2));
+        System.out.println("-----------");
+        System.out.println(lcs3(str1,str2));
         System.out.println("--------------------- Question 9 -----------------------");
+        
         System.out.println("--------------------- Question 10 -----------------------");
     }
 }
