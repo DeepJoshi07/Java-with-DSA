@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class DP{
     public static void printMatrix(int matrix[][]){
@@ -270,7 +271,35 @@ public class DP{
         }
         return dp[n][m];
     }
-    public static void main(String[] args) {
+    
+    public static int lcSubstring(String s1,String s2){
+        int n = s1.length();
+        int m = s2.length();
+        int dp[][] = new int[n+1][m+1];
+        int ans = 0;
+
+        for(int i = 0;i < dp.length;i++){
+            for(int j = 0;j < dp[0].length;j++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 0;
+                }
+            }
+        }
+
+        for(int i = 1;i < dp.length;i++){
+            for(int j = 1;j < dp[0].length;j++){
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                    ans = Math.max(ans, dp[i][j]);
+                }else{
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        return ans;
+    }
+    
+     public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
         int arr[] = new int[num+1];
@@ -337,7 +366,16 @@ public class DP{
         System.out.println("-----------");
         System.out.println(lcs3(str1,str2));
         System.out.println("--------------------- Question 9 -----------------------");
-        
+        // Longest common substring
+        String s3 = "ABCDE";
+        String s4 = "ABGCE";
+        System.out.println(lcSubstring(s3,s4));
         System.out.println("--------------------- Question 10 -----------------------");
+        // Longest increasing subsequence
+        int arr1[] = {50,3,10,7,40,80};
+        System.out.println(lis(arr1));
+        System.out.println("--------------------- Question 11 -----------------------");
+        System.out.println("--------------------- Question 12 -----------------------");
+        System.out.println("--------------------- Question 13 -----------------------");
     }
 }
