@@ -343,6 +343,35 @@ public class DP{
         return lcsArrays(arr, temp);
     }
    
+    public static int editDistance(String s1,String s2){
+        int n = s1.length();
+        int m = s2.length();
+        int dp[][] = new int[n+1][m+1];
+        for(int i = 0;i < dp.length;i++){
+            for(int j = 0;j < dp[0].length;j++){
+                if(i == 0){
+                    dp[i][j] = j;
+                }
+                if(j == 0){
+                    dp[i][j] = i;
+                }
+            }
+        }
+
+        for(int i = 1;i < dp.length;i++){
+            for(int j = 1;j < dp[0].length;j++){
+                if(s1.charAt(i-1) == s2.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1];
+                }else{
+                    int add = dp[i][j-1] + 1;
+                    int delete = dp[i-1][j] + 1;
+                    int replace = dp[i-1][j-1] + 1;
+                    dp[i][j] = Math.min(add,Math.min(delete,replace));
+                }
+            }
+        }
+        return dp[n][m];
+    }
      public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
@@ -419,6 +448,9 @@ public class DP{
         int arr1[] = {50,3,10,7,40,80};
         System.out.println(lis(arr1));
         System.out.println("--------------------- Question 11 -----------------------");
+        String s5 = "intention";
+        String s6 = "execution";
+        System.out.println(editDistance(s5,s6));
         System.out.println("--------------------- Question 12 -----------------------");
         System.out.println("--------------------- Question 13 -----------------------");
     }
