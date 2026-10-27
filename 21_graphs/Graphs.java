@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -132,13 +133,13 @@ public class Graphs {
         return true;
     }
 
-    public static boolean isCycle(ArrayList<Edge>[]graph){
-        boolean visited [] = new boolean[graph.length];
-        boolean stack [] = new boolean[graph.length];
+    public static boolean isCycle(ArrayList<Edge>[] graph) {
+        boolean visited[] = new boolean[graph.length];
+        boolean stack[] = new boolean[graph.length];
 
-        for(int i = 0;i < graph.length;i++){
-            if(!visited[i]){
-                if(isCycleUtil(graph,visited,stack,i)){
+        for (int i = 0; i < graph.length; i++) {
+            if (!visited[i]) {
+                if (isCycleUtil(graph, visited, stack, i)) {
                     return true;
                 }
             }
@@ -146,17 +147,17 @@ public class Graphs {
         return false;
     }
 
-    private static boolean isCycleUtil(ArrayList<Edge>[]graph,boolean visited[],boolean stack[],int curr){
+    private static boolean isCycleUtil(ArrayList<Edge>[] graph, boolean visited[], boolean stack[], int curr) {
         visited[curr] = true;
         stack[curr] = true;
 
-        for(Edge e : graph[curr]){
+        for (Edge e : graph[curr]) {
             System.out.println(curr + " -> " + e.dst);
-            if(stack[e.dst]){
+            if (stack[e.dst]) {
                 System.out.println("Cycle found at " + e.dst);
                 return true;
             }
-            if(!visited[e.dst] && isCycleUtil(graph, visited, stack, e.dst)){
+            if (!visited[e.dst] && isCycleUtil(graph, visited, stack, e.dst)) {
                 return true;
             }
         }
@@ -164,74 +165,122 @@ public class Graphs {
         return false;
     }
 
-    public static void topologicalSort(ArrayList<Edge>[]graph){
+    public static void topologicalSort(ArrayList<Edge>[] graph) {
         boolean[] visited = new boolean[graph.length];
         Stack<Integer> s = new Stack<>();
 
-        for(int i = 0;i < graph.length;i++){
-            if(!visited[i]){
+        for (int i = 0; i < graph.length; i++) {
+            if (!visited[i]) {
                 topologicalSortUtil(graph, visited, s, i);
             }
         }
 
-        while(!s.isEmpty()){
-            System.out.print(s.pop()+" ");
+        while (!s.isEmpty()) {
+            System.out.print(s.pop() + " ");
         }
         System.out.println();
     }
 
-    private static void topologicalSortUtil(ArrayList<Edge>[]graph,boolean visted[],Stack<Integer> s,int curr){
+    private static void topologicalSortUtil(ArrayList<Edge>[] graph, boolean visted[], Stack<Integer> s, int curr) {
         visted[curr] = true;
-        for(Edge e : graph[curr]){
-            if(!visted[e.dst]){
+        for (Edge e : graph[curr]) {
+            if (!visted[e.dst]) {
                 topologicalSortUtil(graph, visted, s, e.dst);
             }
         }
         s.push(curr);
     }
 
-    private static void calIndegree(ArrayList<Edge>[] graph,int indigree[]){
-        for(int i = 0;i < graph.length;i++){
-            for(Edge e : graph[i]){
+    private static void calIndegree(ArrayList<Edge>[] graph, int indigree[]) {
+        for (int i = 0; i < graph.length; i++) {
+            for (Edge e : graph[i]) {
                 indigree[e.dst]++;
             }
         }
     }
 
-    public static void topologicalSort2(ArrayList<Edge>[] graph){
+    public static void topologicalSort2(ArrayList<Edge>[] graph) {
         int indegree[] = new int[graph.length];
         Queue<Integer> q = new LinkedList<>();
         calIndegree(graph, indegree);
 
-        for(int i = 0;i < indegree.length;i++){
-            if(indegree[i] == 0){
+        for (int i = 0; i < indegree.length; i++) {
+            if (indegree[i] == 0) {
                 q.add(i);
             }
         }
 
-       while(!q.isEmpty()){
-        int curr = q.remove();
-        System.out.print(curr+" ");
-        for(Edge e : graph[curr]){
-            indegree[e.dst]--;
-            if(indegree[e.dst] == 0){
-                q.add(e.dst);
+        while (!q.isEmpty()) {
+            int curr = q.remove();
+            System.out.print(curr + " ");
+            for (Edge e : graph[curr]) {
+                indegree[e.dst]--;
+                if (indegree[e.dst] == 0) {
+                    q.add(e.dst);
+                }
             }
         }
-       }
-       System.out.println();
+        System.out.println();
     }
 
-    public static void printAllPaths(ArrayList<Edge>[]graph,int src,int dst,StringBuilder sb){
-        if(src == dst){
-            System.out.println(sb.toString()+dst);
+    public static void printAllPaths(ArrayList<Edge>[] graph, int src, int dst, StringBuilder sb) {
+        if (src == dst) {
+            System.out.println(sb.toString() + dst);
             return;
         }
 
-        for(Edge e: graph[src]){
+        for (Edge e : graph[src]) {
             printAllPaths(graph, e.dst, dst, sb.append(e.src));
-            sb.deleteCharAt(sb.length()-1);
+            sb.deleteCharAt(sb.length() - 1);
         }
+    }
+
+    static class Pair implements Comparable<Pair>{
+        int n;
+        int path;
+
+        public Pair(int n,int path){
+            this.n = n;
+            this.path = path;
+        }
+
+        @Override 
+        public int compareTo(Pair p1){
+            return this.path - p1.path;
+        }
+    }
+
+    public static void dijkstras(ArrayList<Edge> [] graph,int src){
+        int dist [] = new int[graph.length];
+        for(int i = 0;i < dist.length;i++){
+            if(i != src){
+                dist[i] = Integer.MAX_VALUE;
+            }
+        }
+        boolean visited[] = new boolean[graph.length];
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        pq.add(new Pair(src, 0));
+
+        while(!pq.isEmpty()){
+            Pair curr = pq.remove();
+            if(!visited[curr.n]){
+                visited[curr.n] = true;
+                for(Edge e : graph[curr.n]){
+                    int u = e.src;
+                    int v = e.dst;
+                    int wt = e.wt;
+
+                    if(dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v]){
+                        dist[v] = dist[u] + wt;
+                        pq.add(new Pair(v, dist[v]));
+                    }
+                }
+            }
+        }
+        for(int i = 0;i < dist.length;i++){
+            System.out.print(dist[i]+" ");
+        }
+        System.out.println();
     }
     public static void main(String[] args) {
         int V = 5;
@@ -373,7 +422,7 @@ public class Graphs {
         graph5[2].add(new Edge(2, 3, 1));
 
         graph5[3].add(new Edge(3, 1, 1));
-        
+
         graph5[4].add(new Edge(4, 0, 1));
         graph5[4].add(new Edge(4, 1, 1));
 
@@ -384,7 +433,7 @@ public class Graphs {
         System.out.println("---------------- Question 8 -----------------");
         topologicalSort2(graph5);
         System.out.println("---------------- Question 9 -----------------");
-         @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph6 = new ArrayList[6];
 
         for (int i = 0; i < graph6.length; i++) {
@@ -395,13 +444,37 @@ public class Graphs {
         graph6[2].add(new Edge(2, 3, 1));
 
         graph6[3].add(new Edge(3, 1, 1));
-        
+
         graph6[4].add(new Edge(4, 0, 1));
         graph6[4].add(new Edge(4, 1, 1));
 
         graph6[5].add(new Edge(5, 0, 1));
         graph6[5].add(new Edge(5, 2, 1));
-        printAllPaths(graph6,5,1,new StringBuilder(""));
+        printAllPaths(graph6, 5, 1, new StringBuilder(""));
         System.out.println("---------------- Question 10 -----------------");
+        @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph7 = new ArrayList[6];
+
+        for (int i = 0; i < graph7.length; i++) {
+            graph7[i] = new ArrayList<>();
+        }
+
+        graph7[0].add(new Edge(0, 1, 2));
+        graph7[0].add(new Edge(0, 2, 4));
+
+        graph7[1].add(new Edge(1, 3, 7));
+        graph7[1].add(new Edge(1, 2, 1));
+        
+        graph7[2].add(new Edge(2, 4, 3));
+        
+        graph7[3].add(new Edge(3, 5, 1));
+        
+        graph7[4].add(new Edge(4, 3, 2));
+        graph7[4].add(new Edge(4, 5, 5));
+
+        dijkstras(graph7, 0);
+        System.out.println("---------------- Question 10 -----------------");
+        System.out.println("---------------- Question 10 -----------------");
+
     }
 }
