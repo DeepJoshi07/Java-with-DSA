@@ -344,10 +344,12 @@ public class Graphs {
     static class Pair2 implements Comparable<Pair2>{
         int v;
         int cost;
+        int parent;
 
-        public Pair2(int v,int cost){
+        public Pair2(int v,int cost,int parent){
             this.v = v;
             this.cost = cost;
+            this.parent = parent;
         }
 
         @Override 
@@ -359,25 +361,27 @@ public class Graphs {
     public static void prims(ArrayList<Edge>[] graph){
         boolean visited[] = new boolean[graph.length];
         PriorityQueue<Pair2> pq = new PriorityQueue<>();
-        pq.add(new Pair2(0, 0));
+        pq.add(new Pair2(0, 0,-1));
         int finalCost = 0;
-        // ArrayList<Edge> al = new ArrayList<>();
+        ArrayList<Edge> al = new ArrayList<>();
 
         while(!pq.isEmpty()){
             Pair2 curr = pq.remove();
             if(!visited[curr.v]){
                 visited[curr.v] = true;
                 finalCost += curr.cost;
-                
+                if(curr.parent != -1){
+                    al.add(new Edge(curr.parent, curr.v, curr.cost));
+                }
                 for(Edge e:graph[curr.v]){
-                    pq.add(new Pair2(e.dst,e.wt));
+                    pq.add(new Pair2(e.dst,e.wt,curr.v));
                 }
             }
         }
         System.out.println("final cost is: "+finalCost);
-        // for(Edge e : al){
-        //     System.out.println(e.src+" to "+e.dst+" cost is "+e.wt );
-        // }
+        for(Edge e : al){
+            System.out.println(e.src+" to "+e.dst+" cost is "+e.wt );
+        }
     }
 
     public static void main(String[] args) {
