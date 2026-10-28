@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -235,25 +236,25 @@ public class Graphs {
         }
     }
 
-    static class Pair implements Comparable<Pair>{
+    static class Pair implements Comparable<Pair> {
         int n;
         int path;
 
-        public Pair(int n,int path){
+        public Pair(int n, int path) {
             this.n = n;
             this.path = path;
         }
 
-        @Override 
-        public int compareTo(Pair p1){
+        @Override
+        public int compareTo(Pair p1) {
             return this.path - p1.path;
         }
     }
 
-    public static void dijkstras(ArrayList<Edge> [] graph,int src){
-        int dist [] = new int[graph.length];
-        for(int i = 0;i < dist.length;i++){
-            if(i != src){
+    public static void dijkstras(ArrayList<Edge>[] graph, int src) {
+        int dist[] = new int[graph.length];
+        for (int i = 0; i < dist.length; i++) {
+            if (i != src) {
                 dist[i] = Integer.MAX_VALUE;
             }
         }
@@ -261,28 +262,86 @@ public class Graphs {
         PriorityQueue<Pair> pq = new PriorityQueue<>();
         pq.add(new Pair(src, 0));
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             Pair curr = pq.remove();
-            if(!visited[curr.n]){
+            if (!visited[curr.n]) {
                 visited[curr.n] = true;
-                for(Edge e : graph[curr.n]){
+                for (Edge e : graph[curr.n]) {
                     int u = e.src;
                     int v = e.dst;
                     int wt = e.wt;
 
-                    if(dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v]){
+                    if (dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v]) {
                         dist[v] = dist[u] + wt;
                         pq.add(new Pair(v, dist[v]));
                     }
                 }
             }
         }
-        for(int i = 0;i < dist.length;i++){
-            System.out.print(dist[i]+" ");
+        for (int i = 0; i < dist.length; i++) {
+            System.out.print(dist[i] + " ");
         }
         System.out.println();
     }
-    public static void main(String[] args) {
+
+    public static void bellmenFordAlgorithm(ArrayList<Edge>[] graph, int src) {
+        int V = graph.length;
+        int dist[] = new int[V];
+        for (int i = 0; i < V; i++) {
+            if (i != src) {
+                dist[i] = Integer.MAX_VALUE;
+            }
+        }
+
+        for (int i = 0; i < V-1; i++) {
+            for (int j = 0; j < V; j++) {
+                if (graph[j] == null)
+                    continue;
+                for (Edge e : graph[j]) {
+                    int u = e.src;
+                    int v = e.dst;
+                    int wt = e.wt;
+                    if (dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v]) {
+                        dist[v] = dist[u] + wt;
+
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < dist.length; i++) {
+            System.out.print(dist[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static void bellmenFordAlgorithm2(ArrayList<Edge> edgeGraph, int src, int V) {
+        int dist[] = new int[V];
+        for (int i = 0; i < V; i++) {
+            if (i != src) {
+                dist[i] = Integer.MAX_VALUE;
+            }
+        }
+
+        for (int i = 0; i < V-1 ; i++) {
+            for (int j = 0;j < edgeGraph.size();j++) {
+                Edge e = edgeGraph.get(j);
+                int u = e.src;
+                int v = e.dst;
+                int wt = e.wt;
+                if (dist[u] != Integer.MAX_VALUE && dist[u] + wt < dist[v]) {
+                    dist[v] = dist[u] + wt;
+
+                }
+
+            }
+        }
+        for (int i = 0; i < dist.length; i++) {
+            System.out.print(dist[i] + " ");
+        }
+        System.out.println();
+    }
+
+       public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] g = new ArrayList[V];
@@ -464,17 +523,70 @@ public class Graphs {
 
         graph7[1].add(new Edge(1, 3, 7));
         graph7[1].add(new Edge(1, 2, 1));
-        
+
         graph7[2].add(new Edge(2, 4, 3));
-        
+
         graph7[3].add(new Edge(3, 5, 1));
-        
+
         graph7[4].add(new Edge(4, 3, 2));
         graph7[4].add(new Edge(4, 5, 5));
 
         dijkstras(graph7, 0);
-        System.out.println("---------------- Question 10 -----------------");
-        System.out.println("---------------- Question 10 -----------------");
+        System.out.println("---------------- Question 11 -----------------");
+        @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph8 = new ArrayList[5];
+
+        for (int i = 0; i < graph8.length; i++) {
+            graph8[i] = new ArrayList<>();
+        }
+
+        graph8[0].add(new Edge(0, 1, 2));
+        graph8[0].add(new Edge(0, 2, 4));
+
+        graph8[1].add(new Edge(1, 2, -4));
+
+        graph8[2].add(new Edge(2, 3, 2));
+
+        graph8[3].add(new Edge(3, 4, 4));
+
+        graph8[4].add(new Edge(4, 1, -1));
+
+        bellmenFordAlgorithm(graph8, 0);
+
+        ArrayList<Edge> edgeGraph = new ArrayList<>();
+
+        edgeGraph.add(new Edge(0, 1, 2));
+        edgeGraph.add(new Edge(0, 2, 4));
+        edgeGraph.add(new Edge(1, 2, -4));
+        edgeGraph.add(new Edge(2, 3, 2));
+        edgeGraph.add(new Edge(3, 4, 4));
+        edgeGraph.add(new Edge(4, 1, -1));
+
+        bellmenFordAlgorithm2(edgeGraph, 0, 5);
+
+        System.out.println("---------------- Question 12 -----------------");
+        @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph9 = new ArrayList[5];
+
+        for (int i = 0; i < graph9.length; i++) {
+            graph9[i] = new ArrayList<>();
+        }
+
+        graph9[0].add(new Edge(0,1,10));
+        graph9[0].add(new Edge(0,2,15));
+        graph9[0].add(new Edge(0,3,30));
+
+        graph9[1].add(new Edge(1,0,10));
+        graph9[1].add(new Edge(1,3,40));
+
+        graph9[2].add(new Edge(2,0,15));
+        graph9[2].add(new Edge(2,3,50));
+
+        graph9[3].add(new Edge(3,1,40));
+        graph9[3].add(new Edge(3,2,50));
+        prims(graph9);
+        System.out.println("---------------- Question 12 -----------------");
+        System.out.println("---------------- Question 12 -----------------");
 
     }
 }
