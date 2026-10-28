@@ -341,7 +341,46 @@ public class Graphs {
         System.out.println();
     }
 
-       public static void main(String[] args) {
+    static class Pair2 implements Comparable<Pair2>{
+        int v;
+        int cost;
+
+        public Pair2(int v,int cost){
+            this.v = v;
+            this.cost = cost;
+        }
+
+        @Override 
+        public int compareTo(Pair2 p1){
+            return this.cost - p1.cost;
+        }
+    }
+
+    public static void prims(ArrayList<Edge>[] graph){
+        boolean visited[] = new boolean[graph.length];
+        PriorityQueue<Pair2> pq = new PriorityQueue<>();
+        pq.add(new Pair2(0, 0));
+        int finalCost = 0;
+        // ArrayList<Edge> al = new ArrayList<>();
+
+        while(!pq.isEmpty()){
+            Pair2 curr = pq.remove();
+            if(!visited[curr.v]){
+                visited[curr.v] = true;
+                finalCost += curr.cost;
+                
+                for(Edge e:graph[curr.v]){
+                    pq.add(new Pair2(e.dst,e.wt));
+                }
+            }
+        }
+        System.out.println("final cost is: "+finalCost);
+        // for(Edge e : al){
+        //     System.out.println(e.src+" to "+e.dst+" cost is "+e.wt );
+        // }
+    }
+
+    public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] g = new ArrayList[V];
