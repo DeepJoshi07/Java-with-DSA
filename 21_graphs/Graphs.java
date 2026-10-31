@@ -444,6 +444,42 @@ public class Graphs {
             return dist[dest];
         }
     }
+
+    static class Edge2 implements Comparable <Edge2>{
+        int dest;
+        int cost;
+
+        public Edge2(int dest,int cost){
+            this.dest = dest;
+            this.cost = cost;
+        }
+
+        @Override 
+        public int compareTo(Edge2 e){
+            return this.cost - e.cost;
+        }
+    }
+
+    public static int connectCities(int cities[][]){
+        boolean visited [] = new boolean[cities.length];
+        PriorityQueue<Edge2> pq = new PriorityQueue<>();
+        pq.add(new Edge2(0, 0));
+        int finalCost = 0;
+
+        while(!pq.isEmpty()){
+            Edge2 curr = pq.remove();
+            if(!visited[curr.dest]){
+                visited[curr.dest] = true;
+                finalCost += curr.cost;
+                for(int i = 0;i < cities[curr.dest].length;i++){
+                    if(cities[curr.dest][i] != 0){
+                        pq.add(new Edge2(i, cities[curr.dest][i]));
+                    }
+                }
+            }
+        }
+        return finalCost;
+    }
     public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
@@ -693,7 +729,17 @@ public class Graphs {
         int flights[][] = {{0,1,100},{1,2,100},{2,0,100},{1,3,600},{2,3,200}};
         int src = 0, dest = 3, k = 1;
         System.out.println(cheapestFlight(flights, n, src, dest, k));
-        System.out.println("---------------- Question 12 -----------------");
+        System.out.println("---------------- Question 14 -----------------");
+        int cities[][] = {
+            {0,1,2,3,4},
+            {1,0,5,0,7},
+            {2,5,0,6,0},
+            {3,0,6,0,0},
+            {4,7,0,0,0},
+        };
+        System.out.println(connectCities(cities));
+        System.out.println("---------------- Question 15 -----------------");
+        System.out.println("---------------- Question 16 -----------------");
 
     }
 }
