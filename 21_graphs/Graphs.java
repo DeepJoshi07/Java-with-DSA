@@ -359,6 +359,7 @@ public class Graphs {
     }
 
     public static void prims(ArrayList<Edge>[] graph){
+        // minimum spanning tree
         boolean visited[] = new boolean[graph.length];
         PriorityQueue<Pair2> pq = new PriorityQueue<>();
         pq.add(new Pair2(0, 0,-1));
@@ -384,6 +385,65 @@ public class Graphs {
         }
     }
 
+    public static void createGraph(int flights[][],ArrayList<Edge>[]graph){
+        for(int i = 0;i < graph.length;i++){
+            graph[i] = new ArrayList<>();
+        }
+        for(int i = 0;i < flights.length;i++){
+            int src = flights[i][0];
+            int dst = flights[i][1];
+            int wt = flights[i][2];
+
+            graph[src].add(new Edge(src, dst, wt));
+        }
+    }
+
+    static class Info{
+        int v;
+        int cost;
+        int stops;
+
+        public Info(int v,int cost,int stops){
+            this.v = v;
+            this.cost = cost;
+            this.stops = stops;
+        }
+    }
+
+    public static int cheapestFlight(int flights[][],int n,int src, int dest, int k){
+        @SuppressWarnings("unchecked")
+        ArrayList<Edge>[] graph = new ArrayList[n];
+        createGraph(flights, graph);
+
+        Queue<Info> q = new LinkedList<>();
+
+        q.add(new Info(src,0,0));
+
+        int dist [] = new int[graph.length];
+        for(int i = 0;i < dist.length;i++){
+            dist[i] = Integer.MAX_VALUE;
+        }
+
+        while(!q.isEmpty()){
+            Info curr = q.remove();
+            if(curr.stops > k){
+                break;
+            }
+            for(Edge e :graph[curr.v]){
+                int v = e.dst;
+                int wt = e.wt;
+                if(curr.cost+wt < dist[v] && curr.stops <= k){
+                    dist[v] = curr.cost + wt;
+                    q.add(new Info(v, dist[v], curr.stops+1));
+                }
+            }
+        }
+        if(dist[dest] == Integer.MAX_VALUE){
+            return -1;
+        }else{
+            return dist[dest];
+        }
+    }
     public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
@@ -628,7 +688,11 @@ public class Graphs {
         graph9[3].add(new Edge(3,1,40));
         graph9[3].add(new Edge(3,2,50));
         prims(graph9);
-        System.out.println("---------------- Question 12 -----------------");
+        System.out.println("---------------- Question 13 -----------------");
+        int n = 4;
+        int flights[][] = {{0,1,100},{1,2,100},{2,0,100},{1,3,600},{2,3,200}};
+        int src = 0, dest = 3, k = 1;
+        System.out.println(cheapestFlight(flights, n, src, dest, k));
         System.out.println("---------------- Question 12 -----------------");
 
     }
