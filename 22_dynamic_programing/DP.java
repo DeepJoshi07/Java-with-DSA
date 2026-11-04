@@ -173,6 +173,8 @@ public class DP{
     }
     
     public static int coinChange(int coins[],int change){
+        // total ways of giving change
+        // try space optimizzation in 1D array
         int dp[][] = new int[coins.length+1][change+1];
         for(int i = 0;i < dp.length;i++){
             dp[i][0] = 1;
@@ -217,6 +219,7 @@ public class DP{
     }
     
     public static int lcs(String s1,int m,String s2,int n){
+        // longest common subsequence
         if(m < 0 || n < 0)return 0;
 
         if(s1.charAt(m) == s2.charAt(n)){
@@ -372,7 +375,41 @@ public class DP{
         }
         return dp[n][m];
     }
-     public static void main(String[] args) {
+    
+    public static boolean wildCardMatching(String s,String p){
+        int n = s.length();
+        int m = p.length();
+
+        boolean dp[][] = new boolean[n+1][m+1];
+        dp[0][0] = true;
+        for(int i = 1;i < dp.length;i++){
+            dp[i][0] = false;
+        }
+
+        for(int j = 1;j < dp[0].length;j++){
+            if(p.charAt(j-1) == '*'){
+                dp[0][j] = dp[0][j-1];
+            }else{
+                // in java even if you do not write else cells are gonna be false by default
+                dp[0][j] = false;
+            }
+        }
+
+        for(int i = 1;i < dp.length;i++){
+            for(int j = 1;j < dp[0].length;j++){
+                if(s.charAt(i-1) == p.charAt(j-1) || p.charAt(j-1) == '?'){
+                    dp[i][j] = dp[i-1][j-1];
+                }else if(p.charAt(j-1) == '*'){
+                    dp[i][j] = dp[i-1][j] || dp[i][j-1];
+                }else{
+                    dp[i][j] = false;
+                }
+            }
+        }
+
+        return dp[n][m];
+    }
+    public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
         int arr[] = new int[num+1];
@@ -444,14 +481,21 @@ public class DP{
         String s4 = "ABGCE";
         System.out.println(lcSubstring(s3,s4));
         System.out.println("--------------------- Question 10 -----------------------");
-        // Longest increasing subsequence
-        int arr1[] = {50,3,10,7,40,80};
-        System.out.println(lis(arr1));
+        int a1 [] = {1,3,4,1,2,8,3};
+        int a2 [] = {1,3,4,2,2,8};
+        System.out.println(lcsArrays(a1, a2));
         System.out.println("--------------------- Question 11 -----------------------");
+        // Longest increasing subsequence
+        int arr1[] = {50,3,10,7,40,80}; // 3,7,10,40,50,80
+        System.out.println(lis(arr1));
+        System.out.println("--------------------- Question 12 -----------------------");
         String s5 = "intention";
         String s6 = "execution";
         System.out.println(editDistance(s5,s6));
-        System.out.println("--------------------- Question 12 -----------------------");
         System.out.println("--------------------- Question 13 -----------------------");
+        String s = "baaabab";
+        String p = "******ba******ab";
+        System.out.println(wildCardMatching(s, p));
+        System.out.println("--------------------- Question 14 -----------------------");
     }
 }
