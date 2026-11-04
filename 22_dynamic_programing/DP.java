@@ -409,6 +409,43 @@ public class DP{
 
         return dp[n][m];
     }
+    
+    public static int catalanNumber(int n){
+        if(n == 0 || n == 1)return 1;
+
+        int ans = 0;
+        for(int i = 0;i < n;i++){
+            ans += catalanNumber(i) * catalanNumber(n-i-1);
+        }
+        return ans;
+    }
+    
+    public static int catalanNumber2(int n,int dp[]){
+        if(n == 0 || n == 1)return 1;
+
+        if(dp[n] != -1){
+            return dp[n];
+        }
+        int ans = 0;
+        for(int i = 0;i < n;i++){
+            ans += catalanNumber2(i, dp) * catalanNumber2(n-i-1,dp);
+        }
+        dp[n] = ans;
+        return dp[n];
+    }
+
+    public static int catalanNumber3(int n){
+        int dp[] = new int[n+1];
+        dp[0] = 1;
+        dp[1] = 1;
+
+        for(int i = 2;i < dp.length;i++){
+            for(int j = 0;j < i;j++){
+                dp[i] += dp[j] * dp[i-j-1];
+            }
+        }
+        return dp[n];
+    }
     public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
@@ -496,6 +533,14 @@ public class DP{
         String s = "baaabab";
         String p = "******ba******ab";
         System.out.println(wildCardMatching(s, p));
+        System.out.println("--------------------- Question 14 -----------------------");
+        System.out.println(catalanNumber(4));
+        int n = 4; 
+        int a3[] = new int[n+1];
+        Arrays.fill(a3, -1);
+        System.out.println(catalanNumber2(n,a3));
+        System.out.println(catalanNumber3(n));
+        System.out.println("--------------------- Question 14 -----------------------");
         System.out.println("--------------------- Question 14 -----------------------");
     }
 }
