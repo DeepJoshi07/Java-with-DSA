@@ -461,6 +461,21 @@ public class DP{
         }
         return dp[nodes];
     }
+
+    public static int mountainRange(int pairs){
+        int dp [] = new int[pairs+1];
+        dp[0] = 1;
+        dp[1] = 1;
+
+        for(int i = 2;i < dp.length;i++){
+            for(int j = 0;j < i;j++){
+                int inside = dp[j];
+                int outside = dp[i-j-1];
+                dp[i] += inside * outside;
+            }
+        }
+        return dp[pairs];
+    }
     public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
@@ -555,8 +570,11 @@ public class DP{
         Arrays.fill(a3, -1);
         System.out.println(catalanNumber2(n,a3));
         System.out.println(catalanNumber3(n));
-        System.out.println("--------------------- Question 14 -----------------------");
+        System.out.println("--------------------- Question 15 -----------------------");
         System.out.println(countingBST(4));
-        System.out.println("--------------------- Question 14 -----------------------");
+        System.out.println("--------------------- Question 16 -----------------------");
+        System.out.println(mountainRange(4));
+        System.out.println("--------------------- Question 16 -----------------------");
+        System.out.println("--------------------- Question 16 -----------------------");
     }
 }
