@@ -476,6 +476,38 @@ public class DP{
         }
         return dp[pairs];
     }
+
+    public static int mcm(int arr[],int i,int j){
+        if(i == j)return 0;
+
+        int ans = Integer.MAX_VALUE;
+
+        for(int k = i;k <= j-1;k++){
+            int c1 = mcm(arr,i,k);
+            int c2 = mcm(arr,k+1,j);
+            int c3 = arr[i-1] * arr[k] * arr[j];
+
+            int finalCost = c1 + c2 + c3;
+            ans = Math.min(ans,finalCost);
+        }
+        return ans;
+    }
+
+    public static int mcm2(int arr[],int i,int j,int dp[][]){
+        if(i == j){
+            return 0;
+        }
+
+        int ans = Integer.MAX_VALUE;
+
+        for(int k = i;k <= j-1;k++){
+            int c1 = mcm2(arr, i, k, dp);
+            int c2 = mcm2(arr,k+1,j,dp);
+            int c3 = arr[i-1] * arr[k] * arr[j];
+            ans = Math.min(c1+c2+c3,ans);
+        }
+        return dp[i][j] = ans;
+    }
     public static void main(String[] args) {
         System.out.println("--------------------- Question 1 -----------------------");
         int num = 6;
@@ -575,6 +607,16 @@ public class DP{
         System.out.println("--------------------- Question 16 -----------------------");
         System.out.println(mountainRange(4));
         System.out.println("--------------------- Question 16 -----------------------");
+        // matrix chain multiplication
+        int a4[] = {1,2,3,4,3};
+        int length = a4.length;
+        System.out.println(mcm(a4,1,length-1));
+        int dp3[][] = new int[length][length];
+        for(int i = 0;i < dp.length;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        System.out.println("-------------");
+        System.out.println(mcm2(a4,1,length-1,dp3));
         System.out.println("--------------------- Question 16 -----------------------");
     }
 }
