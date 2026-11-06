@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -6,6 +7,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class Graphs {
+    
     static class Edge {
         int src;
         int dst;
@@ -222,6 +224,48 @@ public class Graphs {
             }
         }
         System.out.println();
+    }
+
+    public static void outDegree(ArrayList<Edge>[]graph,int arr[],ArrayList<Integer>[]incommingEdges){
+        for(int i = 0;i < graph.length;i++){
+            arr[i] = graph[i].size();
+            for(Edge e: graph[i]){
+                incommingEdges[e.dst].add(i);
+            }
+        }
+    }
+
+    public static void topologicalSort3(ArrayList<Edge>[]graph){
+        int outDeg[] = new int[graph.length];
+        Queue<Integer> q = new LinkedList<>();
+        @SuppressWarnings ("unchecked")
+        ArrayList<Integer>[] incomingEdges = new ArrayList[graph.length];
+        for(int i = 0;i < incomingEdges.length;i++){
+            incomingEdges[i] = new ArrayList<>();
+        }
+        outDegree(graph,outDeg,incomingEdges);
+
+
+        for(int i = 0;i < outDeg.length;i++){
+            if(outDeg[i] == 0){
+                q.add(i);
+            }
+        }
+        ArrayList<Integer> reverse = new ArrayList<>();
+        while(!q.isEmpty()){
+            int curr = q.remove();
+            reverse.add(curr);
+            for(int e: incomingEdges[curr]){
+                outDeg[e]--;
+                if(outDeg[e] == 0){
+                    q.add(e);
+                }
+            }
+        }
+        Collections.reverse(reverse);
+        for(int al: reverse){
+            System.out.print(al+" ");
+        }
     }
 
     public static void printAllPaths(ArrayList<Edge>[] graph, int src, int dst, StringBuilder sb) {
@@ -480,6 +524,27 @@ public class Graphs {
         }
         return finalCost;
     }
+
+    public static int[][] floodFill(int image[][],int sr,int sc,int color){
+        boolean visited[][] = new boolean[image.length][image[0].length];
+        helper(image,sr,sc,color,visited,image[sr][sc]);
+        return image;
+    }
+
+    public static void helper(int image[][],int sr,int sc,int color,boolean visited[][],int orgColor){
+        if(sr < 0 || sc < 0 || sr >= image.length || sc >= image[0].length|| visited[sr][sc] || image[sr][sc] != orgColor){
+            return;
+        }
+        image[sr][sc] = color;
+        //left
+        helper(image, sr, sc-1, color, visited, orgColor);
+        //right
+        helper(image, sr, sc+1, color, visited, orgColor);
+        //up
+        helper(image, sr-1, sc, color, visited, orgColor);
+        //down
+        helper(image, sr+1, sc, color, visited, orgColor);
+    }
     public static void main(String[] args) {
         int V = 5;
         @SuppressWarnings("unchecked")
@@ -630,6 +695,9 @@ public class Graphs {
         topologicalSort(graph5);
         System.out.println("---------------- Question 8 -----------------");
         topologicalSort2(graph5);
+        System.out.println("---------------");
+        topologicalSort3(graph5);
+        System.out.println();
         System.out.println("---------------- Question 9 -----------------");
         @SuppressWarnings("unchecked")
         ArrayList<Edge>[] graph6 = new ArrayList[6];
