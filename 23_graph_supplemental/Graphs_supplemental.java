@@ -68,7 +68,38 @@ public class Graphs_supplemental {
         }
     }
 
-   
+    public static void tarjanBridge(ArrayList<Edge>[]graph){
+        boolean visited[] = new boolean[graph.length];
+        int dt[] = new int[graph.length];
+        int low[] = new int[graph.length];
+        int time = 0;
+        for(int i = 0;i < graph.length;i++){
+            if(!visited[i]){
+                dfsTarjan(graph,i,-1,visited,dt,low,time);
+            }
+        }
+    }
+
+    public static void dfsTarjan(ArrayList<Edge>[]graph,int curr,int parent,boolean visited[],int dt[],int low[],int time){
+        visited[curr] = true;
+        dt[curr] = low[curr] = time++;
+
+        for(Edge e : graph[curr]){
+            int neighbor = e.dest;
+            if(neighbor == parent){
+                continue;
+            }else if(!visited[neighbor]){
+                dfsTarjan(graph, neighbor, curr, visited, dt, low, time);
+                low[curr] = Math.min(low[curr],low[neighbor]);
+                if(dt[curr] < low[neighbor]){
+                    System.out.println("Bridge : "+curr+" ----> "+neighbor);
+                }
+            }else{
+                low[curr] = Math.min(low[curr],dt[neighbor]);
+            }
+        }
+    }
+
    
     public static void main(String[] args) {
         System.out.println("----------------- Question 1 ---------------------");
