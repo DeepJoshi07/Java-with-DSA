@@ -12,10 +12,31 @@ public class Segment_trees{
         }
 
         int mid = start + (end-start)/2;
-        buildST(arr, 2*i+1, start, mid);
-        buildST(arr, 2*i+2, mid+1, end);
-        tree[i] = tree[2*i+1] + tree[2*i+2];
+        int left = buildST(arr, 2*i+1, start, mid);
+        int right = buildST(arr, 2*i+2, mid+1, end);
+
+        tree[i] = left + right;
+        // or
+        // tree[i] = tree[2*i+1] + tree[2*i+2];
         return tree[i];
+    }
+
+    public static int getSum(int arr[],int qi, int qj){
+        int n = arr.length;
+        return getSumUtil(0,qi,qj,0,n-1);
+    }
+
+    public static int getSumUtil(int i,int qi,int qj,int si,int sj){
+        if(qj <= si || qi >= sj){
+            return 0;
+        }else if (si >= qi && sj <= qj){
+            return tree[i];
+        }else{
+            int mid = si + (sj-si)/2;
+            int left = getSumUtil(2*i+1, qi, qj, si, mid);
+            int right = getSumUtil(2*i+2, qi, qj, mid+1, sj);
+            return left + right;
+        }
     }
     public static void main(String[] args) {
         System.out.println("---------------- Question 1 ----------------");
@@ -28,7 +49,9 @@ public class Segment_trees{
         }
         System.out.println();
         System.out.println("---------------- Question 2 ----------------");
+        System.out.println(getSum(arr, 2, 5));
         System.out.println("---------------- Question 3 ----------------");
+        
         System.out.println("---------------- Question 4 ----------------");
     }
 }
