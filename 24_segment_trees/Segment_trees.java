@@ -71,6 +71,36 @@ public class Segment_trees{
         tree[i] = Math.max(left,right);
         return tree[i];
     }
+
+    public static int minST(int arr[],int i,int si,int sj){
+        if(si == sj){
+            tree[i] = arr[si];
+            return arr[si];
+        }
+        int mid = si + (sj-si)/2;
+        int left = maxST(arr, 2*i+1, si, mid);
+        int right = maxST(arr, 2*i+2, mid+1, sj);
+        tree[i] = Math.max(left,right);
+        return tree[i];
+    }
+
+    public static int getMaxInRange(int arr[],int qi,int qj){
+        int n = arr.length;
+        return getMaxInRangeUtil(arr, 0, 0, n-1, qi, qj);
+    }
+
+    public static int getMaxInRangeUtil(int arr[],int i,int si,int sj,int qi,int qj){
+        if(si > qj || sj < qi){
+            return Integer.MIN_VALUE;
+        }else if(si >= qi && sj <= qj){
+            return tree[i];
+        }else{
+            int mid = si + (sj-si)/2;
+            int left = getMaxInRangeUtil(arr, 2*i+1, si, mid, qi, qj);
+            int right = getMaxInRangeUtil(arr, 2*i+2, mid+1, sj, qi, qj);
+            return Math.max(left, right);
+        }
+    }
     public static void main(String[] args) {
         System.out.println("---------------- Question 1 ----------------");
         int arr[] = {1,2,3,4,5,6,7,8};
@@ -90,5 +120,7 @@ public class Segment_trees{
         init(n);
         System.out.println(maxST(arr,0,0,n-1));
         System.out.println("---------------- Question 5 ----------------");
+        System.out.println(getMaxInRange(arr,2,5));
+        
     }
 }
