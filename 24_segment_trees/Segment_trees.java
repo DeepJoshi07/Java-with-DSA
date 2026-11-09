@@ -38,6 +38,27 @@ public class Segment_trees{
             return left + right;
         }
     }
+
+    public static void updateST(int arr[],int idx,int val){
+        int diff = arr[idx] - val;
+        arr[idx] = val;
+        int n = arr.length;
+        updateSTUtill(arr,0, idx, diff,0,n-1);
+    }
+
+    public static void updateSTUtill(int arr[],int i,int idx,int diff,int si,int sj){
+        if(si > idx || sj < idx){
+            return;
+        }
+        
+        tree[i] -= diff;
+
+        if(si != sj){
+            int mid = si + (sj-si)/2;
+            updateSTUtill(arr, 2*i+1, idx, diff, si, mid);
+            updateSTUtill(arr, 2*i+2, idx, diff, mid+1, sj);
+        }
+    }
     public static void main(String[] args) {
         System.out.println("---------------- Question 1 ----------------");
         int arr[] = {1,2,3,4,5,6,7,8};
@@ -51,7 +72,8 @@ public class Segment_trees{
         System.out.println("---------------- Question 2 ----------------");
         System.out.println(getSum(arr, 2, 5));
         System.out.println("---------------- Question 3 ----------------");
-        
+        updateST(arr,2,2);
+        System.out.println(getSum(arr,2,5));
         System.out.println("---------------- Question 4 ----------------");
     }
 }
