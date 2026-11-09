@@ -59,6 +59,18 @@ public class Segment_trees{
             updateSTUtill(arr, 2*i+2, idx, diff, mid+1, sj);
         }
     }
+
+    public static int maxST(int arr[],int i,int si,int sj){
+        if(si == sj){
+            tree[i] = arr[si];
+            return arr[si];
+        }
+        int mid = si + (sj-si)/2;
+        int left = maxST(arr, 2*i+1, si, mid);
+        int right = maxST(arr, 2*i+2, mid+1, sj);
+        tree[i] = Math.max(left,right);
+        return tree[i];
+    }
     public static void main(String[] args) {
         System.out.println("---------------- Question 1 ----------------");
         int arr[] = {1,2,3,4,5,6,7,8};
@@ -75,5 +87,8 @@ public class Segment_trees{
         updateST(arr,2,2);
         System.out.println(getSum(arr,2,5));
         System.out.println("---------------- Question 4 ----------------");
+        init(n);
+        System.out.println(maxST(arr,0,0,n-1));
+        System.out.println("---------------- Question 5 ----------------");
     }
 }
